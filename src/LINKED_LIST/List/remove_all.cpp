@@ -1,9 +1,9 @@
-#include "../include/LINKED_LIST/list.h"
+#include "..\..\..\include\LINKED_LIST\List.h"
 
-void List::remove_all(T data){
-    int index = 0;
-    while(find(data)!= -1){
-        index = find(data);
-        remove_at(index);
-    }
+
+// // Removes all the occurences of the data from the linked list
+template<class T>
+void List<T>::remove_all(T to_remove)
+{
+    // TODO: Add your implementation code here.
 }

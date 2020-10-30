@@ -1,11 +1,9 @@
-#include "..inc/LINKED_LIST/list.cpp"
+#include "..\..\..\include\LINKED_LIST\List.h"
 
-void List::remove_beg(){
-    if(m_length != 0){
-        Node *temp = m_start;
-        m_start = m_start->get_next();
-        delete temp;
-        m_length--;
-    }
-    else throw RuntimeException "Underflow";   
+
+// // Removes a node from beginning of the list
+template<class T>
+void List<T>::remove_beg()
+{
+    // TODO: Add your implementation code here.
 }

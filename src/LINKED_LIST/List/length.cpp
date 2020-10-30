@@ -1,5 +1,9 @@
-#include "../include/LINKED_LIST/list.h"
+#include "..\..\..\include\LINKED_LIST\List.h"
 
-int List::length(){
-    return m_length;
+
+template<class T>
+unsigned int List<T>::length()
+{
+    // TODO: Add your implementation code here.
+    return 0;
 }

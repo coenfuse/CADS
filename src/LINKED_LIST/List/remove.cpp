@@ -1,12 +1,9 @@
-#include "../include/LINKED_LIST/list.h"
+#include "..\..\..\include\LINKED_LIST\List.h"
 
-void List::remove(T data){
-    // Removes the first occurance of given data;
-    int index = find(data);
-    if(index == 0){
-        remove_beg();
-    }
-    else if(index > 0){
-        remove_at(index);
-    }
+
+// Removes the first occurence of the data from the front in the linked list
+template<class T>
+void List<T>::remove(T to_remove)
+{
+    // TODO: Add your implementation code here.
 }

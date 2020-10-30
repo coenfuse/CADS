@@ -18,12 +18,12 @@
     <ClCompile Include="driver.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="inc\temp.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="inc\linked.h">
+    <ClInclude Include="include\ds.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\LINKED_LIST\List.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

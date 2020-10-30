@@ -1,5 +1,9 @@
-#include "../include/LINKED_LIST/list.h"
+#include "..\..\..\include\LINKED_LIST\List.h"
 
-bool List::isEmpty(){
-    return (m_length == 0);
+
+template<class T>
+bool List<T>::isEmpty()
+{
+    // TODO: Add your implementation code here.
+    return false;
 }
