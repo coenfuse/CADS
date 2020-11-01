@@ -12,20 +12,14 @@ int main() {
 	newList.insert_at(87, newList.length());
 	newList.insert_at(534, 8);
 	newList.display();
-
-	List<int> secondList(45);
-	secondList.insert(454);
-	secondList.insert(78);
-	secondList.insert(204);
-	secondList.insert(984);
-	secondList.insert(114);
-	std::cout <<"Length of list before join "<< newList.length() << std::endl;
-	std::cout << "Size of the list before join is: " << newList.size() << " bytes" << std::endl;
-	secondList.display();
-	newList.join(secondList);
+	std::cout<<std::endl;
+	std::cout << std::endl;
+	newList.reverse();
 	newList.display();
-
-	std::cout << "Length of list after join " << newList.length() << std::endl;
-	std::cout << "Size of the list before join is: " << newList.size() << " bytes" << std::endl;
+	//newList.insert(49);
+	newList.insert_beg(94);
+	std::cout << std::endl; 
+	newList.display();
+	//newList.peekFirst();
 	return 0;
 }

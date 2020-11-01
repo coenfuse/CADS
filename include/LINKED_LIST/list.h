@@ -57,7 +57,7 @@ private:
 	Node* m_start;
 	Node* m_end;
 
-	Node* get_node(unsigned int index) {
+	Node* get_node(unsigned int index) const {
 		if (index < 0 || index > m_length) return nullptr;
 		else {
 			Node* m_traveler = m_start;
@@ -92,10 +92,10 @@ public:
 	void insert_at(T input_data, unsigned int index);
 	bool isEmpty();
 	void join(List<T>);
-	unsigned int length();
-	T peekFirst();
-	T peekMiddle();
-	T peekLast();
+	size_t length() const;
+	T peekFirst() const;
+	T peekMiddle() const;
+	T peekLast() const;
 	void remove(T to_remove);
 	void remove_all(T to_remove);
 	void remove_at(int to_remove_index);
@@ -122,7 +122,7 @@ iterator List<T>::end() {
 */
 
 template <typename T>
-T List<T>::at(unsigned int index) {
+T List<T>::at(const unsigned int index) {
 	std::string IOOR = "Index_Out_of_Range: ";
 	try {
 		if (index > m_length)
@@ -217,7 +217,7 @@ void List<T>::insert_beg(T input_data) {
 
 template <typename T>
 void List<T>::insert_at(T input_data, unsigned int index) {
-	
+
 	if (index <= 0) insert_beg(input_data);
 	else if (index >= m_length) insert(input_data);
 	else {
@@ -247,23 +247,23 @@ void List<T>::join(List second_list) {
 }
 
 template <typename T>
-unsigned int List<T>::length() {
+size_t List<T>::length() const {
 	return m_length;
 }
 
 template <typename T>
-T List<T>::peekFirst() {
-
+T List<T>::peekFirst() const {
+	return m_start->node_data;
 }
 
 template <typename T>
-T List<T>::peekMiddle() {
-
+T List<T>::peekMiddle() const {
+	return get_node(m_length / 2)->node_data;
 }
 
 template <typename T>
-T List<T>::peekLast() {
-
+T List<T>::peekLast() const {
+	return m_end->node_data;
 }
 
 template <typename T>
@@ -288,7 +288,119 @@ void List<T>::remove_beg() {
 
 template <typename T>
 void List<T>::reverse() {
+	Node* temp_ptr = nullptr;
+	Node* next_temp_ptr = nullptr;
+	Node* index_ptr = m_start;
+	unsigned int counter = 0;
+	while (counter < m_length) {
+		next_temp_ptr = index_ptr->next_node;
+		index_ptr->next_node = temp_ptr;
+		temp_ptr = index_ptr;
+		index_ptr = next_temp_ptr;
+		counter++;
+	}
+	m_start = temp_ptr;
+	m_end = get_node(counter);
 
+	/*
+	CURRENT STATUS: NOT WORKING AS EXPECTED.
+
+	The idea is as follows:
+
+	Consider this list,
+	N1 --> N2 --> N3 --> N4 --> N5 --> N6 --> nullptr
+	Initially, start_ptr -> N1 & end_ptr -> N6
+
+	Create two pointers as follows
+	temp_ptr = next_temp_ptr = nullptr;
+	index_ptr = m_start;
+
+	while(this.length)
+		next_temp_ptr = index_ptr->next_node;
+		index_ptr->next_node = temp_ptr;
+		temp_ptr = index_ptr;
+		index_ptr = next_temp_ptr;
+
+	then
+	m_start = temp_ptr
+
+	Working:
+	Would run for (m_length) iterations
+
+	Before Itr 1:
+	temp_ptr = nullptr;
+	next_temp = nullptr;
+	index_ptr = m_start (N1 > N2 > N3 > N4 > N5 > N6)
+
+	During Itr 1:
+	next_temp = index_ptr->next 	N2 > N3 > N4 > N5 > N6 > nullptr
+	index_ptr->next = temp_ptr		So, N1 > nullptr
+	temp_ptr = index_ptr			N1 > nullptr
+	index_ptr = next_temp			N2 > N3 > N4 > N5 > N6
+
+	After Itr 1 and Befor Itr 2:
+	temp_ptr = N1 > nullptr
+	next_temp = N2 > N3 > N4 > N5 > N6 > nullptr
+	index_ptr = N2 > N3 > N4 > N5 > N6 > nullptr
+
+	During Itr 2:
+	next_temp = index_ptr->next		N3 > N4 > N5 > N6 > nullptr
+	index_ptr->next = temp_ptr		So, N2 > N1 > nullptr
+	temp_ptr = index_ptr			N2 > N1 > nullptr
+	index_ptr = next_temp			N3 > N4 > N5 > N6
+
+	After Itr 2 and before Itr 3:
+	temp_ptr = N2 > N1 > nullptr
+	next_temp = N3 > N4 > N5 > N6 > nullptr
+	index_ptr = N3 > N4 > N5 > N6 > nullptr
+
+	During Itr 3:
+	next_temp = index_ptr->next		N4 > N5 > N6 > nullptr
+	index_ptr->next = temp_ptr		So, N3 > N2 > N1 > nullptr
+	temp_ptr = index_ptr			N3 > N2 > N1 > nullptr
+	index_ptr = next_temp			N4 > N5 > N6 > nullptr
+
+	After Itr 3 and before Itr 4:
+	temp_ptr = N3 > N2 > N1 > nullptr
+	next_temp = N4 > N5 > N6 > nullptr
+	index_ptr = N4 > N5 > N6 > nullptr
+
+	During Itr 4:
+	next_temp = index_ptr->next		N5 > N6 > nullptr
+	index_ptr->next = temp_ptr		So, N4 > N3 > N2 > N1 > nullptr
+	temp_ptr = index_ptr			N4 > N3 > N2 > N1 > nullptr
+	index_ptr = next_temp			N5 > N6 > nullptr
+
+	After Itr 4 and before Itr 5:
+	temp_ptr = N4 > N3 > N2 > N1 > nullptr
+	next_temp = N5 > N6 > nullptr
+	index_ptr = N5 > N6 > nullptr
+
+	During Itr 5:
+	next_temp = index_ptr->next		N6 > nullptr
+	index_ptr->next = temp_ptr		So, N5 > N4 > N3 > N2 > N1 > nullptr
+	temp_ptr = index_ptr			N5 > N4 > N4 > N3 > N2 > N1 > nullptr
+	index_ptr = next_temp			N6 > nullptr
+
+	After Itr 5 and before Itr 6:
+	temp_ptr = N5 > N4 > N4 > N3 > N2 > N1 > nullptr
+	next_temp = N6 > nullptr
+	index_ptr = N6 > nullptr
+
+	During Itr 6:
+	next_temp = index_ptr->next		nullptr
+	index_ptr->next = temp_ptr		So, N6 > N5 > N4 > N3 > N2 > N1 > nullptr
+	temp_ptr = index_ptr			N6 > N5 > N4 > N4 > N3 > N2 > N1 > nullptr
+	index_ptr = next_temp			nullptr
+
+	After iteration 6:
+	temp_ptr = N6 > N5 > N4 > N4 > N3 > N2 > N1 > nullptr
+	next_temp = null;
+	index_ptr = N6 > nullptr
+
+	m_start = temp_ptr				So, N6 > ...
+	m_end =
+	*/
 }
 
 template <typename T>
