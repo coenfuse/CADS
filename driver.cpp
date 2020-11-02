@@ -12,14 +12,12 @@ int main() {
 	newList.insert_at(87, newList.length());
 	newList.insert_at(534, 8);
 	newList.display();
-	std::cout<<std::endl;
-	std::cout << std::endl;
-	newList.reverse();
-	newList.display();
-	//newList.insert(49);
-	newList.insert_beg(94);
-	std::cout << std::endl; 
-	newList.display();
-	//newList.peekFirst();
+	List<int> secondList(34);
+	secondList.insert(29);
+	secondList.insert(56);
+	secondList.insert(96);
+	std::cout << secondList.peekMiddle() << std::endl;
+
+
 	return 0;
 }

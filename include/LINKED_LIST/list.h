@@ -84,18 +84,23 @@ public:
 
 	T at(unsigned int index);
 	void clear();
+	bool common(List* second_list);
 	void display();
 	void display_from(unsigned int starting_index);
 	void insert(T input_data);
 	int find(T input_data);
 	void insert_beg(T input_data);
 	void insert_at(T input_data, unsigned int index);
+	void intersect(List* second_list);
+	int intersect_at(List* second_list);
 	bool isEmpty();
 	void join(List<T>);
 	size_t length() const;
+	bool palindrome();
 	T peekFirst() const;
 	T peekMiddle() const;
 	T peekLast() const;
+	T random();
 	void remove(T to_remove);
 	void remove_all(T to_remove);
 	void remove_at(int to_remove_index);
@@ -105,6 +110,8 @@ public:
 	int size();
 	void sort();
 	List<T>* split(int split_from_index);
+	void trim(unsigned int trim_amount);
+	void trim_front(unsigned int trim_amount);
 };
 
 // Implementations go below
@@ -145,6 +152,27 @@ void List<T>::clear() {
 		node = temporary;
 		m_length--;
 	}
+}
+
+template <typename T>
+bool List<T>::common(List* second_list) {
+	// O(n^m). Extremely inefficient.
+
+	if (m_length > 0 && second_list->m_length > 0) {
+
+		Node* first_traveler = this->m_start;
+		Node* second_traveler = second_list->m_start;
+
+		while (first_traveler != nullptr){
+			while (second_traveler != nullptr) {
+				if (first_traveler->node_data == second_traveler->node_data)
+					return true;
+				second_traveler = second_traveler->next_node;
+			}
+			first_traveler = first_traveler->next_node;
+		}
+	}
+	return false;	// Either of the list is empty.
 }
 
 template <typename T>
@@ -232,6 +260,49 @@ void List<T>::insert_at(T input_data, unsigned int index) {
 }
 
 template <typename T>
+void List<T>::intersect(List* second_list) {
+	/*
+	* Given lists A and B having nodes
+	* a > b > c > d > e > f > null 
+	* and
+	* d > e > f > a > m > x > null
+	* 
+	* A statement A.intersect(B) would result in A having nodes d > e > f > NULL
+	*/
+
+	if (intersect_at(second_list) != -1) {
+		// do_something
+	}
+}
+
+template <typename T>
+int List<T>::intersect_at(List* second_list) {
+	if (m_start == nullptr || second_list->m_start == nullptr)
+		return -1;
+
+	Node* first_head = m_start;
+	Node* second_head = second_list->m_start;
+
+	int lenA = m_length;
+	int lenB = second_list->m_length;
+	int diff = abs(lenA - lenB);	// Get absolute difference
+
+	if (lenA > lenB)
+		while (diff-- > 0)
+			first_head = first_head->next_node;
+	else
+		while (diff-- > 0)
+			second_head = second_head->next_node;
+
+	for (; first_head != nullptr && second_head != nullptr;
+		first_head = first_head->next_node, second_head = second_head->next_node)
+		if (first_head->node_data == second_head->node_data)
+			return first_head->node_data;
+	return -1;
+
+}
+
+template <typename T>
 bool List<T>::isEmpty() {
 	return (m_length == 0);
 }
@@ -252,6 +323,27 @@ size_t List<T>::length() const {
 }
 
 template <typename T>
+bool List<T>::palindrome() {
+	// Checks whether the list is Palindrome or has a Palindrome sub_list in it.
+	if (m_start != nullptr) {
+		if (m_length % 2 == 0) {
+			T first_half[m_length / 2];
+			T second_half[m_length / 2];
+
+
+
+			return false;
+		}
+		else {
+			T first_half[(m_length / 2) - 1];
+			T second_half[(m_length / 2) - 1];
+			return false;
+		}
+	}
+	return false;	// List is empty
+}
+
+template <typename T>
 T List<T>::peekFirst() const {
 	return m_start->node_data;
 }
@@ -264,6 +356,11 @@ T List<T>::peekMiddle() const {
 template <typename T>
 T List<T>::peekLast() const {
 	return m_end->node_data;
+}
+
+template <typename T>
+T List<T>::random() {
+	// Returns data from a Random Node in the List.
 }
 
 template <typename T>
@@ -289,21 +386,23 @@ void List<T>::remove_beg() {
 template <typename T>
 void List<T>::reverse() {
 	Node* temp_ptr = nullptr;
-	Node* next_temp_ptr = nullptr;
+	Node* next_ptr = nullptr;
 	Node* index_ptr = m_start;
 	unsigned int counter = 0;
+
 	while (counter < m_length) {
-		next_temp_ptr = index_ptr->next_node;
+		next_ptr = index_ptr->next_node;
 		index_ptr->next_node = temp_ptr;
 		temp_ptr = index_ptr;
-		index_ptr = next_temp_ptr;
+		if (!counter)
+			m_end = index_ptr;
+		index_ptr = next_ptr;
 		counter++;
 	}
 	m_start = temp_ptr;
-	m_end = get_node(counter);
 
 	/*
-	CURRENT STATUS: NOT WORKING AS EXPECTED.
+	CURRENT STATUS: WORKING AS EXPECTED. NEED OPTIMIZATION
 
 	The idea is as follows:
 
@@ -418,9 +517,20 @@ void List<T>::sort() {
 
 }
 
+
 template <typename T>
-List<T>* split(int split_from_index) {
+List<T>* List<T>::split(int split_from_index) {
 	List<T>* split = new List;
 
 	return split;
+}
+
+template <typename T>
+void List<T>::trim(unsigned int trim_amounts) {
+	//Trims the list from back
+}
+
+template <typename T>
+void List<T>::trim_front(unsigned int trim_amount) {
+	//body
 }
