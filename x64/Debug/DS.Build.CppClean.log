@@ -4,6 +4,8 @@ c:\dev\ds\x64\debug\driver.obj
 c:\dev\ds\x64\debug\ds.exe
 c:\dev\ds\x64\debug\ds.ilk
 c:\dev\ds\x64\debug\ds.pdb
+c:\dev\ds\x64\debug\driver.nativecodeanalysis.xml
+c:\dev\ds\x64\debug\vc.nativecodeanalysis.all.xml
 c:\dev\ds\x64\debug\ds.tlog\cl.command.1.tlog
 c:\dev\ds\x64\debug\ds.tlog\cl.read.1.tlog
 c:\dev\ds\x64\debug\ds.tlog\cl.write.1.tlog

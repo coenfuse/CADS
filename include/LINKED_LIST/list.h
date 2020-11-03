@@ -1,4 +1,6 @@
 #pragma once
+
+#pragma once
 #include<iostream>
 #include<exception>
 
@@ -38,7 +40,7 @@ private:
 		Node* next_node;
 
 	public:
-		Node(): node_data(), next_node(nullptr){}
+		Node() : node_data(), next_node(nullptr) {}
 		Node(T input_data, Node* new_next_node = nullptr) {
 			node_data = input_data;
 			next_node = new_next_node;
@@ -163,7 +165,7 @@ bool List<T>::common(List* second_list) {
 		Node* first_traveler = this->m_start;
 		Node* second_traveler = second_list->m_start;
 
-		while (first_traveler != nullptr){
+		while (first_traveler != nullptr) {
 			while (second_traveler != nullptr) {
 				if (first_traveler->node_data == second_traveler->node_data)
 					return true;
@@ -263,10 +265,10 @@ template <typename T>
 void List<T>::intersect(List* second_list) {
 	/*
 	* Given lists A and B having nodes
-	* a > b > c > d > e > f > null 
+	* a > b > c > d > e > f > null
 	* and
 	* d > e > f > a > m > x > null
-	* 
+	*
 	* A statement A.intersect(B) would result in A having nodes d > e > f > NULL
 	*/
 

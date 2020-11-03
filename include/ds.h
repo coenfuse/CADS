@@ -1,5 +1,5 @@
 #pragma once
-#include "LINKED_LIST/List.h"
+#include "LINKED_LIST/list.h"
 
 /*
 #include "ARRAY\darray.h"

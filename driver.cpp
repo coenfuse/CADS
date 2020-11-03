@@ -1,6 +1,6 @@
 #include <iostream>
 #include <string>
-#include "include/ds.h"
+#include "learn\learn.h"
 
 int main() {
 	std::cout << "Driver Code" << std::endl;
@@ -9,15 +9,21 @@ int main() {
 	newList.insert(674);
 	newList.insert_beg(6855);
 	newList.insert_at(42, 0);
-	newList.insert_at(87, newList.length());
+	newList.insert_at(87, (unsigned int)newList.length());
 	newList.insert_at(534, 8);
+	newList.insert(156);
+	newList.insert(88);
+	newList.insert(156);
+	newList.insert(654);
+	newList.insert(156);
+	newList.insert(892);
+	newList.insert(156);
+	newList.insert(267);
+	newList.insert(489);
 	newList.display();
-	List<int> secondList(34);
-	secondList.insert(29);
-	secondList.insert(56);
-	secondList.insert(96);
-	std::cout << secondList.peekMiddle() << std::endl;
-
-
+	newList.shuffle();
+	newList.display();
+	newList.split(5).first.display();
+	newList.split(5).second.display();
 	return 0;
 }

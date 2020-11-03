@@ -1,3 +1,2 @@
 ﻿  driver.cpp
-C:\dev\DS\driver.cpp(12,40): warning C4267: 'argument': conversion from 'size_t' to 'unsigned int', possible loss of data
   DS.vcxproj -> C:\dev\DS\x64\Debug\DS.exe

@@ -23,7 +23,22 @@
     <ClInclude Include="include\ds.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\LINKED_LIST\List.h">
+    <ClInclude Include="learn\learn.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="learn\LINKED_LIST\list.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="learn\LINKED_LIST\ring.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\LINKED_LIST\list.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="learn\UTIL.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="learn\LINKED_LIST\direct.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
