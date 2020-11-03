@@ -1,5 +1,9 @@
-#include "../include/LINKED_LIST/list.h"
+#include "..\..\..\include\LINKED_LIST\List.h"
 
-Node* List::end(){
-    return m_end;
+
+template<class T>
+Node* List<T>::end()
+{
+    // TODO: Add your implementation code here.
+    return nullptr;
 }

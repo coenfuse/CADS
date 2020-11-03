@@ -1,6 +1,9 @@
-#include "../include/LINKED_LIST/list.h"
+#include "..\..\..\include\LINKED_LIST\List.h"
 
-T List::at(int index){
-    Node *temp_node = get_node(index);
-    return temp_node -> get_data();
+
+template<class T>
+T List<T>::at(int index)
+{
+    // TODO: Add your implementation code here.
+    return T();
 }

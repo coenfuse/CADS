@@ -1,5 +1,9 @@
-#include "../inc/LINKED_LIST/list.cpp"
+#include "..\..\..\include\LINKED_LIST\List.h"
 
-T List::peekFirst(){
-    return m_start->get_data();
+
+template<class T>
+T List<T>::peekFirst()
+{
+    // TODO: Add your implementation code here.
+    return T();
 }

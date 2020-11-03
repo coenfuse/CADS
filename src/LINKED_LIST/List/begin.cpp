@@ -1,5 +1,10 @@
-#include "../include/LINKED_LIST/list.h"
+#include "..\..\..\include\LINKED_LIST\List.h"
 
-Node* List::begin(){
-    return m_start;
+
+template<class T>
+
+Node* List<T>::begin()
+{
+    // TODO: Add your implementation code here.
+    return nullptr;
 }
