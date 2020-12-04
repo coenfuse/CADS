@@ -1,0 +1,6 @@
+﻿  driver.cpp
+  Generating code
+  Previous IPDB not found, fall back to full compilation.
+  All 25 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Finished generating code
+  DS.vcxproj -> C:\dev\DS\x64\Release\DS.exe

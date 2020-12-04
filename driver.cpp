@@ -1,29 +1,52 @@
 #include <iostream>
 #include <string>
 #include "learn\learn.h"
+#include <chrono>
 
 int main() {
 	std::cout << "Driver Code" << std::endl;
+	srand((unsigned int)time(nullptr));
+	List<int> list;
+	for (int i = 0; i < 10; i++)
+		list.insert(rand() % 100);
+	list.display();
+	list.split(3).first.display();
+	list.display();
+	if (list.palindrome()) {
+		std::cout << "It has a palindrome" << std::endl;
+	}
+	else
+		std::cout << "It doesn't have a palindrome" << std::endl;
 
-	List<int> newList(34);
-	newList.insert(674);
-	newList.insert_beg(6855);
-	newList.insert_at(42, 0);
-	newList.insert_at(87, (unsigned int)newList.length());
-	newList.insert_at(534, 8);
-	newList.insert(156);
-	newList.insert(88);
-	newList.insert(156);
-	newList.insert(654);
-	newList.insert(156);
-	newList.insert(892);
-	newList.insert(156);
-	newList.insert(267);
-	newList.insert(489);
-	newList.display();
-	newList.shuffle();
-	newList.display();
-	newList.split(5).first.display();
-	newList.split(5).second.display();
-	return 0;
 }
+
+// Test for execution time between list.add() and list.join()
+
+/*
+List <int> newList, secondList, thirdList, fourthList;
+	for (int i = 0; i < 5; i++) {
+		newList.insert(rand() % 100);
+		secondList.insert(rand() & 100);
+	}
+	//std::cout << (newList.size() * 0.000001) << " Megabytes" << std::endl;
+	auto start = std::chrono::high_resolution_clock::now();
+	newList.add(secondList);
+	auto end = std::chrono::high_resolution_clock::now();
+	auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
+	std::cout << "Addition of two lists took time of: "<<duration.count()<<" milliseconds"<<std::endl;
+	newList.clear();
+	secondList.clear();
+
+	for (int i = 0; i < 1000000; i++) {
+		thirdList.insert(rand() & 100);
+		fourthList.insert(rand() & 100);
+	}
+
+	auto start2 = std::chrono::high_resolution_clock::now();
+	thirdList.join(fourthList);
+	auto end2 = std::chrono::high_resolution_clock::now();
+	auto duration2 = std::chrono::duration_cast<std::chrono::milliseconds>(end2 - start2);
+	std::cout << "Joining of two lists took time of: " << duration2.count() << " milliseconds" << std::endl;
+
+	std::cout << (thirdList.size() * 0.000001) << " Megabytes" << std::endl;
+*/
