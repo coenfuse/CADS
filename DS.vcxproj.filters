@@ -41,8 +41,5 @@
     <ClInclude Include="include\LINKED_LIST\list.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="learn\LINKED_LIST\clean_list.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
 </Project>

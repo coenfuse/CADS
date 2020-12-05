@@ -148,7 +148,6 @@
     <ClInclude Include="include\ds.h" />
     <ClInclude Include="include\LINKED_LIST\list.h" />
     <ClInclude Include="learn\learn.h" />
-    <ClInclude Include="learn\LINKED_LIST\clean_list.h" />
     <ClInclude Include="learn\LINKED_LIST\direct.h" />
     <ClInclude Include="learn\LINKED_LIST\list.h" />
     <ClInclude Include="learn\LINKED_LIST\ring.h" />
