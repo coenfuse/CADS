@@ -6,17 +6,21 @@
 int main() {
 	std::cout << "Driver Code" << std::endl;
 	srand((unsigned int)time(nullptr));
-	List<int> list;
-	for (int i = 0; i < 10; i++)
-		list.insert(rand() % 100);
-	list.display();
-	list.split(3).first.display();
-	list.display();
-	if (list.palindrome()) {
-		std::cout << "It has a palindrome" << std::endl;
+	List<int>list,listr;
+	for (int i = 0; i < 10; i++) {
+		list.insert(rand()% 10000);
 	}
-	else
-		std::cout << "It doesn't have a palindrome" << std::endl;
+	std::cout << (list.size() * 0.000001) << " Megabytes" << std::endl;
+	list.display();
+	list.trim_head(4);
+	list.display();
+
+	
+	//if (list.palindrome()) {
+		//std::cout << "It has a palindrome" << std::endl;
+	//}
+	//else
+		//std::cout << "It doesn't have a palindrome" << std::endl;
 
 }
 
