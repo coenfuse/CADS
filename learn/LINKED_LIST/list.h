@@ -52,6 +52,7 @@ private:
 		return new Node(input_data);
 	}
 
+	bool compare(List<T>&) const;
 	void remove_head();
 	void remove_tail();
 	List<T>& local_intersection(Node*, Node*);
@@ -59,7 +60,11 @@ private:
 public:
 	List<T>();
 	List<T>(T input_data);
+	List<T>(List<T>& second_list);
 	~List<T>();
+
+	class iterator;
+	class constIterator;
 
 	void add(List<T>&);
 	T& at(const unsigned int index) const;
@@ -83,7 +88,7 @@ public:
 	T& random() const;
 	void remove(const T&);
 	void remove_all(const T&);
-	void remove_at(const unsigned int&);
+	void remove_at(unsigned int&);
 	void reverse();
 	void shuffle();
 	size_t size();
@@ -95,16 +100,30 @@ public:
 
 	T& operator[](size_t);
 	T& operator[](size_t) const;
+	bool operator==(List<T>&) const;
+	bool operator!=(List<T>&) const;
+	bool operator<(List<T>&) const;
+	bool operator>(List<T>&) const;
+	bool operator<=(List<T>&) const;
+	bool operator>=(List<T>&) const;
+	void operator+(List<T>&);
+	void operator=(List<T>&);
 };
 
 template <typename T>
-List<T>::List<T>() : m_length(0), m_start(END), m_end(END) {}
+List<T>::List() : m_length(0), m_start(END), m_end(END) {}
 
 template<typename T>
 List<T>::List(T input_data) {
 	Node* new_node = create_node(input_data);
 	m_start = m_end = new_node;
 	m_length++;
+}
+
+template<typename T>
+List<T>::List(List<T>& second_list) {
+	clear();
+	add(second_list);
 }
 
 template <typename T>
@@ -125,6 +144,77 @@ T& List<T>::operator[](size_t index) const {
 	else
 		return get_node((unsigned int)index)->node_data;
 }
+
+template <typename T>
+bool List<T>::operator==(List<T>& second_list) const {
+	if (m_length == second_list.m_length)
+		return compare(second_list);
+	else
+		return false;
+}
+
+template <typename T>
+bool List<T>::operator!=(List<T>& second_list)const {
+	if (m_length != second_list.m_length)
+		return false;
+	else
+		return !compare(second_list);
+}
+
+template <typename T>
+void List<T>::operator+(List<T>& second_list) {
+	add(second_list);
+}
+
+template <typename T>
+void List<T>::operator=(List<T>& second_list) {
+	clear();
+	join(second_list);
+}
+
+template <typename T>
+bool List<T>::operator<(List<T>& second_list) const {
+	return (m_length < second_list.m_length);
+}
+
+template <typename T>
+bool List<T>::operator>(List<T>& second_list) const {
+	return (m_length > second_list.m_length);
+}
+
+template <typename T>
+bool List<T>::operator<=(List<T>& second_list) const {
+	return (m_length <= second_list.m_length);
+}
+
+template <typename T>
+bool List<T>::operator>=(List<T>& second_list) const {
+	return (m_length >= second_list.m_length);
+}
+
+template <typename T>
+class List<T>::iterator{
+	List<T>::Node* traveler;
+public:
+	iterator() {
+		traveler = List<T>::m_start;
+	}
+	void begin() {
+		traveler = List<T>::m_start;
+	}
+	void end() {
+		traveler = END;
+	}
+	void operator++() {
+		traveler->List<T>::Node::next_node;
+	}
+	void operator=(List<T>::iterator& second_iterator) {
+		traveler = second_iterator.traveler;
+	}
+	bool operator!=(List<T>::iterator& second_iterator) {
+		return (traveler != second_iterator.traveler);
+	}
+};
 
 template <typename T>
 void List<T>::add(List<T>& second_list) {
@@ -308,9 +398,16 @@ List<T>& List<T>::intersect(const List<T>& second_list) {
 
 template <typename T>
 void List<T>::join(List<T>& second_list) {
-	m_end->next_node = second_list.get_node(0);
-	m_end = second_list.get_node(second_list.m_length - 1);
-	m_length += second_list.m_length;
+	if (m_length == EMPTY) {
+		m_start = second_list.m_start;
+		m_end = second_list.m_end;
+		m_length = second_list.m_length;
+	}
+	else {
+		m_end->next_node = second_list.m_start;
+		m_end = second_list.m_end;
+		m_length += second_list.m_length;
+	}
 }
 
 template <typename T>
@@ -393,12 +490,12 @@ void List<T>::remove_all(const T& to_remove) {
 }
 
 template <typename T>
-void List<T>::remove_at(const unsigned int& index) {
+void List<T>::remove_at(unsigned int& index) {
 	if (m_length != EMPTY) {
 		if (index == 0) {
 			remove_head();
 		}
-		else if (index = m_length - 1) {
+		else if (index >= m_length - 1) {
 			remove_tail();
 		}
 		else {
@@ -654,6 +751,26 @@ void List<T>::trim_tail(unsigned int trim_by) {
 	}
 }
 
+template<typename T>
+bool List<T>::compare(List<T>& second_list) const {
+	bool response = false;
+	Node* this_traveler = m_start;
+	Node* second_traveler = second_list.m_start;
+
+	while (this_traveler != END) {
+		if (this_traveler->node_data == second_traveler->node_data) {
+			response = true;
+			this_traveler = this_traveler->next_node;
+			second_traveler = second_traveler->next_node;
+		}
+		else {
+			response = false;
+			break;
+		}
+	}
+	return response;
+}
+
 template <typename T>
 void List<T>::remove_head() {
 	if (m_length != EMPTY)
@@ -696,14 +813,21 @@ List<T>& List<T>::local_intersection(Node* first_traveler, Node* second_traveler
 /* TO-DO:
 * -----------------------------------------------------------------------------
 * Iterators
-* Copy Constructors
 * Initializer List
-* Overloaded operators
+* Overloaded operators for Node
 * ::npos for at()
 * Bounds checking in swap()
+* Improve sort()
+* Improve palindrome()
+* Improve intersect()
 */
 
 // PUBLIC INTERFACE
+
+// List(List&) -> STATUS: Uncertain
+// Copy constructor. Initializes current list by copying all the elements of a-
+// nother list into itself.
+// Complexity: O(n)
 
 //~List() -> STATUS: Uncertain
 //-----------------------------------------------------------------------------
@@ -836,6 +960,46 @@ List<T>& List<T>::local_intersection(Node* first_traveler, Node* second_traveler
 // doesn't works for both reading and writing operation. Thus it is needed
 // to write a const overload for this operator.
 // Complexity: O(n)
+
+// operator== -> STATUS: Complete
+//-----------------------------------------------------------------------------
+// Returns TRUE if the two lists are identical to each other.
+// Complexity: O(n)
+
+// operator!= -> STATUS: Complete
+//-----------------------------------------------------------------------------
+// Returns TRUE if the two lists are NOT identical to each other.
+// Complexity: O(n)
+
+// operator< -> STATUS: Complete
+//-----------------------------------------------------------------------------
+// Returns TRUE if this.length < second_list.length;
+// Complexity: O(1)
+
+// operator> -> STATUS: Complete
+//-----------------------------------------------------------------------------
+// Returns TRUE if this.length > second_list.length;
+// Complexity: O(1)
+
+// operator<= -> STATUS: Complete
+//-----------------------------------------------------------------------------
+// Returns TRUE if this.length <= second_list.length;
+// Complexity: O(1)
+
+// operator>= -> STATUS: Complete
+//-----------------------------------------------------------------------------
+// Returns TRUE if this.length >= second_list.length;
+// Complexity: O(1)
+
+// operator+ -> STATUS: Complete
+//-----------------------------------------------------------------------------
+// Adds two lists together. Destroys the second list.
+// Complexity: O(n)
+
+// operator= -> STATUS: Complete
+//-----------------------------------------------------------------------------
+// Clears the current list and attaches the second list over it.
+// Complexity: O(1)
 
 // palindrome() -> STATUS: Incomplete
 //-----------------------------------------------------------------------------

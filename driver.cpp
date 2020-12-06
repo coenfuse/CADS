@@ -8,13 +8,14 @@ int main() {
 	srand((unsigned int)time(nullptr));
 	List<int>list,listr;
 	for (int i = 0; i < 10; i++) {
-		list.insert(rand()% 10000);
+		list.insert(5);
+		listr.insert(3);
 	}
-	std::cout << (list.size() * 0.000001) << " Megabytes" << std::endl;
-	list.display();
-	list.trim_head(4);
 	list.display();
 
+	List<int>::iterator itr;
+	for (itr = itr.begin(); itr != itr.end(); itr++)
+		std::cout << list.itr->node_data << std::endl;
 	
 	//if (list.palindrome()) {
 		//std::cout << "It has a palindrome" << std::endl;

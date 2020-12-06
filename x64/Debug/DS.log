@@ -1,10 +1,8 @@
 ﻿  driver.cpp
-C:\dev\DS\learn\LINKED_LIST\list.h(101,1): warning C4812: obsolete declaration style: please use 'List<T>::List' instead
-C:\dev\DS\learn\LINKED_LIST\list.h(101,1): warning C4812: obsolete declaration style: please use 'List<int>::List' instead
-C:\dev\DS\learn\LINKED_LIST\list.h(101): message : while compiling class template member function 'List<int>::List(void)'
+C:\dev\DS\learn\LINKED_LIST\list.h(752,1): warning C4267: 'argument': conversion from 'size_t' to 'unsigned int', possible loss of data
+C:\dev\DS\learn\LINKED_LIST\list.h(749): message : while compiling class template member function 'void List<int>::remove_tail(void)'
+C:\dev\DS\learn\LINKED_LIST\list.h(462): message : see reference to function template instantiation 'void List<int>::remove_tail(void)' being compiled
+C:\dev\DS\learn\LINKED_LIST\list.h(110): message : while compiling class template member function 'List<int>::List(void)'
 C:\dev\DS\driver.cpp(9): message : see reference to function template instantiation 'List<int>::List(void)' being compiled
 C:\dev\DS\driver.cpp(9): message : see reference to class template instantiation 'List<int>' being compiled
-C:\dev\DS\learn\LINKED_LIST\list.h(617,1): warning C4267: 'initializing': conversion from 'size_t' to 'short', possible loss of data
-C:\dev\DS\learn\LINKED_LIST\list.h(608): message : while compiling class template member function 'void List<int>::trim_head(unsigned int)'
-C:\dev\DS\driver.cpp(15): message : see reference to function template instantiation 'void List<int>::trim_head(unsigned int)' being compiled
   DS.vcxproj -> C:\dev\DS\x64\Debug\DS.exe
