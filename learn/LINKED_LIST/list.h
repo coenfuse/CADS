@@ -4,6 +4,33 @@
 #include<time.h>
 #include"..\UTIL.h"
 
+template <typename List>
+class _list_itr {
+public:
+	using ValueType = typename List::ValueType;
+	using PointerType = ValueType*;
+	using ReferenceType = ValueType&;
+
+public:
+	_list_itr(PointerType ptr) : m_Ptr(ptr){}
+	_list_itr& operator++() {
+		m_Ptr++;					//m_Ptr = m_Ptr->next_node;
+		return *this;
+	}
+	_list_itr operator++(int) {
+		_list_itr iterator = *this;
+		++(*this);					//*this = *this->next_node;
+		return iterator;
+	}
+	PointerType operator->() { return m_Ptr; }
+	ReferenceType operator*() { return *m_Ptr; }
+	bool operator==(const _list_itr& other) const { return m_Ptr == other.m_Ptr; }
+	bool operator!=(const _list_itr& other) const { return !(*this == other); }
+
+private:
+	PointerType m_Ptr;
+};
+
 template<typename T>
 class List {
 
@@ -12,7 +39,13 @@ class List {
 # define NOT_FOUND -1
 # define EMPTY 0
 
+public:
+	using ValueType = T;
+	using iterator = _list_itr<List<T>>;
+
 private:
+	friend class iterator;
+
 	struct Node {
 		T node_data;
 		Node* next_node;
@@ -23,6 +56,15 @@ private:
 			next_node = new_next_node;
 		}
 		~Node() {}
+
+		Node operator++() {
+			return this->next_node;
+		}
+		Node operator++(int) {
+			Node before_increment = this;
+			this = this->next_node;
+			return before_increment;
+		}
 	};
 
 	size_t m_length = 0;
@@ -62,9 +104,6 @@ public:
 	List<T>(T input_data);
 	List<T>(List<T>& second_list);
 	~List<T>();
-
-	class iterator;
-	class constIterator;
 
 	void add(List<T>&);
 	T& at(const unsigned int index) const;
@@ -108,6 +147,13 @@ public:
 	bool operator>=(List<T>&) const;
 	void operator+(List<T>&);
 	void operator=(List<T>&);
+
+	iterator begin() {
+		return iterator(m_start);
+	}
+	iterator end() {
+		return iterator(END);
+	}
 };
 
 template <typename T>
@@ -193,30 +239,6 @@ bool List<T>::operator>=(List<T>& second_list) const {
 }
 
 template <typename T>
-class List<T>::iterator{
-	List<T>::Node* traveler;
-public:
-	iterator() {
-		traveler = List<T>::m_start;
-	}
-	void begin() {
-		traveler = List<T>::m_start;
-	}
-	void end() {
-		traveler = END;
-	}
-	void operator++() {
-		traveler->List<T>::Node::next_node;
-	}
-	void operator=(List<T>::iterator& second_iterator) {
-		traveler = second_iterator.traveler;
-	}
-	bool operator!=(List<T>::iterator& second_iterator) {
-		return (traveler != second_iterator.traveler);
-	}
-};
-
-template <typename T>
 void List<T>::add(List<T>& second_list) {
 
 	unsigned int traverse_length = second_list.m_length;
@@ -275,12 +297,12 @@ bool List<T>::common(List<T>& second_list) {
 template <typename T>
 void List<T>::dedup() {
 	List<T> unique;
-	unsigned int counter = 0;
-	while (counter < m_length) {
-		T suspect = get_node(counter)->node_data;
+	Node* traveler = m_start;
+	while (traveler != END) {
+		T suspect = traveler->node_data;
 		if (unique.find(suspect) == NOT_FOUND)
 			unique.insert(suspect);
-		counter++;
+		traveler = traveler->next_node;
 	}
 	clear();
 
@@ -645,6 +667,14 @@ Pair<List<T>>& List<T>::split(unsigned int split_from_index) {
 
 template<typename T>
 void List<T>::swap(unsigned int A, unsigned int B) {
+
+	// Issues:
+	// Abnormal Behavior when swap index is (last, first)
+	// Abnormal reduction in list's length by one when index is (first,second)
+	// No bounds check
+
+
+
 	if (abs(B - A) == 1) {
 		if (A == 0) {
 			Node* Node_A = m_start;
@@ -812,9 +842,9 @@ List<T>& List<T>::local_intersection(Node* first_traveler, Node* second_traveler
 
 /* TO-DO:
 * -----------------------------------------------------------------------------
-* Iterators
+* Iterators (NOT WORKING)
 * Initializer List
-* Overloaded operators for Node
+* Overloaded operators for Node (Almost there)
 * ::npos for at()
 * Bounds checking in swap()
 * Improve sort()
@@ -1327,6 +1357,11 @@ List<T>& List<T>::local_intersection(Node* first_traveler, Node* second_traveler
 // Complexity: O(n)
 
 // PRIVATE INTERFACE:
+
+// compare() -> STATUS: Complete
+//-----------------------------------------------------------------------------
+// 
+// Complexity: O(1)
 
 // remove_head() -> STATUS: Complete
 //-----------------------------------------------------------------------------

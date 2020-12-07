@@ -1,28 +1,21 @@
 #include <iostream>
 #include <string>
 #include "learn\learn.h"
+#include"include/ds.h"
 #include <chrono>
+#define log(x) std::cout<<x;
 
 int main() {
 	std::cout << "Driver Code" << std::endl;
-	srand((unsigned int)time(nullptr));
-	List<int>list,listr;
-	for (int i = 0; i < 10; i++) {
-		list.insert(5);
-		listr.insert(3);
+	srand((unsigned int)time(NULL));
+	CDS::List<int> test_list;
+
+	for (size_t i = 1; i < 11; i++) {
+		test_list.insert_back(i);
 	}
-	list.display();
-
-	List<int>::iterator itr;
-	for (itr = itr.begin(); itr != itr.end(); itr++)
-		std::cout << list.itr->node_data << std::endl;
-	
-	//if (list.palindrome()) {
-		//std::cout << "It has a palindrome" << std::endl;
-	//}
-	//else
-		//std::cout << "It doesn't have a palindrome" << std::endl;
-
+	test_list.display();
+	test_list.reverse();
+	test_list.display();
 }
 
 // Test for execution time between list.add() and list.join()
