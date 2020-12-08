@@ -3,7 +3,7 @@
 #include "learn\learn.h"
 #include"include/ds.h"
 #include <chrono>
-#define log(x) std::cout<<x;
+#define log(x) std::cout<<x<< std::endl;
 
 int main() {
 	std::cout << "Driver Code" << std::endl;
@@ -14,8 +14,22 @@ int main() {
 		test_list.insert_back(i);
 	}
 	test_list.display();
+	log("Back");
+	log(test_list.peek_back());
+	log("Front");
+	log(test_list.peek_front());
 	test_list.reverse();
 	test_list.display();
+	log("\nNew Back");
+	log(test_list.peek_front());
+	log("New Front");
+	log(test_list.peek_front());
+	test_list.reverse();
+	test_list.display();
+	log("\nNew Back");
+	log(test_list.peek_front());
+	log("New Front");
+	log(test_list.peek_front());
 }
 
 // Test for execution time between list.add() and list.join()

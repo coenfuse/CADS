@@ -1,7 +1,22 @@
 ﻿  driver.cpp
+C:\dev\DS\include\LINKED_LIST\list.h(21,1): error C2990: 'CDS::ConstListIterator': non-class template has already been declared as a class template
+C:\dev\DS\include\LINKED_LIST\list.h(8): message : see declaration of 'CDS::ConstListIterator'
+C:\dev\DS\include\LINKED_LIST\list.h(160): message : see reference to class template instantiation 'CDS::List<T>' being compiled
+C:\dev\DS\include\LINKED_LIST\list.h(23,1): error C2990: 'CDS::ReverseConstListIterator': non-class template has already been declared as a class template
+C:\dev\DS\include\LINKED_LIST\list.h(12): message : see declaration of 'CDS::ReverseConstListIterator'
+C:\dev\DS\include\LINKED_LIST\list.h(175,8): error C3861: 'copy_this': identifier not found
+C:\dev\DS\include\LINKED_LIST\list.h(313,2): warning C4346: 'iterator': dependent name is not a type
+C:\dev\DS\include\LINKED_LIST\list.h(313,2): message : prefix with 'typename' to indicate a type
+C:\dev\DS\include\LINKED_LIST\list.h(313,2): error C2061: syntax error: identifier 'iterator'
+C:\dev\DS\include\LINKED_LIST\list.h(313,37): error C2143: syntax error: missing ';' before '{'
+C:\dev\DS\include\LINKED_LIST\list.h(313,37): error C2447: '{': missing function header (old-style formal list?)
+C:\dev\DS\include\LINKED_LIST\list.h(317,2): warning C4346: 'iterator': dependent name is not a type
+C:\dev\DS\include\LINKED_LIST\list.h(317,2): message : prefix with 'typename' to indicate a type
+C:\dev\DS\include\LINKED_LIST\list.h(317,2): error C2061: syntax error: identifier 'iterator'
+C:\dev\DS\include\LINKED_LIST\list.h(317,35): error C2143: syntax error: missing ';' before '{'
+C:\dev\DS\include\LINKED_LIST\list.h(317,35): error C2447: '{': missing function header (old-style formal list?)
 C:\dev\DS\driver.cpp(14,26): warning C4267: 'argument': conversion from 'size_t' to 'const T', possible loss of data
           with
           [
               T=int
           ]
-  DS.vcxproj -> C:\dev\DS\x64\Debug\DS.exe

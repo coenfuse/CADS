@@ -3,18 +3,33 @@
 
 namespace CDS
 {
+	
+	template<typename List>
+	class ConstListIterator;
+	template<typename List>
+	class ReverseListIterator;
+	template<typename List>
+	class ReverseConstListIterator;
+
 	template <typename T>
 
 	class List {
 		#define NOT_FOUND -1
 		#define EMPTY 0
+
+		class ListIterator;
+		friend class ConstListIterator;
+		class ReverseListIterator;
+		friend class ReverseConstListIterator;
+
 	public:
-		using _VALUE_TYPE = T;
+		using const_iterator = ConstListIterator;
+		using iterator = ListIterator;
+		using reverse_iterator = ReverseListIterator;
+		using const_reverse_iterator = ReverseConstListIterator;
+
 	private:
-		using _REFERENCE = _VALUE_TYPE&;
-		using _CONST_REFERENCE = const _VALUE_TYPE&;
-		using _POINTER = _VALUE_TYPE*;
-	private:
+
 		struct Node {
 			T node_data;
 			Node* next;
@@ -42,6 +57,7 @@ namespace CDS
 			}
 		};
 
+	private:
 		Node* create_node(const T& init_data) {
 			return new Node(init_data);
 		}
@@ -78,11 +94,21 @@ namespace CDS
 			return traveler;
 		}
 	private:
+		using _REFERENCE = T&;
+		using _CONST_REFERENCE = const T&;
+		using _POINTER = T*;
+
+	private:
 		size_t m_length;
 		Node* m_head;
 		Node* m_tail;
 
+	private:
+		bool compare(List<T>&);
 	public:
+		using _VALUE_TYPE = T;
+		using _NODE_TYPE = Node;
+
 		List() :m_length(0), m_head(nullptr), m_tail(nullptr){}
 		List(const T& _init_data);
 		List(List<T>& _copy_this);
@@ -100,6 +126,7 @@ namespace CDS
 		void insert_front(const T&);
 		void insert_back(const T&);
 		void insert(const size_t& _insert_at, const T& _data);
+		void join(List<T>&);
 		_REFERENCE peek_front();
 		_CONST_REFERENCE peek_front() const;
 		_REFERENCE peek_back();
@@ -121,8 +148,18 @@ namespace CDS
 		bool operator>=(List<T>&) const;
 		void operator+(List<T>&);
 		void operator=(List<T>&);
+
+		iterator begin();
+		iterator end();
+		const_iterator cbegin();
+		const_iterator cend();
+		reverse_iterator rbegin();
+		reverse_iterator rend();
+		const_reverse_iterator rcbegin();
+		const_reverse_iterator rcend();
 	};
 
+	// Constructor and Destructor definitions
 	template <typename T>
 	List<T>::List(const T& _init_data) {
 		Node* new_node = create_node(_init_data);
@@ -134,7 +171,8 @@ namespace CDS
 
 	template <typename T>
 	List<T>::List(List<T>& _copy_this) {
-
+		clear();
+		join(copy_this);
 	}
 
 	// Overloaded Operators definitions
@@ -156,10 +194,129 @@ namespace CDS
 		else
 			return get_node(_index)->node_data;
 	}
+	template <typename T>
+	bool List<T>::operator==(List<T>& other) const {
+		if (m_length == other.m_length) {
+			return compare(other);
+		}
+		else
+			return false;
+	}
+	template <typename T>
+	bool List<T>::operator!=(List<T>& other) const {
+		return !(this == other);
+	}
+	template <typename T>
+	bool List<T>::operator<(List<T>& other) const {
+		return (m_length < other.m_length);
+	}
+	template <typename T>
+	bool List<T>::operator>(List<T>& other) const {
+		return (m_length > other.m_length);
+	}
+	template <typename T>
+	bool List<T>::operator<=(List<T>& other) const {
+		return (m_length <= other.m_length);
+	}
+	template <typename T>
+	bool List<T>::operator>=(List<T>& other) const {
+		return (m_length >= other.m_length);
+	}
+	template <typename T>
+	void List<T>::operator+(List<T>& other) {
+		Node* traveler = other.m_head;
+		while (traveler != nullptr) {
+			insert_back(traveler->node_data);
+			traveler = traveler->next;
+		}
+		other.clear();
+	}
+	template <typename T>
+	void List<T>::operator=(List<T>& other) {
+		clear();
+		join(other);
+	}
+
+	// Iterator Implementations
+	template <typename T>
+	class List<T>::ListIterator {
+		using _ITR_VALUE_TYPE = CDS::List::_VALUE_TYPE;
+		using _ITR_REF = _ITR_VALUE_TYPE&;
+		using _ITR_PTR = _ITR_VALUE_TYPE&;
+
+		using _ITR_NODE_TYPE = CDS::List::_NODE_TYPE;
+		using _ITR_NODE_REF = _ITR_NODE_TYPE&;
+		using _ITR_NODE_PTR = _ITR_NODE_TYPE*;
+
+		_ITR_NODE_TYPE itr_head;
+
+	public:
+		ListIterator() {}
+		ListIterator(_ITR_NODE_TYPE _RECEIVED_HEAD) :itr_head(_RECEIVED_HEAD) {}
+		~ListIterator(){}
+
+		_ITR_REF operator++() {
+			return *(this->next);
+		}
+		_ITR_REF operator++(int) {
+			_ITR_NODE_TYPE temp = this->next;
+			this = this->next;
+			return *temp;
+		}
+		_ITR_REF operator--() {
+			return *(this->previous);
+		}
+		_ITR_REF operator--(int) {
+			_ITR_NODE_TYPE temp = this->previous;
+			this = this->previous;
+			return *temp;
+		}
+		_ITR_REF operator->() {
+			return *this;
+		}
+		_ITR_REF operator*() {
+			return *this;
+		}
+	};
 
 	// Private Method definitions
+	template <typename T>
+	bool List<T>::compare(List<T>& other) {
+		bool response = false;
+		Node* traveler = m_head;
+		Node* other_traveler = other.m_head;
+
+		while (traveler != nullptr) {
+			if (traveler->node_data == other_traveler->node_data) {
+				response = true;
+				traveler = traveler->next;
+				other_traveler = other_traveler->next;
+			}
+			else {
+				response = false;
+				break;
+			}
+		}
+		return response;
+	}
 
 	// Interface definitions
+	template<typename T>
+	T& List<T>::at(const size_t& index) {
+
+	}
+	template<typename T>
+	const T& List<T>::at(const size_t& index) const {
+
+	}
+	template <typename T>
+	List<T>::iterator List<T>::begin() {
+		return CDS::ListIterator(m_head);
+	}
+	template<typename T>
+	List<T>::iterator List<T>::end() {
+		return CDS::ListIterator(m_tail->next);
+	}
 	template <typename T>
 	void List<T>::clear() {
 		Node* traveler = m_head;
@@ -257,6 +414,20 @@ namespace CDS
 		}
 	}
 	template<typename T>
+	void List<T>::join(List<T>& other) {
+		if (empty()) {
+			m_head = other.m_head;
+			m_tail = other.m_tail;
+			m_length = other.m_length;
+		}
+		else {
+			m_tail->next = other.m_head;
+			other.m_head->previous = m_tail;
+			m_tail = other.m_tail;
+			m_length = m_length + other.m_length;
+		}
+	}
+	template<typename T>
 	T& List<T>::peek_back(){
 		return m_tail->node_data;
 	}
@@ -316,20 +487,46 @@ namespace CDS
 	}
 	template <typename T>
 	void List<T>::reverse() {
-		Node* prev_ptr = nullptr;
-		Node* next_ptr = nullptr;
-		Node* index_ptr = m_head;
+
+		Node* reversed_head = nullptr;
+		Node* unreversed_head = nullptr;
+		Node* current = m_head;
 		size_t counter = 0;
-		while (counter < m_length) {
-			if (index_ptr->next == nullptr)
+		while (true) {
+			if (current->next == nullptr) {
+				current->next = reversed_head;
+				reversed_head->previous = current;
+				reversed_head = current;
 				break;
-			next_ptr = index_ptr->next;
-			index_ptr->previous = next_ptr;
-			index_ptr->next = prev_ptr;
-			prev_ptr = index_ptr;
-			index_ptr = next_ptr;
+			}
+			unreversed_head = current->next;
+			current->previous = current->next;
+			current->next = reversed_head;
+			if (counter > 0)
+				reversed_head->previous = current;
+			reversed_head = current;
+			if (counter == 0)
+				m_tail = current;
+			current = unreversed_head;
+			counter++;
 		}
-		m_head = prev_ptr;
+		m_head = reversed_head;
+
+
+		//Node* prev_ptr = nullptr;
+		//Node* next_ptr = nullptr;
+		//Node* index_ptr = m_head;
+		//size_t counter = 0;
+		//while (counter < m_length) {
+		//	if (index_ptr->next == nullptr)
+		//		break;
+		//	next_ptr = index_ptr->next;
+		//	index_ptr->previous = next_ptr;
+		//	index_ptr->next = prev_ptr;
+		//	prev_ptr = index_ptr;
+		//	index_ptr = next_ptr;
+		//}
+		//m_head = prev_ptr;
 	}
 	template <typename T>
 	const size_t List<T>::size() const {
@@ -337,7 +534,10 @@ namespace CDS
 	}
 	template <typename T>
 	void List<T>::sort() {
-
+		// Take average of the list.
+		// Assume it in the middle of the list.
+		// Create a new list, insert elements by comparing it with the average.
+		// Works only for numerical digits.
 	}
 }
 
@@ -345,12 +545,10 @@ namespace CDS
 // ----------------------------------------------------------------------------
 /* To-Do:
 *  ----------------------------------------------------------------------------
-*  Copy Constructor
 *  Member Initialization List
 *  Fix Node Operator Overloads
 *  List Operator Overloads
 *  Sort
 *  Reverse
 *  Iterators
-* 
 */
