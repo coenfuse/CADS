@@ -146,6 +146,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\ds.h" />
+    <ClInclude Include="include\LINKED_LIST\ring.h" />
     <ClInclude Include="include\LINKED_LIST\list.h" />
     <ClInclude Include="learn\learn.h" />
     <ClInclude Include="learn\LINKED_LIST\direct.h" />

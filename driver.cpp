@@ -3,33 +3,20 @@
 #include "learn\learn.h"
 #include"include/ds.h"
 #include <chrono>
+#include <map>
 #define log(x) std::cout<<x<< std::endl;
 
 int main() {
 	std::cout << "Driver Code" << std::endl;
 	srand((unsigned int)time(NULL));
 	CDS::List<int> test_list;
-
-	for (size_t i = 1; i < 11; i++) {
+	for (int i = 1; i < 11; i++) {
 		test_list.insert_back(i);
 	}
 	test_list.display();
-	log("Back");
-	log(test_list.peek_back());
-	log("Front");
-	log(test_list.peek_front());
-	test_list.reverse();
-	test_list.display();
-	log("\nNew Back");
-	log(test_list.peek_front());
-	log("New Front");
-	log(test_list.peek_front());
-	test_list.reverse();
-	test_list.display();
-	log("\nNew Back");
-	log(test_list.peek_front());
-	log("New Front");
-	log(test_list.peek_front());
+	for (auto itr : test_list)
+		log(itr);
+	
 }
 
 // Test for execution time between list.add() and list.join()

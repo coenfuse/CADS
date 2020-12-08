@@ -1,9 +1,22 @@
 #pragma once
 #include <iostream>
+#include<list>
 
 namespace CDS
 {
-	
+	//template <typename T>
+	//class NodeBase {
+	//protected:
+	//	T node_data;
+	//	NodeBase* next;
+	//	NodeBase* previous;
+	//public:
+	//	NodeBase() : node_data(), next(nullptr), previous(nullptr) {}
+	//	~NodeBase() {}
+	//};
+
+	template <typename List>
+	class ListIterator;
 	template<typename List>
 	class ConstListIterator;
 	template<typename List>
@@ -12,34 +25,57 @@ namespace CDS
 	class ReverseConstListIterator;
 
 	template <typename T>
-
 	class List {
 		#define NOT_FOUND -1
 		#define EMPTY 0
 
-		class ListIterator;
-		friend class ConstListIterator;
-		class ReverseListIterator;
-		friend class ReverseConstListIterator;
-
-	public:
-		using const_iterator = ConstListIterator;
-		using iterator = ListIterator;
-		using reverse_iterator = ReverseListIterator;
-		using const_reverse_iterator = ReverseConstListIterator;
-
 	private:
+		//template <typename T>
+		//class Node : public CDS::NodeBase<T> {
+		//public:
+		//	T node_data;
+		//	Node* next;
+		//	Node* previous;
+		//public:
+		//	Node() :node_data(), next(nullptr), previous(nullptr) { }
+		//	Node(const T& _init_data) :node_data(_init_data), previous(nullptr), next(nullptr) {}
+		//	~Node() { }
+		//
+		//	Node& operator++() {
+		//		this = this->next;
+		//	}
+		//	Node operator++(int) {
+		//		Node* next = this->next;
+		//		this->next = next->next;
+		//		this->previous = this;
+		//		return this;
+		//	}
+		//	Node& operator--() {
+		//		return this->previous;
+		//	}
+		//	Node& operator--(int) {
+		//		return this->previous;
+		//	}
+		//};
 
 		struct Node {
 			T node_data;
 			Node* next;
 			Node* previous;
-
+		
 		public:
 			Node() :node_data(), next(nullptr), previous(nullptr) { }
 			Node(const T& _init_data) :node_data(_init_data), previous(nullptr), next(nullptr) {}
 			~Node() { }
 
+			bool operator==(Node& other) {
+				return (next == other.next && previous == other.previous && node_data == other.node_data);
+			}
+
+			bool operator!=(Node& other) {
+				return !(this==other);
+			}
+		
 			Node& operator++() {
 				this = this->next;
 			}
@@ -98,6 +134,17 @@ namespace CDS
 		using _CONST_REFERENCE = const T&;
 		using _POINTER = T*;
 
+		friend ListIterator<List>;
+		friend ConstListIterator<List>;
+		friend ReverseListIterator<List>;
+		friend ReverseConstListIterator<List>;
+
+	public:
+		using iterator = ListIterator<List>;
+		using const_iterator = ConstListIterator<List>;
+		using reverse_iterator = ReverseListIterator<List>;
+		using const_reverse_iterator = ReverseConstListIterator<List>;
+
 	private:
 		size_t m_length;
 		Node* m_head;
@@ -105,9 +152,11 @@ namespace CDS
 
 	private:
 		bool compare(List<T>&);
+
 	public:
 		using _VALUE_TYPE = T;
 		using _NODE_TYPE = Node;
+		//using _NODE_TYPE = NodeBase<T>;
 
 		List() :m_length(0), m_head(nullptr), m_tail(nullptr){}
 		List(const T& _init_data);
@@ -123,6 +172,7 @@ namespace CDS
 		void emplace_front();
 		void emplace_back();
 		void emplace(const size_t _emplace_at);
+		size_t find(T& _to_find);
 		void insert_front(const T&);
 		void insert_back(const T&);
 		void insert(const size_t& _insert_at, const T& _data);
@@ -149,14 +199,14 @@ namespace CDS
 		void operator+(List<T>&);
 		void operator=(List<T>&);
 
-		iterator begin();
-		iterator end();
-		const_iterator cbegin();
-		const_iterator cend();
+		iterator& begin() { return iterator(m_head); }
+		iterator& end() { return iterator(m_tail->next); }
+		const_iterator cbegin() const;
+		const_iterator cend() const;
 		reverse_iterator rbegin();
 		reverse_iterator rend();
-		const_reverse_iterator rcbegin();
-		const_reverse_iterator rcend();
+		const_reverse_iterator rcbegin() const;
+		const_reverse_iterator rcend() const;
 	};
 
 	// Constructor and Destructor definitions
@@ -172,7 +222,7 @@ namespace CDS
 	template <typename T>
 	List<T>::List(List<T>& _copy_this) {
 		clear();
-		join(copy_this);
+		join(_copy_this);
 	}
 
 	// Overloaded Operators definitions
@@ -238,44 +288,81 @@ namespace CDS
 	}
 
 	// Iterator Implementations
-	template <typename T>
-	class List<T>::ListIterator {
-		using _ITR_VALUE_TYPE = CDS::List::_VALUE_TYPE;
-		using _ITR_REF = _ITR_VALUE_TYPE&;
-		using _ITR_PTR = _ITR_VALUE_TYPE&;
+	template<typename List>
+	class ListIterator {
+		using _VALUE = typename List::_VALUE_TYPE;
+		using _VALUE_REF = _VALUE&;
+		using _VALUE_PTR = _VALUE*;
 
-		using _ITR_NODE_TYPE = CDS::List::_NODE_TYPE;
-		using _ITR_NODE_REF = _ITR_NODE_TYPE&;
-		using _ITR_NODE_PTR = _ITR_NODE_TYPE*;
+		using _NODE = typename List::_NODE_TYPE;
+		using _NODE_REF = _NODE&;
+		using _NODE_PTR = _NODE*;
 
-		_ITR_NODE_TYPE itr_head;
+		_NODE itr_head;
+		_VALUE itr_data;
 
 	public:
-		ListIterator() {}
-		ListIterator(_ITR_NODE_TYPE _RECEIVED_HEAD) :itr_head(_RECEIVED_HEAD) {}
-		~ListIterator(){}
+		ListIterator() : itr_head(nullptr) {}
+		ListIterator(ListIterator& copy) :itr_head(copy.itr_head) {}
+		ListIterator(_NODE_REF _RECEIVED_HEAD) :itr_head(_RECEIVED_HEAD) {}
+		~ListIterator() {}
 
-		_ITR_REF operator++() {
-			return *(this->next);
+		_NODE_REF operator++() {
+			itr_data = *(this->next);
+			return this->next;
 		}
-		_ITR_REF operator++(int) {
-			_ITR_NODE_TYPE temp = this->next;
+		_NODE_REF operator++(int) {
+			_NODE_PTR temp = this->next;
+			itr_data = *(this->next);
 			this = this->next;
-			return *temp;
+			return temp;
 		}
-		_ITR_REF operator--() {
-			return *(this->previous);
+		_NODE_REF operator--() {
+			itr_data = *(this->next);
+			return (this->previous);
 		}
-		_ITR_REF operator--(int) {
-			_ITR_NODE_TYPE temp = this->previous;
+		_NODE_REF operator--(int) {
+			_NODE temp = this->previous;
+			itr_data = *(this->next);
 			this = this->previous;
-			return *temp;
+			return temp;
 		}
-		_ITR_REF operator->() {
-			return *this;
+		bool operator==(ListIterator& other) {
+			return (itr_head == other.itr_head);
 		}
-		_ITR_REF operator*() {
-			return *this;
+		bool operator!=(ListIterator& other) {
+			return !(itr_head == other.itr_head);
+		}
+		void operator=(ListIterator& other) {
+			itr_data = other.itr_data;
+			itr_head = other.itr_head;
+		}
+		_VALUE_REF operator*() {	// There is some problem here.
+			return itr_data;
+		}
+	};
+
+	template <typename List>
+	class ConstListIterator {
+		using _VALUE = typename List::_VALUE_TYPE;
+		using _VALUE_REF = _VALUE&;
+		using _VALUE_PTR = _VALUE*;
+
+		using _NODE = typename List::_NODE_TYPE;
+		using _NODE_REF = _NODE&;
+		using _NODE_PTR = _NODE*;
+
+		_NODE itr_head;
+		_VALUE itr_data;
+	public:
+		ConstListIterator():itr_head(nullptr), itr_data(){}
+		ConstListIterator(ConstListIterator<List>& other):
+			itr_head(other.itr_head),
+			itr_data(*(other.itr_head)){}
+		~ConstListIterator() {}
+
+		_NODE_REF operator++() {
+			return (this->itr_data);
 		}
 	};
 
@@ -303,19 +390,11 @@ namespace CDS
 	// Interface definitions
 	template<typename T>
 	T& List<T>::at(const size_t& index) {
-
+		return noexcept(get_node(index)->node_data);
 	}
 	template<typename T>
 	const T& List<T>::at(const size_t& index) const {
-
-	}
-	template <typename T>
-	List<T>::iterator List<T>::begin() {
-		return CDS::ListIterator(m_head);
-	}
-	template<typename T>
-	List<T>::iterator List<T>::end() {
-		return CDS::ListIterator(m_tail->next);
+		return noexcept(get_node(index)->node_data);
 	}
 	template <typename T>
 	void List<T>::clear() {
@@ -547,8 +626,13 @@ namespace CDS
 *  ----------------------------------------------------------------------------
 *  Member Initialization List
 *  Fix Node Operator Overloads
-*  List Operator Overloads
 *  Sort
 *  Reverse
+*  Rename Remove functions to Pop and return removed values instead of voids.
+*  Rename Insert functions to Push.
 *  Iterators
+*  (We probably need to specify a pure virtual class called NodeBase and then
+*  create a child class Node from it that then can be used inside the List. Why?
+*  because defining a public parent Node class, our iterator class can get acc-
+*  ess to the structure of Node class. Maybe I'm wrong. Like really wrong)
 */
