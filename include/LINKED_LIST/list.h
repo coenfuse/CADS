@@ -2,7 +2,7 @@
 #include <iostream>
 #include<list>
 
-namespace CDS
+namespace CADS
 {
 	//template <typename T>
 	//class NodeBase {
@@ -15,14 +15,14 @@ namespace CDS
 	//	~NodeBase() {}
 	//};
 
-	template <typename List>
-	class ListIterator;
-	template<typename List>
-	class ConstListIterator;
-	template<typename List>
-	class ReverseListIterator;
-	template<typename List>
-	class ReverseConstListIterator;
+	//template <typename List>
+	//class ListIterator;
+	//template<typename List>
+	//class ConstListIterator;
+	//template<typename List>
+	//class ReverseListIterator;
+	//template<typename List>
+	//class ReverseConstListIterator;
 
 	template <typename T>
 	class List {
@@ -134,16 +134,42 @@ namespace CDS
 		using _CONST_REFERENCE = const T&;
 		using _POINTER = T*;
 
-		friend ListIterator<List>;
-		friend ConstListIterator<List>;
-		friend ReverseListIterator<List>;
-		friend ReverseConstListIterator<List>;
+		//friend ListIterator<List>;
+		//friend ConstListIterator<List>;
+		//friend ReverseListIterator<List>;
+		//friend ReverseConstListIterator<List>;
 
 	public:
-		using iterator = ListIterator<List>;
-		using const_iterator = ConstListIterator<List>;
-		using reverse_iterator = ReverseListIterator<List>;
-		using const_reverse_iterator = ReverseConstListIterator<List>;
+		//using iterator = ListIterator<List>;
+		//using const_iterator = ConstListIterator<List>;
+		//using reverse_iterator = ReverseListIterator<List>;
+		//using const_reverse_iterator = ReverseConstListIterator<List>;
+
+		class iterator {
+			Node& itr_node;
+			
+			iterator() : itr_node(nullptr){}
+			iterator(Node& _init_node) : itr_node(_init_node){}
+			iterator(iterator& _other) : itr_node(_other.itr_node){}
+
+			bool operator==(iterator& _other) {
+				return (this->itr_node == _other.itr_node);
+			}
+			bool operator!=(iterator& _other) {
+				return (this->itr_node != _other.itr_node);
+			}
+			iterator& operator++() {
+				return this->itr_node->next;
+			}
+			iterator& operator++(int) {
+				Node temp = this;
+				this = itr_node->next;
+				return temp;
+			}
+			iterator& operator--() {
+
+			}
+		};
 
 	private:
 		size_t m_length;
@@ -199,14 +225,14 @@ namespace CDS
 		void operator+(List<T>&);
 		void operator=(List<T>&);
 
-		iterator& begin() { return iterator(m_head); }
-		iterator& end() { return iterator(m_tail->next); }
-		const_iterator cbegin() const;
-		const_iterator cend() const;
-		reverse_iterator rbegin();
-		reverse_iterator rend();
-		const_reverse_iterator rcbegin() const;
-		const_reverse_iterator rcend() const;
+		//iterator& begin() { return iterator(m_head); }
+		//iterator& end() { return iterator(m_tail->next); }
+		//const_iterator cbegin() const;
+		//const_iterator cend() const;
+		//reverse_iterator rbegin();
+		//reverse_iterator rend();
+		//const_reverse_iterator rcbegin() const;
+		//const_reverse_iterator rcend() const;
 	};
 
 	// Constructor and Destructor definitions
@@ -288,6 +314,7 @@ namespace CDS
 	}
 
 	// Iterator Implementations
+	/*
 	template<typename List>
 	class ListIterator {
 		using _VALUE = typename List::_VALUE_TYPE;
@@ -365,6 +392,8 @@ namespace CDS
 			return (this->itr_data);
 		}
 	};
+	
+	*/
 
 	// Private Method definitions
 	template <typename T>

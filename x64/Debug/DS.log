@@ -1,51 +1,6 @@
 ﻿  driver.cpp
-C:\dev\DS\learn\LINKED_LIST\ring.h(8,1): error C2059: syntax error: '-'
-C:\dev\DS\learn\LINKED_LIST\ring.h(141): message : see reference to class template instantiation 'learn::Ring<T>' being compiled
-C:\dev\DS\learn\LINKED_LIST\ring.h(28,1): error C2805: binary 'operator <<' has too few parameters
-C:\dev\DS\learn\LINKED_LIST\ring.h(46): message : see reference to class template instantiation 'learn::Ring<T>::Node' being compiled
-C:\dev\DS\learn\LINKED_LIST\ring.h(28,1): error C2333: 'learn::Ring<T>::Node::operator <<': error in function declaration; skipping function body
-C:\dev\DS\learn\LINKED_LIST\ring.h(98,1): error C2061: syntax error: identifier 'size'
-C:\dev\DS\learn\LINKED_LIST\ring.h(123,1): error C3646: 'peek_back': unknown override specifier
-C:\dev\DS\learn\LINKED_LIST\ring.h(123,28): error C2059: syntax error: '('
-C:\dev\DS\learn\LINKED_LIST\ring.h(123,1): error C2238: unexpected token(s) preceding ';'
-C:\dev\DS\learn\LINKED_LIST\ring.h(78,6): error C2760: syntax error: unexpected token '}', expected ';'
-C:\dev\DS\learn\LINKED_LIST\ring.h(149,2): error C2244: 'learn::Ring<T>::operator []': unable to match function definition to an existing declaration
-C:\dev\DS\learn\LINKED_LIST\ring.h(149): message : see declaration of 'learn::Ring<T>::operator []'
-C:\dev\DS\learn\LINKED_LIST\ring.h(149,2): message : definition
-C:\dev\DS\learn\LINKED_LIST\ring.h(149,2): message : 'const T &learn::Ring<T>::operator [](const size_t &) const'
-C:\dev\DS\learn\LINKED_LIST\ring.h(149,2): message : existing declarations
-C:\dev\DS\learn\LINKED_LIST\ring.h(149,2): message : 'T &learn::Ring<T>::operator [](const size_t &) const'
-C:\dev\DS\learn\LINKED_LIST\ring.h(149,2): message : 'T &learn::Ring<T>::operator [](const size_t &)'
-C:\dev\DS\learn\LINKED_LIST\ring.h(190,15): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
-C:\dev\DS\learn\LINKED_LIST\ring.h(190,13): error C2146: syntax error: missing ';' before identifier 'at'
-C:\dev\DS\learn\LINKED_LIST\ring.h(191,21): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
-C:\dev\DS\learn\LINKED_LIST\ring.h(191,19): error C2146: syntax error: missing ';' before identifier 'at'
-C:\dev\DS\learn\LINKED_LIST\ring.h(193,22): error C2270: 'display': modifiers not allowed on nonmember functions
-C:\dev\DS\learn\LINKED_LIST\ring.h(194,20): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
-C:\dev\DS\learn\LINKED_LIST\ring.h(194,20): error C2143: syntax error: missing ',' before '&'
-C:\dev\DS\learn\LINKED_LIST\ring.h(195,20): error C2270: 'empty': modifiers not allowed on nonmember functions
-C:\dev\DS\learn\LINKED_LIST\ring.h(199,14): error C2065: 'T': undeclared identifier
-C:\dev\DS\learn\LINKED_LIST\ring.h(199,17): error C2065: '_to_find': undeclared identifier
-C:\dev\DS\learn\LINKED_LIST\ring.h(200,27): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
-C:\dev\DS\learn\LINKED_LIST\ring.h(200,27): error C2143: syntax error: missing ',' before '&'
-C:\dev\DS\learn\LINKED_LIST\ring.h(201,26): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
-C:\dev\DS\learn\LINKED_LIST\ring.h(201,26): error C2143: syntax error: missing ',' before '&'
-C:\dev\DS\learn\LINKED_LIST\ring.h(202,47): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
-C:\dev\DS\learn\LINKED_LIST\ring.h(202,47): error C2143: syntax error: missing ',' before '&'
-C:\dev\DS\learn\LINKED_LIST\ring.h(203,17): error C2065: 'T': undeclared identifier
-C:\dev\DS\learn\LINKED_LIST\ring.h(203,12): error C2923: 'learn::Ring': 'T' is not a valid template type argument for parameter 'T'
-C:\dev\DS\learn\LINKED_LIST\ring.h(204,22): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
-C:\dev\DS\learn\LINKED_LIST\ring.h(204,2): error C2086: 'int learn::_REFERENCE': redefinition
-C:\dev\DS\learn\LINKED_LIST\ring.h(190): message : see declaration of 'learn::_REFERENCE'
-C:\dev\DS\learn\LINKED_LIST\ring.h(204,13): error C2146: syntax error: missing ';' before identifier 'peek_head'
-C:\dev\DS\learn\LINKED_LIST\ring.h(205,28): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
-C:\dev\DS\learn\LINKED_LIST\ring.h(205,2): error C2086: 'int learn::_CONST_REFERENCE': redefinition
-C:\dev\DS\learn\LINKED_LIST\ring.h(191): message : see declaration of 'learn::_CONST_REFERENCE'
-C:\dev\DS\learn\LINKED_LIST\ring.h(205,19): error C2146: syntax error: missing ';' before identifier 'peek_head'
-C:\dev\DS\learn\LINKED_LIST\ring.h(206,22): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
-C:\dev\DS\learn\LINKED_LIST\ring.h(206,2): error C2086: 'int learn::_REFERENCE': redefinition
-C:\dev\DS\learn\LINKED_LIST\ring.h(190): message : see declaration of 'learn::_REFERENCE'
-C:\dev\DS\learn\LINKED_LIST\ring.h(206,13): error C2146: syntax error: missing ';' before identifier 'peek_back'
-C:\dev\DS\learn\LINKED_LIST\ring.h(207,27): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
-C:\dev\DS\learn\LINKED_LIST\ring.h(207,18): error C2146: syntax error: missing ';' before identifier 'peek_back'
-C:\dev\DS\learn\LINKED_LIST\ring.h(212,27): error C2270: 'size': modifiers not allowed on nonmember functions
+C:\dev\DS\learn\LINKED_LIST\list.h(635,1): warning C4267: 'argument': conversion from 'size_t' to 'unsigned int', possible loss of data
+C:\dev\DS\learn\LINKED_LIST\list.h(577): message : while compiling class template member function 'void learn::List<int>::sort(bool)'
+C:\dev\DS\driver.cpp(20): message : see reference to function template instantiation 'void learn::List<int>::sort(bool)' being compiled
+C:\dev\DS\driver.cpp(12): message : see reference to class template instantiation 'learn::List<int>' being compiled
+  DS.vcxproj -> C:\dev\DS\x64\Debug\DS.exe

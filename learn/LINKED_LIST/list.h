@@ -575,64 +575,80 @@ namespace learn
 
 	template<typename T>
 	void List<T>::sort(bool ASC) {
-		// INCOMPLETE
-
-		if (m_length != EMPTY) {
-			if (ASC) {
-				// Insertion Sort
+		if (ASC) {
+			if (!empty()) {
 				List<T> sorted;
-				Node* outer_traveler = m_start;
-				Node* inner_traveler = sorted.m_start;
-
-				while (outer_traveler != END) {
-					T element = outer_traveler->node_data;
-					int inner_index = 0;
-					while (inner_traveler != END) {
-						if (element < sorted[inner_index])
-							sorted.insert_at(element, inner_index - 1);
-						inner_traveler = inner_traveler->next_node;
-						inner_index++;
+				while (!empty()) {
+					size_t index = 0;
+					if (sorted.empty()) {
+						sorted.insert(peek_head());
+						this->remove_head();
+						//index++;
 					}
-					outer_traveler = outer_traveler->next_node;
-					//remove_head()
-				}
-				sorted.display();
-
-				// Bubble Sort
-				/*
-				int i = 0;
-				int j = 1;
-				while (i < m_length) {
-					while (j < m_length - i) {
-						auto current = get_node(j)->node_data;
-						auto next = get_node(j + 1)->node_data;
-						if (current > next)
-							swap(j, j + 1);
-						display();
-						j++;
+					else {
+						Node* sorted_traveler = sorted.m_start;
+						while (sorted_traveler != nullptr) {
+							if (peek_head() < sorted_traveler->node_data) {
+								sorted.insert_head(peek_head());
+								this->remove_head();
+								//index++;
+								break;	// To come out of loop
+							}
+							else if (peek_head() > sorted_traveler->node_data) {
+								//sorted.insert_at(peek_head(), index);
+								//this->remove_head();
+								//index++;
+								sorted.insert(peek_head());
+								this->remove_head();
+								//sorted_traveler = sorted_traveler->next_node;
+								index++;
+								break;
+							}
+							else if (sorted_traveler->next_node == nullptr) {
+								sorted.insert(peek_head());
+								this->remove_head();
+								sorted_traveler = sorted.m_start;
+								index = 0;
+								break;
+							}
+							else {
+								index++;
+								sorted_traveler = sorted_traveler->next_node;
+							}
+							//sorted.display();
+						}
 					}
-					i++;
-				}
-				*/
+				}//sorted.display();
 			}
-			else {
-				// Insertion Sort
-
-				// Bubble Sort
-				int i = 0;
-				int j = 1;
-				while (i < m_length) {
-					while (j < m_length - i) {
-						auto current = get_node(j)->node_data;
-						auto next = get_node(j + 1)->node_data;
-						if (current < next)
-							swap(j, j + 1);
-						display();
-						j++;
-					}
-					i++;
+		}
+		else {
+			size_t index = 0;
+			Node* traveler = m_start;
+			while (traveler != nullptr) {
+				auto current = traveler->node_data;
+				auto next = traveler->next_node;
+				if (next == nullptr)
+					break;
+				//auto next_data = next->node_data;
+				else if (current > next->node_data) {
+					traveler = traveler->next_node;
+					swap(index, index + 1);
+					index++;
+					//display();
+				}
+				else {
+					index++;
+					traveler = traveler->next_node;
+					if (traveler == nullptr)
+						traveler = m_start;
+					//display();
 				}
 			}
+			//display();
+
+			// sort
+			// reverse
+			// join
 		}
 	}
 

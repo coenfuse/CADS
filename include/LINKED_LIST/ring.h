@@ -1,6 +1,6 @@
 #pragma once
 
-namespace CDS
+namespace CADS
 {
 	template <typename _TYPE>
 	class NodeBase {

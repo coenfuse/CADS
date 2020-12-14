@@ -29,9 +29,6 @@
     <ClInclude Include="learn\LINKED_LIST\list.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="learn\LINKED_LIST\ring.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="learn\UTIL.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -42,6 +39,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\LINKED_LIST\ring.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="learn\LINKED_LIST\ring.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -5,8 +5,8 @@ namespace learn {
 	template <typename T>
 	class Ring {
 
-		using NOT_FOUND = -1;
-		using EMPTY = 0;
+	#define NOT_FOUND -1
+	#define EMPTY 0
 
 	private:
 		struct Node {
@@ -14,10 +14,10 @@ namespace learn {
 			Node* next;
 			Node* previous;
 
-			Node():node_data(),next(nullptr),previous(nullptr){}
-			Node(T& _init_data):node_data(_init_data),next(nullptr),previous(nullptr){}
-			Node(Node& _copy):node_data(_copy.node_data),next(_copy.next),previous(_copy.previous){}
-			~Node(){}
+			Node() :node_data(), next(nullptr), previous(nullptr) {}
+			Node(T& _init_data) :node_data(_init_data), next(nullptr), previous(nullptr) {}
+			Node(Node& _copy) :node_data(_copy.node_data), next(_copy.next), previous(_copy.previous) {}
+			~Node() {}
 
 			bool operator==(Node& _other) {
 				return (node_data == _other.node_data && next == _other.next && previous == _other.previous);
@@ -25,8 +25,8 @@ namespace learn {
 			bool operator!=(Node& _other) {
 				return !(this == _other);
 			}
-			T& operator<<() {
-				return node_data;
+			T& operator<<(Node& _node) {
+				return _node->node_data;
 			}
 			void operator>>(T& _data) {
 				node_data = _data;
@@ -74,7 +74,7 @@ namespace learn {
 						if (counter == travel_to)
 							return carrier;
 						carrier = carrier->next;
-						counter++
+						counter++;
 					}
 				}
 			}
@@ -88,48 +88,86 @@ namespace learn {
 	public:
 		using _VALUE_TYPE = T;
 
+		template<typename T>
+		class iterator {
+			Node* itr_node;
+
+			iterator() : itr_node(nullptr){}
+			iterator(Node& _init_node) : itr_node(_init_node){}
+			iterator(iterator& _to_copy):itr_node(_to_copy.itr_node){}
+
+			Node& operator++(int) {		// Postfix
+				Node temp = this;
+				this = itr_node->next;
+				return temp;
+			}
+			Node& operator++() {		// Prefix
+				return itr_node->next;
+			}
+			Node& operator--(int) {		// Postfix
+				Node temp = this;
+				this = itr_node->previous;
+				return temp;
+			}
+			Node& operator--() {		// Prefix
+				return itr_node->previous;
+			}
+			bool operator==(iterator& _other) {
+				return (itr_node == _other.itr_node);
+			}
+			bool operator!=(iterator& _other) {
+				return !(this == _other);
+			}
+			T& operator<<(iterator& _other) {
+				return _other.itr_node->node_data;
+			}
+		};
+
+		//friend class const_iterator {
+		//
+		//};
+
 	private:
 		// Private Functions
-		using _REFERENCE = _VALUE_TYPE&;
-		using _CONST_REFERENCE = const _REFERENCE;
-		using _POINTER = _VALUE_TYPE*;
 
 		bool compare(Ring<T>& _other);
-		bool swap(size& A, size& B);
+		void swap(size_t& A, size_t& B);
 	public:
 
 		Ring() : m_head(nullptr), m_size(0) {}
 		Ring(T& _init_data);
 		Ring(Ring<T>& _copy);
-		~Ring(){}
+		~Ring() {}
 
-		_REFERENCE at(const size_t& index);
-		_CONST_REFERENCE at(const size_t& index) const;
+		T& at(const size_t& index);
+		const T& at(const size_t& index) const;
+		iterator<T> begin();
 		void clear();
 		void display() const;
-		_REFERENCE erase(const T& _to_erase);
-		bool empty() const;
-		void emplace_front();
-		void emplace_back();
-		void emplace(const size_t _emplace_at);
-		size_t find(T& _to_find);
+		T& erase(const T& _to_erase);
+		bool empty();
+		void emplace_front(const T&);
+		void emplace_back(const T&);
+		void emplace(const size_t _emplace_at, const T&);
+		iterator<T> end();
+		size_t find(const T& _to_find);
 		void push_front(const T&);
 		void push_back(const T&);
 		void push(const size_t& _insert_at, const T& _data);
 		void join(Ring<T>&);
-		_REFERENCE peek_head();
-		_CONST_REFERENCE peek_head() const;
-		_REFERENCE peek_back();
-		_CONST_REFERENCE peek_back() const;
-		_REFERENCE pop_front();
-		_REFERENCE pop_back();
-		_REFERENCE remove(const size_t& _remove_at);
+		T& peek_head();
+		const T& peek_head() const;
+		T& peek_back();
+		const T& peek_back() const;
+		T& pop_front();
+		T& pop_back();
+		T& pop(const size_t& _pop_at);
 		void reverse();
 		const size_t size() const;
 		void sort();
 
-		_REFERENCE operator[](const size_t&);
-		_REFERENCE operator[](const size_t&) const;
+		T& operator[](const size_t&);
+		T& operator[](const size_t&) const;
 		bool operator==(Ring<T>&) const;
 		bool operator!=(Ring<T>&) const;
 		bool operator<(Ring<T>&) const;
@@ -155,7 +193,7 @@ namespace learn {
 	T& Ring<T>::operator[](const size_t& _index) {
 		return get_node(_index)->node_data;
 	}
-	
+
 	template <typename T>
 	T& Ring<T>::operator[](const size_t& _index) const {
 		return get_node(_index)->node_data;
@@ -190,7 +228,7 @@ namespace learn {
 	}
 	template <typename T>
 	void Ring<T>::operator+(Ring<T>& _other) {
-		
+
 	}
 	template<typename T>
 	void Ring<T>::operator=(Ring<T>& _other) {
@@ -198,29 +236,143 @@ namespace learn {
 		join(_other);
 	}
 
+	// Private Implementations
+	template<typename T>
+	bool Ring<T>::compare(Ring<T>& _other) {
+
+	}
+
+	template<typename T>
+	void Ring<T>::swap(size_t& A, size_t& B) {
+
+	}
+
 	// Interface Implementations
-	_REFERENCE at(const size_t& index);
-	_CONST_REFERENCE at(const size_t& index) const;
-	void clear();
-	void display() const;
-	void erase(const T& _to_erase);
-	bool empty() const;
-	void emplace_front();
-	void emplace_back();
-	void emplace(const size_t _emplace_at);
-	size_t find(T& _to_find);
-	void insert_front(const T&);
-	void insert_back(const T&);
-	void insert(const size_t& _insert_at, const T& _data);
-	void join(Ring<T>&);
-	_REFERENCE peek_head();
-	_CONST_REFERENCE peek_head() const;
-	_REFERENCE peek_back();
-	_CONST_REFERECE peek_back() const;
-	void remove_front();
-	void remove_back();
-	void remove(const size_t& _remove_at);
-	void reverse();
-	const size_t size() const;
-	void sort();
+	template <typename T>
+	T& Ring<T>::at(const size_t& index) {
+		return noexcept(get_node(index)->node_data);
+	}
+
+	template <typename T>
+	const T& Ring<T>::at(const size_t& index) const {
+		return noexcept(get_node(index)->node_data);
+	}
+
+	template<typename T>
+	Ring<T>::iterator<T> Ring<T>::begin() {
+		return iterator(this->m_start);
+	}
+
+	template <typename T>
+	void Ring<T>::clear() {
+
+	}
+
+	template <typename T>
+	void Ring<T>::display() const {
+
+	}
+
+	template <typename T>
+	T& Ring<T>::erase(const T& _to_erase) {
+
+	}
+
+	template <typename T>
+	bool Ring<T>::empty() {
+
+	}
+
+	template <typename T>
+	void Ring<T>::emplace_front(const T& _to_emplace) {
+	}
+
+	template <typename T>
+	void Ring<T>::emplace_back(const T& _to_emplace) {
+
+	}
+
+	template <typename T>
+	void Ring<T>::emplace(const size_t _emplace_at, const T& _to_emplace) {
+
+	}
+
+	template <typename T>
+	Ring<T>::iterator<T> Ring<T>::end() {
+		return iterator(nullptr);
+	}
+
+	template <typename T>
+	size_t Ring<T>::find(const T& _to_find) {
+
+	}
+
+	template <typename T>
+	void Ring<T>::push_front(const T& _to_push) {
+	}
+
+	template <typename T>
+	void Ring<T>::push_back(const T& _to_push) {
+
+	}
+
+	template <typename T>
+	void Ring<T>::push(const size_t& _insert_at, const T& _to_push) {
+
+	}
+
+	template <typename T>
+	void Ring<T>::join(Ring<T>& _to_join) {
+
+	}
+
+	template <typename T>
+	T& Ring<T>::peek_head() {
+
+	}
+
+	template <typename T>
+	const T& Ring<T>::peek_head() const {
+	
+	}
+
+	template <typename T>
+	T& Ring<T>::peek_back() {
+
+	}
+
+	template <typename T>
+	const T& Ring<T>::peek_back() const {
+	
+	}
+
+	template <typename T>
+	T& Ring<T>::pop_front() {
+
+	}
+
+	template <typename T>
+	T& Ring<T>::pop_back() {
+
+	}
+
+	template <typename T>
+	T& Ring<T>::pop(const size_t& _pop_at) {
+
+	}
+
+	template <typename T>
+	void Ring<T>::reverse() {
+
+	}
+
+	template <typename T>
+	const size_t Ring<T>::size() const {
+
+	}
+
+	template <typename T>
+	void Ring<T>::sort() {
+
+	}
 }
