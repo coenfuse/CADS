@@ -7,7 +7,7 @@ While the current priority is to write simple code, performance upgrades will be
 
 ## How is this project structured?
 This project is divided into two namespaces:
-- ***learn :*** All the code coming under this category is aimed towards learning purposes only and not meant to be incorporated in serious projects.
+- **Learn :** All the code coming under this category is aimed towards learning purposes only and not meant to be incorporated in serious projects.
 Thouroughly commented to explain the logic with complete documentation at the end of each file.
 *Note: Some of the code is really stupid here, Users are recommended to learn from it and improve it as a practice howsover they like.*
 
@@ -19,7 +19,7 @@ as possible while trying not to overstuff trivial features.
 Currently the author is having a good time messing up with iterators and sorting algorithms.
 Since this is a very early version of the project, this documentation is subject to frequent changes.
 
-####Learn
+### Learn
 - [ ] - Array
 - [ ] - Vector
 - [x] - Singly Linked List
@@ -34,9 +34,9 @@ Since this is a very early version of the project, this documentation is subject
 - [ ] - Map
 - [ ] - Matrix
 - [ ] - Plane
-- ...
+- *more later on.*
 
-####CADS
+### CADS
 - [ ] - Array
 - [ ] - Vector
 - [x] - Bi-Directional Linked List
@@ -50,7 +50,7 @@ Since this is a very early version of the project, this documentation is subject
 - [ ] - Map
 - [ ] - Matrix
 - [ ] - Plane
-- ...
+- *more later on.*
 
 
 ## Usage
