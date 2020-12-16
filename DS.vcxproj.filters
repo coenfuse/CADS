@@ -38,10 +38,13 @@
     <ClInclude Include="include\LINKED_LIST\list.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\LINKED_LIST\ring.h">
+    <ClInclude Include="learn\LINKED_LIST\ring.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="learn\LINKED_LIST\ring.h">
+    <ClInclude Include="learn\Q\ringq.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\LINKED_LIST\ring.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

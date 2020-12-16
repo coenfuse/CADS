@@ -1,6 +1,2 @@
 ﻿  driver.cpp
-C:\dev\DS\learn\LINKED_LIST\list.h(635,1): warning C4267: 'argument': conversion from 'size_t' to 'unsigned int', possible loss of data
-C:\dev\DS\learn\LINKED_LIST\list.h(577): message : while compiling class template member function 'void learn::List<int>::sort(bool)'
-C:\dev\DS\driver.cpp(20): message : see reference to function template instantiation 'void learn::List<int>::sort(bool)' being compiled
-C:\dev\DS\driver.cpp(12): message : see reference to class template instantiation 'learn::List<int>' being compiled
   DS.vcxproj -> C:\dev\DS\x64\Debug\DS.exe

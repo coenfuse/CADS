@@ -8,25 +8,8 @@
 
 int main() {
 	std::cout << "Driver Code" << std::endl;
-	srand((unsigned int)time(NULL));
-	learn::List<int> test_list;
-	std::list<int> std_list;
-	for (int i = 1; i < 100000; i++) {
-		test_list.insert(rand() % 9000);
-		std_list.push_back(rand() % 9000);
-	}
-	
-	auto start = std::chrono::high_resolution_clock::now();
-	test_list.sort(0);
-	auto end = std::chrono::high_resolution_clock::now();
-	auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
-	log(duration.count());
-
-	auto stdstart = std::chrono::high_resolution_clock::now();
-	std_list.sort();
-	auto stdend = std::chrono::high_resolution_clock::now();
-	auto stdduration = std::chrono::duration_cast<std::chrono::microseconds>(stdend - stdstart);
-	log(stdduration.count());
+	CADS::List<int> list;
+	CADS::List<int>::iterator itr;
 }
 
 // Test for execution time between list.add() and list.join()
