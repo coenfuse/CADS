@@ -275,7 +275,7 @@ namespace CADS
 			return m_node->previous;
 		}
 		Node* get_next() {
-			return m_node->next;
+			return m_node->next;	// or ++* this (But that wouldn't be much readable IMO)
 		}
 	};
 

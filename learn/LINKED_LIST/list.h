@@ -4,49 +4,16 @@
 #include<time.h>
 #include"..\UTIL.h"
 
+#define END nullptr
+#define NONE nullptr
+#define NOT_FOUND -1
+#define EMPTY 0
+
 namespace learn
 {
-	template <typename List>
-	class _list_itr {
-	public:
-		using ValueType = typename List::ValueType;
-		using PointerType = ValueType*;
-		using ReferenceType = ValueType&;
-
-	public:
-		_list_itr(PointerType ptr) : m_Ptr(ptr) {}
-		_list_itr& operator++() {
-			m_Ptr++;					//m_Ptr = m_Ptr->next_node;
-			return *this;
-		}
-		_list_itr operator++(int) {
-			_list_itr iterator = *this;
-			++(*this);					//*this = *this->next_node;
-			return iterator;
-		}
-		PointerType operator->() { return m_Ptr; }
-		ReferenceType operator*() { return *m_Ptr; }
-		bool operator==(const _list_itr& other) const { return m_Ptr == other.m_Ptr; }
-		bool operator!=(const _list_itr& other) const { return !(*this == other); }
-
-	private:
-		PointerType m_Ptr;
-	};
-
+	// Singly linked list
 	template<typename T>
 	class List {
-
-# define END nullptr
-# define NONE nullptr
-# define NOT_FOUND -1
-# define EMPTY 0
-
-	public:
-		using ValueType = T;
-		using iterator = _list_itr<List<T>>;
-
-	private:
-		friend class iterator;
 
 		struct Node {
 			T node_data;
@@ -69,6 +36,8 @@ namespace learn
 			}
 		};
 
+	private:
+		// List attributes
 		size_t m_length = 0;
 		Node* m_start = END;
 		Node* m_end = END;
@@ -102,6 +71,12 @@ namespace learn
 		List<T>& local_intersection(Node*, Node*);
 
 	public:
+
+		class iterator;
+		class const_iterator;
+		class reverse_iterator;
+		class const_reverse_iterator;
+
 		List<T>();
 		List<T>(T input_data);
 		List<T>(List<T>& second_list);
@@ -150,12 +125,14 @@ namespace learn
 		void operator+(List<T>&);
 		void operator=(List<T>&);
 
-		iterator begin() {
-			return iterator(m_start);
-		}
-		iterator end() {
-			return iterator(END);
-		}
+		iterator begin() { return iterator(m_start); }
+		iterator end() { return iterator(nullptr); }
+		const_iterator cbegin() const { return const_iterator(m_start); }
+		const_iterator cend() const { return const_iterator(nullptr); }
+		reverse_iterator rbegin() { return reverse_iterator(m_end); }
+		reverse_iterator rend() { return reverse_iterator(nullptr); }
+		const_reverse_iterator crbegin() const { return const_reverse_iterator(m_end); }
+		const_reverse_iterator crend() const { return const_reverse_iterator(nullptr); }
 	};
 
 	template <typename T>
@@ -855,6 +832,174 @@ namespace learn
 		else
 			return intersection;
 	}
+
+	template<typename T>
+	class List<T>::iterator {
+		Node* m_node;
+
+	public:
+
+		iterator() :
+			m_node(nullptr){}
+
+		iterator(Node* _init) :
+			m_node(_init){}
+
+		// Copy ctor and dtor not implemented. Why?
+
+		iterator& operator=(Node& _other) {
+			m_node = _other;
+			return *this;
+		}
+
+		iterator& operator++() {
+			m_node = m_node->next_node;
+			return *this;
+		}
+
+		iterator& operator++(int) {
+			iterator temporary = *this;
+			++* this;
+			return temporary;
+		}
+
+		bool operator==(const iterator& _other) {
+			return m_node == _other.m_node;
+		}
+
+		bool operator!=(const iterator& _other) {
+			return m_node != _other.m_node;
+		}
+
+		T& operator*() {
+			return m_node->node_data;
+		}
+
+	};
+
+	template <typename T>
+	class List<T>::const_iterator {
+
+		const Node* m_node;
+
+	public:
+
+		const_iterator() :
+			m_node(nullptr){}
+
+		const_iterator(const Node* _init) :
+			m_node(_init){}
+
+		// Copy ctor and dtor not implemented. Why?
+
+		const_iterator& operator=(const Node* _other) {
+			m_node = _other;
+			return *this;
+		}
+
+		const_iterator& operator++() {
+			m_node = m_node->next_node;
+			return *this;
+		}
+
+		const_iterator& operator++(int) {
+			const_iterator temporary = *this;
+			++* this;
+			return temporary;
+		}
+
+		bool operator==(const const_iterator& _other) {
+			return m_node == _other.m_node;
+		}
+
+		bool operator!=(const const_iterator& _other) {
+			return m_node != _other.m_node;
+		}
+
+		const T& operator*() {
+			return m_node->node_data;
+		}
+	};
+
+	template<typename T>
+	class List<T>::reverse_iterator {
+
+		Node* m_node;
+
+	public:
+		
+		reverse_iterator() :
+			m_node(nullptr){}
+
+		reverse_iterator(Node* _init) :
+			m_node(_init){}
+
+		// Copy ctor and dtor not implemented. Why?
+
+		reverse_iterator& operator=(Node* _other) {
+			m_node = _other;
+			return *this;
+		}
+
+		reverse_iterator& operator++() {
+			// The sandbagging function of this class.
+			return *this;
+		}
+
+		reverse_iterator& operator++(int) {
+			reverse_iterator temporary = *this;
+			++* this;
+			return temporary;
+		}
+
+		T& operator*() {
+			return m_node->node_data;
+		}
+	};
+
+	template<typename T>
+	class List<T>::const_reverse_iterator {
+
+		const Node* m_node;
+
+	public:
+
+		const_reverse_iterator() :
+			m_node(nullptr){}
+
+		const_reverse_iterator(const Node* _init) :
+			m_node(_init){}
+
+		// Copy ctor and dtor not implemented. Why?
+
+		const_reverse_iterator& operator=(const Node* _other) {
+			m_node = _other;
+			return *this;
+		}
+
+		const_reverse_iterator& operator++() {
+			// The sandbagging function of this class
+			return *this;
+		}
+
+		const_reverse_iterator& operator++(int) {
+			const_reverse_iterator temporary = *this;
+			++* this;
+			return temporary;
+		}
+
+		bool operator==(const const_reverse_iterator& _other) {
+			return m_node == _other.m_node;
+		}
+
+		bool operator!=(const const_reverse_iterator& _other) {
+			return m_node != _other.m_node;
+		}
+
+		const T& operator*() {
+			return m_node->node_data;
+		}
+	};
 }
 
 // DOCUMENTATION:
@@ -863,7 +1008,8 @@ namespace learn
 * -----------------------------------------------------------------------------
 * Iterators (NOT WORKING)
 * Initializer List
-* Overloaded operators for Node (Almost there)
+* Don't Overloaded operators for Node (Almost there) [ Do not overload stuff u-
+* nless extremely necessary. If it makes code unreadable its a simple no go.]
 * ::npos for at()
 * Bounds checking in swap()
 * Improve sort()
