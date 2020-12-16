@@ -624,44 +624,29 @@ namespace CADS
 	void List<T>::reverse() {
 
 		Node* reversed_head = nullptr;
-		Node* unreversed_head = nullptr;
 		Node* current = m_head;
-		size_t counter = 0;
+		Node* unreversed_head = nullptr;
+		
+		bool initial_iteration = true;
+
 		while (true) {
 			if (current->next == nullptr) {
 				current->next = reversed_head;
-				reversed_head->previous = current;
+				current->previous = unreversed_head;
 				reversed_head = current;
 				break;
 			}
 			unreversed_head = current->next;
-			current->previous = current->next;
 			current->next = reversed_head;
-			if (counter > 0)
-				reversed_head->previous = current;
+			current->previous = unreversed_head;
 			reversed_head = current;
-			if (counter == 0)
+			if (initial_iteration) {
 				m_tail = current;
+				initial_iteration = false;
+			}
 			current = unreversed_head;
-			counter++;
 		}
 		m_head = reversed_head;
-
-
-		//Node* prev_ptr = nullptr;
-		//Node* next_ptr = nullptr;
-		//Node* index_ptr = m_head;
-		//size_t counter = 0;
-		//while (counter < m_length) {
-		//	if (index_ptr->next == nullptr)
-		//		break;
-		//	next_ptr = index_ptr->next;
-		//	index_ptr->previous = next_ptr;
-		//	index_ptr->next = prev_ptr;
-		//	prev_ptr = index_ptr;
-		//	index_ptr = next_ptr;
-		//}
-		//m_head = prev_ptr;
 	}
 	template <typename T>
 	const size_t List<T>::size() const {
@@ -683,6 +668,6 @@ namespace CADS
 *  Member Initialization List
 *  Fix Node Operator Overloads
 *  Sort
-*  Reverse
+*  Improve Reverse
 *  Throw proper exceptions
 */

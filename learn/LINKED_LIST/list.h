@@ -523,7 +523,7 @@ namespace learn
 			next_ptr = index_ptr->next_node;
 			index_ptr->next_node = temp_ptr;
 			temp_ptr = index_ptr;
-			if (!counter)
+			if (counter == 0)
 				m_end = index_ptr;
 			index_ptr = next_ptr;
 			counter++;
@@ -1006,7 +1006,7 @@ namespace learn
 
 /* TO-DO:
 * -----------------------------------------------------------------------------
-* Iterators (NOT WORKING)
+* Iterators (NOT TESTED)
 * Initializer List
 * Don't Overloaded operators for Node (Almost there) [ Do not overload stuff u-
 * nless extremely necessary. If it makes code unreadable its a simple no go.]

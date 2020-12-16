@@ -9,7 +9,46 @@
 int main() {
 	std::cout << "Driver Code" << std::endl;
 	CADS::List<int> list;
-	CADS::List<int>::iterator itr;
+	std::list<int> std_list;
+	size_t counter = 0;
+	while (counter < 1000000) {
+		//list.push_back(rand());
+		std_list.push_back(rand());
+		counter++;
+	}
+
+	auto sum = 0;
+	for (size_t i = 0; i < 50; i++) {
+		auto beg = std::chrono::high_resolution_clock::now();
+		std_list.reverse();
+		auto fin = std::chrono::high_resolution_clock::now();
+		auto std_dur = std::chrono::duration_cast<std::chrono::microseconds>(fin - beg);
+		sum += std_dur.count();
+	}
+	log("Average time  by stl::list (in Microseconds) to reverse a list of length 1 Million:");
+	log((float)sum / 50);
+	
+	std_list.clear();
+
+	counter = 0;
+	while (counter < 1000000) {
+		list.push_back(rand());
+		//std_list.push_back(rand());
+		counter++;
+	}
+
+	std::cin.get();
+
+	sum = 0;
+	for (size_t i = 0; i < 50; i++) {
+		auto start = std::chrono::high_resolution_clock::now();
+		list.reverse();
+		auto end = std::chrono::high_resolution_clock::now();
+		auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
+		sum += duration.count();
+	}
+	log("Average time  by CADS::List (in Microseconds) to reverse a list of length 1 Million:");
+	log((float)sum / 50);
 }
 
 // Test for execution time between list.add() and list.join()
