@@ -4,11 +4,12 @@
 #include"include/ds.h"
 #include <chrono>
 #include <list>
-#define log(x) std::cout<<x<< std::endl;
+#define log(x) std::cout<<x;
 
 int main() {
 	std::cout << "Driver Code" << std::endl;
 	CADS::List<int> list;
+	//learn::List<int>sll;
 	std::list<int> std_list;
 	size_t counter = 0;
 	while (counter < 1000000) {
@@ -18,37 +19,48 @@ int main() {
 	}
 
 	auto sum = 0;
-	for (size_t i = 0; i < 50; i++) {
+	for (size_t i = 0; i < 1000; i++) {
 		auto beg = std::chrono::high_resolution_clock::now();
 		std_list.reverse();
 		auto fin = std::chrono::high_resolution_clock::now();
 		auto std_dur = std::chrono::duration_cast<std::chrono::microseconds>(fin - beg);
 		sum += std_dur.count();
+		std::system("cls");
+		log("Reversing STL: ");
+		log((int)i/10);
+		log(" %");
 	}
-	log("Average time  by stl::list (in Microseconds) to reverse a list of length 1 Million:");
-	log((float)sum / 50);
+	log("\n\nSTL reversal test complete now. Proceed to test reversal of CADS?")
 	
 	std_list.clear();
 
 	counter = 0;
 	while (counter < 1000000) {
 		list.push_back(rand());
+		//sll.insert(rand());
+
 		//std_list.push_back(rand());
 		counter++;
 	}
 
 	std::cin.get();
 
-	sum = 0;
-	for (size_t i = 0; i < 50; i++) {
+	auto sums = 0;
+	for (size_t i = 0; i < 1000; i++) {
 		auto start = std::chrono::high_resolution_clock::now();
 		list.reverse();
 		auto end = std::chrono::high_resolution_clock::now();
 		auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
-		sum += duration.count();
+		sums += duration.count();
+		std::system("cls");
+		log("Reversing CADS: ");
+		log((int)i/10);
+		log(" %");
 	}
-	log("Average time  by CADS::List (in Microseconds) to reverse a list of length 1 Million:");
-	log((float)sum / 50);
+	log("\n\nAverage time  by stl::list (in Microseconds) to reverse a list of length 1 Million:");
+	log((float)sum / 100);
+	log("\nAverage time  by CADS::List (in Microseconds) to reverse a list of length 1 Million:");
+	log((float)sums / 100);
 }
 
 // Test for execution time between list.add() and list.join()

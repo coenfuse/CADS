@@ -1,10 +1,10 @@
 ﻿  driver.cpp
-C:\dev\DS\driver.cpp(26,25): warning C4244: '+=': conversion from '_Rep' to 'int', possible loss of data
+C:\dev\DS\driver.cpp(27,25): warning C4244: '+=': conversion from '_Rep' to 'int', possible loss of data
           with
           [
               _Rep=__int64
           ]
-C:\dev\DS\driver.cpp(48,26): warning C4244: '+=': conversion from '_Rep' to 'int', possible loss of data
+C:\dev\DS\driver.cpp(54,27): warning C4244: '+=': conversion from '_Rep' to 'int', possible loss of data
           with
           [
               _Rep=__int64
