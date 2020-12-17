@@ -549,86 +549,73 @@ namespace learn
 	size_t List<T>::size() {
 		return sizeof(T) * m_length;
 	}
-
-	template<typename T>
+	template <typename T>
 	void List<T>::sort(bool ASC) {
 		if (ASC) {
-			if (!empty()) {
-				List<T> sorted;
-				while (!empty()) {
-					size_t index = 0;
-					if (sorted.empty()) {
-						sorted.insert(peek_head());
-						this->remove_head();
-						//index++;
-					}
-					else {
-						Node* sorted_traveler = sorted.m_start;
-						while (sorted_traveler != nullptr) {
-							if (peek_head() < sorted_traveler->node_data) {
-								sorted.insert_head(peek_head());
-								this->remove_head();
-								//index++;
-								break;	// To come out of loop
-							}
-							else if (peek_head() > sorted_traveler->node_data) {
-								//sorted.insert_at(peek_head(), index);
-								//this->remove_head();
-								//index++;
-								sorted.insert(peek_head());
-								this->remove_head();
-								//sorted_traveler = sorted_traveler->next_node;
-								index++;
-								break;
-							}
-							else if (sorted_traveler->next_node == nullptr) {
-								sorted.insert(peek_head());
-								this->remove_head();
-								sorted_traveler = sorted.m_start;
-								index = 0;
-								break;
-							}
-							else {
-								index++;
-								sorted_traveler = sorted_traveler->next_node;
-							}
-							//sorted.display();
-						}
-					}
-				}//sorted.display();
+			// Sort in Ascending
+
+			unsigned int index = 0;
+			unsigned int sorted_pairs = 0;
+			bool sorted = false;
+
+			while (!sorted) {
+
+				Node* current_pair = get_node(index);
+
+				T current = current_pair->node_data;
+				if (current_pair->next_node == nullptr) {
+					sorted = true;
+					break;
+				}
+				T next = (current_pair->next_node)->node_data;
+
+				if (current <= next) {
+					sorted_pairs++;
+					if (sorted_pairs >= m_length)
+						sorted = true;
+					index++;
+				}
+				else {
+					this->swap(index, index + 1);
+					index = 0;
+					sorted_pairs = 0;
+					sorted = false;
+				}
 			}
 		}
 		else {
-			size_t index = 0;
-			Node* traveler = m_start;
-			while (traveler != nullptr) {
-				auto current = traveler->node_data;
-				auto next = traveler->next_node;
-				if (next == nullptr)
+			// Sort in Descending
+
+			unsigned int index = 0;
+			unsigned int sorted_pairs = 0;
+			bool sorted = false;
+
+			while (!sorted) {
+
+				Node* current_pair = get_node(index);
+
+				T current = current_pair->node_data;
+				if (current_pair->next_node == nullptr) {
+					sorted = true;
 					break;
-				//auto next_data = next->node_data;
-				else if (current > next->node_data) {
-					traveler = traveler->next_node;
-					swap(index, index + 1);
+				}
+				T next = (current_pair->next_node)->node_data;
+
+				if (current >= next) {
+					sorted_pairs++;
+					if (sorted_pairs >= m_length)
+						sorted = true;
 					index++;
-					//display();
 				}
 				else {
-					index++;
-					traveler = traveler->next_node;
-					if (traveler == nullptr)
-						traveler = m_start;
-					//display();
+					this->swap(index, index + 1);
+					index = 0;
+					sorted_pairs = 0;
+					sorted = false;
 				}
 			}
-			//display();
-
-			// sort
-			// reverse
-			// join
 		}
 	}
-
 	template <typename T>
 	Pair<List<T>>& List<T>::split(unsigned int split_from_index) {
 		List<T> first_halve, second_halve;
@@ -678,7 +665,8 @@ namespace learn
 
 				Node_A->next_node = b_Next;
 				Node_B->next_node = Node_A;
-				m_start = Node_A;
+				//m_start = Node_A;
+				m_start = Node_B;
 			}
 			else {
 				Node* a_Prev = get_node(A - 1);
