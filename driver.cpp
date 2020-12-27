@@ -8,7 +8,7 @@
 
 int main() {
 	std::cout << "Driver Code" << std::endl;
-	//CADS::List<int> list;
+	//CADS::List<int> list = { 5,6,8 };
 	learn::List<int>sll;
 	std::list<int> std_list;
 	size_t counter = 0;
@@ -63,6 +63,10 @@ int main() {
 	log("\nAverage time  by CADS::List (in Microseconds) to sort a list of length 1 Million:");
 	log((float)sums / 100);
 }
+
+// Pause current thread
+// std::chrono::milliseconds dur(10);
+// std::this_thread::sleep_for(dur);
 
 // Test for execution time between list.add() and list.join()
 

@@ -7,6 +7,7 @@ namespace CADS
 	template <typename T>
 	class List {
 
+		#include <initializer_list>
 		#define NOT_FOUND -1
 		#define EMPTY 0
 
@@ -105,11 +106,14 @@ namespace CADS
 		class const_iterator;
 		class reverse_iterator;
 		class const_reverse_iterator;
+		class init_list;
 
+		// List() = default;		Weird syntax :/
 		List() :m_length(0), m_head(nullptr), m_tail(nullptr){}
 		List(const T& _init_data);
 		List(List<T>& _copy_this);
-		~List(){}
+		List(std::initializer_list<T>& init_list);		// INCOMPLETE
+		~List(){} // { this->clear(); }					// Why?
 
 		T& at(const size_t& index);
 		const T& at(const size_t& index) const;
@@ -151,14 +155,19 @@ namespace CADS
 		void operator+(List<T>&);
 		void operator=(List<T>&);
 
-		iterator begin() { return iterator(m_head); }
-		iterator end() { return iterator(nullptr); }
-		reverse_iterator rbegin() { return reverse_iterator(m_tail); }
-		reverse_iterator rend() { return reverse_iterator(nullptr); }
-		const_iterator cbegin() const { return const_iterator(m_head); }
-		const_iterator cend() const { return const_iterator(nullptr); }
-		const_reverse_iterator crbegin() const { return const_reverse_iterator(m_tail); }
-		const_reverse_iterator crend() const { return const_reverse_iterator(nullptr); }
+		_NODISCARD iterator begin() { return iterator(m_head); }
+		_NODISCARD iterator end() { return iterator(nullptr); }
+		_NODISCARD reverse_iterator rbegin() { return reverse_iterator(m_tail); }
+		_NODISCARD reverse_iterator rend() { return reverse_iterator(nullptr); }
+		_NODISCARD const_iterator cbegin() const { return const_iterator(m_head); }
+		_NODISCARD const_iterator cend() const { return const_iterator(nullptr); }
+		_NODISCARD const_reverse_iterator crbegin() const { return const_reverse_iterator(m_tail); }
+		_NODISCARD const_reverse_iterator crend() const { return const_reverse_iterator(nullptr); }
+	};
+
+	template <typename T>
+	class List<T>::init_list {
+
 	};
 
 	// Constructor and Destructor definitions
@@ -175,6 +184,13 @@ namespace CADS
 	List<T>::List(List<T>& _copy_this) {
 		clear();
 		join(_copy_this);
+	}
+
+	template <typename T>
+	List<T>::List(std::initializer_list<T>& init_list) : List(static_cast<T>(init_list.size())) {
+		for (auto each : init_list)
+			push_back(each);
+		~List();
 	}
 
 	// Overloaded Operators definitions
@@ -654,10 +670,7 @@ namespace CADS
 	}
 	template <typename T>
 	void List<T>::sort() {
-		// Take average of the list.
-		// Assume it in the middle of the list.
-		// Create a new list, insert elements by comparing it with the average.
-		// Works only for numerical digits.
+		
 	}
 }
 
@@ -665,9 +678,20 @@ namespace CADS
 // ----------------------------------------------------------------------------
 /* To-Do:
 *  ----------------------------------------------------------------------------
-*  Member Initialization List
+*  std::initializer_list : When a compiler sees an initializer list, it automa-
+*  tically converts it into an object of type std::initializer_list. Therefore,
+*  if we create a constructor that takes a std::initializer_list parameter, we
+*  can create objects using the initializer list as an input.
+*  std::initializer_list lives in the <initializer_list> header.
+*  std::initializer_list is templated class object. We need to specify the data
+*  type we'll be using whenever we make use this initializer list.
+*  Second, std::initializer_list has a (misnamed) size() function which returns
+*  the number of elements in the list. This is useful when we need to know the
+*  length of the list passed in.
+* 
 *  Fix Node Operator Overloads
 *  Sort
 *  Improve Reverse
+*  _NODISCARD
 *  Throw proper exceptions
 */

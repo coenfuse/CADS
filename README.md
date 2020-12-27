@@ -22,7 +22,7 @@ Since this is a very early version of the project, this documentation is subject
 ### Learn
 - [ ] - Array
 - [ ] - Vector
-- [x] - Singly Linked List
+- [x] - [Singly Linked List]()
 - [ ] - Bi-Directional Linked List
 - [ ] - Ring
 - [ ] - Stack
@@ -30,6 +30,7 @@ Since this is a very early version of the project, this documentation is subject
 - [ ] - Circular Q
 - [ ] - DQ
 - [ ] - Priority Q
+- [ ] - Multi Q
 - [ ] - Set
 - [ ] - Map
 - [ ] - Matrix
