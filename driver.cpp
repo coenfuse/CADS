@@ -8,21 +8,50 @@
 
 int main() {
 
-	learn::List<int> test = 0;
-	for (size_t i = 0; i < 10; i++) {
-		test.insert(rand());
+	// Snippet to test negative indexes
+	srand((unsigned int)time(NULL));
+	CADS::List<int> test;
+	for (size_t i = 0; i < 5; i++) {
+		test.push_back(rand() % 100);
 	}
-	for (size_t i = 0; i < test.length(); i++){
-		log(test[i]);
-		log("\n");
-	}
-	log("\n\n");
-	for (int i = 1; i <= test.length(); i++) {
-		int index = i * -1;
-		log(test[index]);
+
+	test.display();
+	for (short i = 0; i < test.size(); i++) {
+		log(*test.at(i));
 		log("\n");
 	}
 
+	log("\n\n");
+
+	for (short i = -1; i >= (test.size() * -1); i--) {
+		log(*test.at(i));
+		log("\n");
+	}
+
+	log("\n");
+
+	log("Using operator overloads");
+	log("\n\n");
+
+	for (short i = 0; i < test.size(); i++) {
+		log(test[i]);
+		log("\n");
+	}
+	
+	log("\n\n");
+
+	for (short i = -1; i >= (test.size() * -1); i--) {
+		log(test[i]);
+		log("\n");
+	}
+	// Testing out of bounds indexes	
+	//log(*test.at(-7));		// Returns list.end()
+	//log(*test.at(100));		// Returns list.end()
+	//log(test[-32]);			// Returns nullptr
+	//log(test[76]);			// Returns nullptr
+	
+	
+	// Snippet to compare sort()
 	//std::cout << "Driver Code" << std::endl;
 	////CADS::List<int> list = { 5,6,8 };
 	//learn::List<int>sll;
