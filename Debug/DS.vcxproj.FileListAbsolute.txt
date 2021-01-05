@@ -1,2 +1,0 @@
-C:\dev\DS\Debug\DS.exe
-C:\dev\DS\Debug\DS.pdb
