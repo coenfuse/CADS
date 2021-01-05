@@ -288,43 +288,6 @@ namespace CADS
 	template<typename T>
 	T& List<T>::operator[](const int& _index) {
 		return *(this->at(_index));
-		if (_index < 0) {
-
-			if (_index == -1)
-				return m_tail->node_data;
-
-			if (_index + m_length == 0)
-				return m_head->node_data;
-
-			if (_index < m_length * -1)
-				return *(this->rend());
-
-			List<T>::reverse_iterator ritr = this->rbegin();
-			int counter = -1;
-			for (ritr; ritr != this->rend(); ritr++, counter--) {
-				if (counter == _index)
-					return *ritr;
-			}
-		}
-		else {
-
-			if (_index == 0)
-				return m_head->node_data;
-			
-			if (_index == m_length - 1)
-				return m_tail->node_data;
-
-			if (_index >= m_length)
-				return *(this->end());
-
-			List<T>::iterator itr = this->begin();
-			int counter = 0;
-			for (itr; itr != this->end(); itr++, counter++) {
-				if (counter == _index)
-					return *itr;
-			}
-
-		}
 	}
 	template<typename T>
 	const T& List<T>::operator[](const int& _index) const {
@@ -538,26 +501,6 @@ namespace CADS
 		return response;
 	}
 
-	// Interface definitions
-	//template<typename T>
-	//T& List<T>::at(const size_t& index) {
-	//	return noexcept(get_node(index)->node_data);
-	//}
-	//template<typename T>
-	//const T& List<T>::at(const size_t& index) const {
-	//	return noexcept(get_node(index)->node_data);
-	//}
-	//template <typename T>
-	//void List<T>::clear() {
-	//	Node* traveler = m_head;
-	//	//Node* temp;
-	//	while (traveler != nullptr) {
-	//		Node* temp = traveler->next;
-	//		delete traveler;
-	//		traveler = temp;
-	//		m_length--;
-	//	}
-	//}
 	template<typename T>
 	void List<T>::display() const {
 		Node* traveler = m_head;
