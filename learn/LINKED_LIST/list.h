@@ -114,8 +114,8 @@ namespace learn
 		void trim_head(unsigned int);
 		void trim_tail(unsigned int);
 
-		T& operator[](size_t);
-		T& operator[](size_t) const;
+		T& operator[](int);
+		T& operator[](int) const;
 		bool operator==(List<T>&) const;
 		bool operator!=(List<T>&) const;
 		bool operator<(List<T>&) const;
@@ -155,19 +155,47 @@ namespace learn
 	List<T>::~List<T>() {}	// { clear(); } <- SEE DOCUMENTATION
 
 	template <typename T>
-	T& List<T>::operator[](size_t index) {
-		if (index == 0)
-			return m_start->node_data;
-		else
-			return get_node((unsigned int)index)->node_data;
+	T& List<T>::operator[](int index) {
+		if (index < 0) {
+			if (index == -1)
+				return m_end->node_data;
+			if (index + m_length == 0)
+				return m_start->node_data;
+			else {
+				short actual_index = m_length + (short)index;		// a + (-b)
+				return get_node(actual_index)->node_data;
+			}
+		}
+		else {
+			if (index == 0)
+				return m_start->node_data;
+			else if (--index == m_length)
+				return m_end->node_data;
+			else
+				return get_node((unsigned int)index)->node_data;
+		}
 	}
 
 	template <typename T>
-	T& List<T>::operator[](size_t index) const {
-		if (index == 0)
-			return m_start->node_data;
-		else
-			return get_node((unsigned int)index)->node_data;
+	T& List<T>::operator[](int index) const {
+		if (index < 0) {
+			if (index == -1)
+				return m_end->node_data;
+			if (index + m_length == 0)
+				return m_start->node_data;
+			else {
+				short actual_index = m_length - (short)index;
+				return get_node(actual_index)->node_data;
+			}
+		}
+		else {
+			if (index == 0)
+				return m_start->node_data;
+			else if (--index == m_length)
+				return m_end->node_data;
+			else
+				return get_node((unsigned int)index)->node_data;
+		}
 	}
 
 	template <typename T>

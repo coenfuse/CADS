@@ -7,61 +7,77 @@
 #define log(x) std::cout<<x;
 
 int main() {
-	std::cout << "Driver Code" << std::endl;
-	//CADS::List<int> list = { 5,6,8 };
-	learn::List<int>sll;
-	std::list<int> std_list;
-	size_t counter = 0;
-	while (counter < 1000) {
-		//list.push_back(rand());
-		std_list.push_back(rand());
-		counter++;
-	}
-	
-	auto sum = 0;
-	for (size_t i = 0; i < 100; i++) {
-		auto beg = std::chrono::high_resolution_clock::now();
-		//std_list.reverse();
-		std_list.sort();
-		auto fin = std::chrono::high_resolution_clock::now();
-		auto std_dur = std::chrono::duration_cast<std::chrono::milliseconds>(fin - beg);
-		sum += std_dur.count();
-		std::system("cls");
-		log("Sorting STL: ");
-		log((int)i);
-		log(" %");
-	}
-	log("\n\nSTL sort test complete now. Proceed to test sort of CADS?")
-	
-	std_list.clear();
 
-	counter = 0;
-	while (counter < 1000) {
-		//list.push_back(1000000 - counter);
-		sll.insert(rand());
-
-		//std_list.push_back(rand());
-		counter++;
+	learn::List<int> test = 0;
+	for (size_t i = 0; i < 10; i++) {
+		test.insert(rand());
 	}
-	std::cin.get();
-
-	auto sums = 0;
-	for (size_t i = 0; i < 100; i++) {
-		auto start = std::chrono::high_resolution_clock::now();
-		//list.reverse();
-		sll.sort();
-		auto end = std::chrono::high_resolution_clock::now();
-		auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
-		sums += duration.count();
-		std::system("cls");
-		log("Sorting Learn: ");
-		log((int)i);
-		log(" %");
+	for (size_t i = 0; i < test.length(); i++){
+		log(test[i]);
+		log("\n");
 	}
-	log("\n\nAverage time  by stl::list (in Microseconds) to sort a list of length 1 Million:");
-	log((float)sum / 100);
-	log("\nAverage time  by CADS::List (in Microseconds) to sort a list of length 1 Million:");
-	log((float)sums / 100);
+	log("\n\n");
+	for (int i = 1; i <= test.length(); i++) {
+		int index = i * -1;
+		log(test[index]);
+		log("\n");
+	}
+
+	//std::cout << "Driver Code" << std::endl;
+	////CADS::List<int> list = { 5,6,8 };
+	//learn::List<int>sll;
+	//std::list<int> std_list;
+	//size_t counter = 0;
+	//while (counter < 1000) {
+	//	//list.push_back(rand());
+	//	std_list.push_back(rand());
+	//	counter++;
+	//}
+	//
+	//auto sum = 0;
+	//for (size_t i = 0; i < 100; i++) {
+	//	auto beg = std::chrono::high_resolution_clock::now();
+	//	//std_list.reverse();
+	//	std_list.sort();
+	//	auto fin = std::chrono::high_resolution_clock::now();
+	//	auto std_dur = std::chrono::duration_cast<std::chrono::milliseconds>(fin - beg);
+	//	sum += std_dur.count();
+	//	std::system("cls");
+	//	log("Sorting STL: ");
+	//	log((int)i);
+	//	log(" %");
+	//}
+	//log("\n\nSTL sort test complete now. Proceed to test sort of CADS?")
+	//
+	//std_list.clear();
+	//
+	//counter = 0;
+	//while (counter < 1000) {
+	//	//list.push_back(1000000 - counter);
+	//	sll.insert(rand());
+	//
+	//	//std_list.push_back(rand());
+	//	counter++;
+	//}
+	//std::cin.get();
+	//
+	//auto sums = 0;
+	//for (size_t i = 0; i < 100; i++) {
+	//	auto start = std::chrono::high_resolution_clock::now();
+	//	//list.reverse();
+	//	sll.sort();
+	//	auto end = std::chrono::high_resolution_clock::now();
+	//	auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
+	//	sums += duration.count();
+	//	std::system("cls");
+	//	log("Sorting Learn: ");
+	//	log((int)i);
+	//	log(" %");
+	//}
+	//log("\n\nAverage time  by stl::list (in Microseconds) to sort a list of length 1 Million:");
+	//log((float)sum / 100);
+	//log("\nAverage time  by CADS::List (in Microseconds) to sort a list of length 1 Million:");
+	//log((float)sums / 100);
 }
 
 // Pause current thread
