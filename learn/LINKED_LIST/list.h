@@ -12,6 +12,7 @@
 namespace learn
 {
 	// Singly linked list
+
 	template<typename T>
 	class List {
 
@@ -74,8 +75,6 @@ namespace learn
 
 		class iterator;
 		class const_iterator;
-		class reverse_iterator;
-		class const_reverse_iterator;
 
 		List<T>();
 		List<T>(T input_data);
@@ -83,7 +82,6 @@ namespace learn
 		~List<T>();
 
 		void add(List<T>&);
-		T& at(const unsigned int index) const;
 		void clear();
 		bool common(List<T>&);
 		void dedup();
@@ -114,8 +112,8 @@ namespace learn
 		void trim_head(unsigned int);
 		void trim_tail(unsigned int);
 
-		T& operator[](size_t);
-		T& operator[](size_t) const;
+		T& operator[](int);
+		T& operator[](int) const;
 		bool operator==(List<T>&) const;
 		bool operator!=(List<T>&) const;
 		bool operator<(List<T>&) const;
@@ -129,11 +127,47 @@ namespace learn
 		iterator end() { return iterator(nullptr); }
 		const_iterator cbegin() const { return const_iterator(m_start); }
 		const_iterator cend() const { return const_iterator(nullptr); }
-		reverse_iterator rbegin() { return reverse_iterator(m_end); }
-		reverse_iterator rend() { return reverse_iterator(nullptr); }
-		const_reverse_iterator crbegin() const { return const_reverse_iterator(m_end); }
-		const_reverse_iterator crend() const { return const_reverse_iterator(nullptr); }
+
+		// Due to some unresolvable (by me) scope issues, this function is defined here
+
+		iterator at(const short& index) {
+			if (index >= 0) {
+				if (index == 0)
+					return iterator(m_start);
+				if (index == m_length - 1)
+					return iterator(m_end);
+				if (index >= m_length)
+					return this->end();
+
+				List<T>::iterator citr;
+				int counter = 0;
+				for (citr = this->begin(); citr != this->end(); citr++, counter++)
+					if (counter == index)
+						return citr;
+			}
+			return this->end();		// Default
+		}
+
+		const const_iterator at(const short& index) const {
+			if (index >= 0) {
+				if (index == 0)
+					return const_iterator(m_start);
+				if (index == m_length - 1)
+					return const_iterator(m_end);
+				if (index >= m_length)
+					return this->cend();
+
+				List<T>::const_iterator citr;
+				int counter = 0;
+				for (citr = this->cbegin(); citr != this->cend(); citr++, counter++)
+					if (counter == index)
+						return citr;
+			}
+			return this->cend();	// Default
+		}
 	};
+
+	// Contructors and Destructors
 
 	template <typename T>
 	List<T>::List() : m_length(0), m_start(END), m_end(END) {}
@@ -154,20 +188,108 @@ namespace learn
 	template <typename T>
 	List<T>::~List<T>() {}	// { clear(); } <- SEE DOCUMENTATION
 
+
+	// Iterators
+
+	template<typename T>
+	class List<T>::iterator {
+		Node* m_node;
+
+	public:
+
+		iterator() :
+			m_node(nullptr) {}
+
+		iterator(Node* _init) :
+			m_node(_init) {}
+
+		// Copy ctor and dtor not implemented. Why?
+
+		iterator& operator=(Node& _other) {
+			m_node = _other;
+			return *this;
+		}
+
+		iterator& operator++() {
+			m_node = m_node->next_node;
+			return *this;
+		}
+
+		iterator& operator++(int) {
+			iterator temporary = *this;
+			++* this;
+			return temporary;
+		}
+
+		bool operator==(const iterator& _other) {
+			return m_node == _other.m_node;
+		}
+
+		bool operator!=(const iterator& _other) {
+			return m_node != _other.m_node;
+		}
+
+		T& operator*() {
+			return m_node->node_data;
+		}
+
+	};
+
 	template <typename T>
-	T& List<T>::operator[](size_t index) {
-		if (index == 0)
-			return m_start->node_data;
-		else
-			return get_node((unsigned int)index)->node_data;
+	class List<T>::const_iterator {
+
+		const Node* m_node;
+
+	public:
+
+		const_iterator() :
+			m_node(nullptr) {}
+
+		const_iterator(const Node* _init) :
+			m_node(_init) {}
+
+		// Copy ctor and dtor not implemented. Why?
+
+		const_iterator& operator=(const Node* _other) {
+			m_node = _other;
+			return *this;
+		}
+
+		const_iterator& operator++() {
+			m_node = m_node->next_node;
+			return *this;
+		}
+
+		const_iterator& operator++(int) {
+			const_iterator temporary = *this;
+			++* this;
+			return temporary;
+		}
+
+		bool operator==(const const_iterator& _other) {
+			return m_node == _other.m_node;
+		}
+
+		bool operator!=(const const_iterator& _other) {
+			return m_node != _other.m_node;
+		}
+
+		const T& operator*() {
+			return m_node->node_data;
+		}
+	};
+
+	// Operator Overloads
+
+	template <typename T>
+	T& List<T>::operator[](const int index){
+		// There is no pre index checking, i.e; prevent loop from running unnecessarily.
+		return *(this->at(index));
 	}
 
 	template <typename T>
-	T& List<T>::operator[](size_t index) const {
-		if (index == 0)
-			return m_start->node_data;
-		else
-			return get_node((unsigned int)index)->node_data;
+	T& List<T>::operator[](const int index) const {
+		return *(this->at(index));
 	}
 
 	template <typename T>
@@ -217,6 +339,8 @@ namespace learn
 		return (m_length >= second_list.m_length);
 	}
 
+	// Public Methods Implementation
+
 	template <typename T>
 	void List<T>::add(List<T>& second_list) {
 
@@ -227,16 +351,6 @@ namespace learn
 			local_counter++;
 		}
 		second_list.clear();
-	}
-
-	template <typename T>
-	T& List<T>::at(const unsigned int index) const {
-		if (index > m_length)
-			return m_end->node_data;
-		else if (index == 0)
-			return m_start->node_data;
-		else
-			return get_node(index)->node_data;
 	}
 
 	template <typename T>
@@ -764,6 +878,8 @@ namespace learn
 		}
 	}
 
+	// Private Methods Implementation
+
 	template<typename T>
 	bool List<T>::compare(List<T>& second_list) const {
 		bool response = false;
@@ -820,174 +936,6 @@ namespace learn
 		else
 			return intersection;
 	}
-
-	template<typename T>
-	class List<T>::iterator {
-		Node* m_node;
-
-	public:
-
-		iterator() :
-			m_node(nullptr){}
-
-		iterator(Node* _init) :
-			m_node(_init){}
-
-		// Copy ctor and dtor not implemented. Why?
-
-		iterator& operator=(Node& _other) {
-			m_node = _other;
-			return *this;
-		}
-
-		iterator& operator++() {
-			m_node = m_node->next_node;
-			return *this;
-		}
-
-		iterator& operator++(int) {
-			iterator temporary = *this;
-			++* this;
-			return temporary;
-		}
-
-		bool operator==(const iterator& _other) {
-			return m_node == _other.m_node;
-		}
-
-		bool operator!=(const iterator& _other) {
-			return m_node != _other.m_node;
-		}
-
-		T& operator*() {
-			return m_node->node_data;
-		}
-
-	};
-
-	template <typename T>
-	class List<T>::const_iterator {
-
-		const Node* m_node;
-
-	public:
-
-		const_iterator() :
-			m_node(nullptr){}
-
-		const_iterator(const Node* _init) :
-			m_node(_init){}
-
-		// Copy ctor and dtor not implemented. Why?
-
-		const_iterator& operator=(const Node* _other) {
-			m_node = _other;
-			return *this;
-		}
-
-		const_iterator& operator++() {
-			m_node = m_node->next_node;
-			return *this;
-		}
-
-		const_iterator& operator++(int) {
-			const_iterator temporary = *this;
-			++* this;
-			return temporary;
-		}
-
-		bool operator==(const const_iterator& _other) {
-			return m_node == _other.m_node;
-		}
-
-		bool operator!=(const const_iterator& _other) {
-			return m_node != _other.m_node;
-		}
-
-		const T& operator*() {
-			return m_node->node_data;
-		}
-	};
-
-	template<typename T>
-	class List<T>::reverse_iterator {
-
-		Node* m_node;
-
-	public:
-		
-		reverse_iterator() :
-			m_node(nullptr){}
-
-		reverse_iterator(Node* _init) :
-			m_node(_init){}
-
-		// Copy ctor and dtor not implemented. Why?
-
-		reverse_iterator& operator=(Node* _other) {
-			m_node = _other;
-			return *this;
-		}
-
-		reverse_iterator& operator++() {
-			// The sandbagging function of this class.
-			return *this;
-		}
-
-		reverse_iterator& operator++(int) {
-			reverse_iterator temporary = *this;
-			++* this;
-			return temporary;
-		}
-
-		T& operator*() {
-			return m_node->node_data;
-		}
-	};
-
-	template<typename T>
-	class List<T>::const_reverse_iterator {
-
-		const Node* m_node;
-
-	public:
-
-		const_reverse_iterator() :
-			m_node(nullptr){}
-
-		const_reverse_iterator(const Node* _init) :
-			m_node(_init){}
-
-		// Copy ctor and dtor not implemented. Why?
-
-		const_reverse_iterator& operator=(const Node* _other) {
-			m_node = _other;
-			return *this;
-		}
-
-		const_reverse_iterator& operator++() {
-			// The sandbagging function of this class
-			return *this;
-		}
-
-		const_reverse_iterator& operator++(int) {
-			const_reverse_iterator temporary = *this;
-			++* this;
-			return temporary;
-		}
-
-		bool operator==(const const_reverse_iterator& _other) {
-			return m_node == _other.m_node;
-		}
-
-		bool operator!=(const const_reverse_iterator& _other) {
-			return m_node != _other.m_node;
-		}
-
-		const T& operator*() {
-			return m_node->node_data;
-		}
-	};
 }
 
 // DOCUMENTATION:
@@ -1033,11 +981,16 @@ namespace learn
 
 // at() -> STATUS: Incomplete
 //-----------------------------------------------------------------------------
-// Currently returns the value at the end of the node whenever the index is out
-// of bounds. Need to incorporate a procedure that return something other than
-// T to make more usable in real scenarios. The following is used in STL.
+// Returns an iterator for the given index that needs to deferenced for usage.
+// If the index is out of bounds then it returns list.end()
+// This can be use to make an exit statement if user is iterating over the list
+// and fetching values using at(). Although it is recommended to use iterators.
+// Negative indexes are not supported for logical reasons.
+// 
+// STL returns the following whenever the index is out of bounds.
 // static constexpr auto npos{ static_cast<T>(-1) };
-// Complexity: O(n) or O(1)
+// This will be incorporated later into the code if deemed necessary.
+// Complexity: O(1)
 
 // clear() -> STATUS: Complete
 //-----------------------------------------------------------------------------
@@ -1132,16 +1085,12 @@ namespace learn
 
 // operator[] -> STATUS: Complete
 //-----------------------------------------------------------------------------
-// Used to access element present at the given index in the list. Unlike at()
-// it doesn't feature bounds checking thus throws exception whenver the limits
-// are violated.
+// Referenced version of at()
 // Complexity: O(n);
 
 // const operator[] -> STATUS: Complete
 //-----------------------------------------------------------------------------
-// If the list happens to be initialized as a const type then this operator
-// doesn't works for both reading and writing operation. Thus it is needed
-// to write a const overload for this operator.
+// Referenced version of at()
 // Complexity: O(n)
 
 // operator== -> STATUS: Complete

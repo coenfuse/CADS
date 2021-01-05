@@ -115,8 +115,8 @@ namespace CADS
 		List(std::initializer_list<T>& init_list);		// INCOMPLETE
 		~List(){} // { this->clear(); }					// Why?
 
-		T& at(const size_t& index);
-		const T& at(const size_t& index) const;
+		//T& at(const size_t& index);
+		//const T& at(const size_t& index) const;
 		void clear();
 		void display() const;
 		void erase(const T& _to_erase);
@@ -144,8 +144,8 @@ namespace CADS
 		const size_t size() const;
 		void sort();
 
-		T& operator[](const size_t&);
-		const T& operator[](const size_t&) const;
+		T& operator[](const int&);
+		const T& operator[](const int&) const;
 		bool operator==(List<T>&) const;
 		bool operator!=(List<T>&) const;
 		bool operator<(List<T>&) const;
@@ -163,6 +163,97 @@ namespace CADS
 		_NODISCARD const_iterator cend() const { return const_iterator(nullptr); }
 		_NODISCARD const_reverse_iterator crbegin() const { return const_reverse_iterator(m_tail); }
 		_NODISCARD const_reverse_iterator crend() const { return const_reverse_iterator(nullptr); }
+
+		// Due to same iterator scope issues, at function is declared here.
+		// A stain in readability, sincerely sorry
+
+		iterator at(const int& _index) {
+			if (_index < 0) {
+
+				if (_index == -1)
+					return iterator(m_tail);
+
+				if (_index + m_length == 0)			// "Tell me why"
+					return iterator(m_head);
+
+				if (_index == m_length * -1)			// "aint nothing but a heartache"
+					return this->end();
+
+				Node *container = m_tail;
+				int counter = -1;
+				while (true) {
+					if (counter == _index)
+						return iterator(container);
+					else {
+						if (container == nullptr)
+							return this->end();
+						container = container->previous;
+						counter--;
+					}
+				}
+
+			}
+			else {
+
+				if (_index == 0)
+					return iterator(m_head);
+
+				if (_index == m_length - 1)
+					return iterator(m_tail);
+
+				if (_index >= m_length)
+					return this->end();
+
+				List<T>::iterator itr = this->begin();
+				int counter = 0;
+				for (itr; itr != this->end(); itr++, counter++)
+					if (counter == _index)
+						return itr;
+
+			}
+
+		}
+		const const_iterator at(const int& _index) const {
+			if (_index < 0) {
+
+				if (_index == -1)
+					return const_iterator(m_tail);
+
+				if (_index + m_length == 0)
+					return const_iterator(m_head);
+
+				if (_index < m_length * -1)
+					return this->cend();
+
+				Node *container = m_tail;
+				int counter = -1;
+				while (true) {
+					if (counter == _index)
+						return const_iterator(container);
+					else {
+						container = container->previous;
+						counter--;
+					}
+				}
+			}
+			else {
+
+				if (_index == 0)
+					return const_iterator(m_head);
+
+				if (_index == m_length - 1)
+					return const_iterator(m_tail);
+
+				if (_index >= m_length)
+					return this->cend();
+
+				List<T>::const_iterator citr = this->cbegin();
+				int counter = 0;
+				for (citr; citr != this->cend(); citr++, counter++)
+					if (counter == _index)
+						return citr;
+			}
+		}
 	};
 
 	template <typename T>
@@ -195,22 +286,12 @@ namespace CADS
 
 	// Overloaded Operators definitions
 	template<typename T>
-	T& List<T>::operator[](const size_t& _index) {
-		if (_index == m_length - 1)
-			return m_tail->node_data;
-		else if (_index == 0)
-			return m_head->node_data;
-		else
-			return get_node(_index)->node_data;
+	T& List<T>::operator[](const int& _index) {
+		return *(this->at(_index));
 	}
 	template<typename T>
-	const T& List<T>::operator[](const size_t& _index) const {
-		if (_index == m_length - 1)
-			return m_tail->node_data;
-		else if (_index == 0)
-			return m_head->node_data;
-		else
-			return get_node(_index)->node_data;
+	const T& List<T>::operator[](const int& _index) const {
+		return *(this->at(_index));
 	}
 	template <typename T>
 	bool List<T>::operator==(List<T>& other) const {
@@ -420,26 +501,6 @@ namespace CADS
 		return response;
 	}
 
-	// Interface definitions
-	template<typename T>
-	T& List<T>::at(const size_t& index) {
-		return noexcept(get_node(index)->node_data);
-	}
-	template<typename T>
-	const T& List<T>::at(const size_t& index) const {
-		return noexcept(get_node(index)->node_data);
-	}
-	template <typename T>
-	void List<T>::clear() {
-		Node* traveler = m_head;
-		//Node* temp;
-		while (traveler != nullptr) {
-			Node* temp = traveler->next;
-			delete traveler;
-			traveler = temp;
-			m_length--;
-		}
-	}
 	template<typename T>
 	void List<T>::display() const {
 		Node* traveler = m_head;
