@@ -106,9 +106,10 @@ namespace learn
 		void reverse();
 		void shuffle();
 		size_t size();
-		//List<T> slice(const int&, const int&) const;
+		List<T> slice_to(const unsigned int&, const unsigned int&) const;
 		List<T> slice(const unsigned int&, size_t&) const;
-		void splice(const int&, size_t&);
+		void splice_to(const unsigned int&, const unsigned int&);
+		void splice(const unsigned int&, size_t&);
 		void sort(bool ASC = true);
 		Pair<List<T>>& split(unsigned int);
 		void swap(unsigned int, unsigned int);
@@ -667,33 +668,17 @@ namespace learn
 		return sizeof(T) * m_length;
 	}
 
-	//template <typename T>
-	//List<T> List<T>::slice(const int& start_index, const int& end_index) const {
-	//	List<T> sliced_list;
-	//	
-	//	if ((start_index >= 0) && (end_index >= start_index)) {	// No support for negative indexes
-	//	
-	//		Node* starting_node = get_node(start_index);
-	//		Node* terminating_node = get_node(end_index);		// The execution of this can be made more efficient. How?
-	//		Node* travelling_node = starting_node;
-	//
-	//		sliced_list.insert(starting_node->node_data);
-	//
-	//		while (travelling_node != terminating_node) {
-	//			travelling_node = travelling_node->next_node;
-	//			if (travelling_node == nullptr)
-	//				break;
-	//			sliced_list.insert(travelling_node->node_data);
-	//		}
-	//
-	//		// The following line will lead to addition of tail twice
-	//		//sliced_list.insert(terminating_node->node_data)	// This will lead to duplication at end.
-	//		return sliced_list;
-	//
-	//	}
-	//
-	//	return sliced_list;
-	//}
+	template <typename T>
+	List<T> List<T>::slice_to(const unsigned int& start_index, const unsigned int& end_index) const {
+		
+		if ((start_index < m_length) && (end_index > start_index)) {
+			size_t slice_size = end_index - start_index;
+			return slice(start_index, slice_size + 1);		// Why plus one?
+		}
+
+		List<T> empty;
+		return empty;
+	}
 
 	template <typename T>
 	List<T> List<T>::slice(const unsigned int& start_index, size_t& size) const {
@@ -715,6 +700,8 @@ namespace learn
 				return sliced_list;
 			}
 			else {
+
+				size++;		// Why?
 				
 				while (size != 0) {
 					if (traveler == nullptr)
@@ -733,7 +720,27 @@ namespace learn
 	}
 
 	template <typename T>
-	void List<T>::splice(const int& start_index, size_t& size) {
+	void List<T>::splice_to(const unsigned int& start_index, const unsigned int& end_index) {
+
+		if ((start_index < m_length) && (end_index > start_index)) {
+			size_t splice_size = end_index - start_index;
+			splice(start_index, splice_size);
+		}
+
+	}
+
+	template <typename T>
+	void List<T>::splice(const unsigned int& start_index, size_t& size) {
+
+		if (start_index < m_length) {
+			if (size > m_length)
+				trim_head(start_index);
+			else {
+				unsigned int trim_tail_by = m_length - (start_index + size);
+				trim_tail(--trim_tail_by);
+				trim_head(start_index);				// Why did we trim tail before head?
+			}
+		}
 
 	}
 

@@ -14,9 +14,10 @@ int main() {
 		test.insert(rand() % 101);
 	}
 	test.display();
-	size_t var = 4;
+	size_t var = 5;
 
-	test.slice(-4, var).display();
+	test.slice(3, var).display();
+	test.display();
 
 	// Snippet to test negative indexes
 	/*
