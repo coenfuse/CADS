@@ -106,8 +106,8 @@ namespace learn
 		void reverse();
 		void shuffle();
 		size_t size();
-		List<T> slice(const int&, const int&) const;
-		List<T> slice(const int&, size_t&) const;
+		//List<T> slice(const int&, const int&) const;
+		List<T> slice(const unsigned int&, size_t&) const;
 		void splice(const int&, size_t&);
 		void sort(bool ASC = true);
 		Pair<List<T>>& split(unsigned int);
@@ -667,19 +667,73 @@ namespace learn
 		return sizeof(T) * m_length;
 	}
 
-	template <typename T>
-	List<T> List<T>::slice(const int& start_index, const int& end_index) const {
-		List<T> sliced_list;
-		
-		if (start_index !< 0) {
+	//template <typename T>
+	//List<T> List<T>::slice(const int& start_index, const int& end_index) const {
+	//	List<T> sliced_list;
+	//	
+	//	if ((start_index >= 0) && (end_index >= start_index)) {	// No support for negative indexes
+	//	
+	//		Node* starting_node = get_node(start_index);
+	//		Node* terminating_node = get_node(end_index);		// The execution of this can be made more efficient. How?
+	//		Node* travelling_node = starting_node;
+	//
+	//		sliced_list.insert(starting_node->node_data);
+	//
+	//		while (travelling_node != terminating_node) {
+	//			travelling_node = travelling_node->next_node;
+	//			if (travelling_node == nullptr)
+	//				break;
+	//			sliced_list.insert(travelling_node->node_data);
+	//		}
+	//
+	//		// The following line will lead to addition of tail twice
+	//		//sliced_list.insert(terminating_node->node_data)	// This will lead to duplication at end.
+	//		return sliced_list;
+	//
+	//	}
+	//
+	//	return sliced_list;
+	//}
 
+	template <typename T>
+	List<T> List<T>::slice(const unsigned int& start_index, size_t& size) const {
+
+		List<T> sliced_list;
+
+		if (start_index <= m_length) {	// Negative indexes not supported
+
+			Node* starting_index = get_node(start_index);
+			Node* traveler = starting_index;
+
+			if (size > m_length) {
+				
+				while (traveler != nullptr) {	// Slicing from starting index to end
+					sliced_list.insert(traveler->node_data);
+					traveler = traveler->next_node;
+				}
+				
+				return sliced_list;
+			}
+			else {
+				
+				while (size != 0) {
+					if (traveler == nullptr)
+						break;
+					sliced_list.insert(traveler->node_data);
+					traveler = traveler->next_node;
+					size--;
+				}
+				
+				return sliced_list;
+			}
 		}
 
 		return sliced_list;
+
 	}
 
 	template <typename T>
-	List<T> List<T>::slice(const int& start_index, size_t& size) const {
+	void List<T>::splice(const int& start_index, size_t& size) {
 
 	}
 
