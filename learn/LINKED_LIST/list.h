@@ -106,6 +106,9 @@ namespace learn
 		void reverse();
 		void shuffle();
 		size_t size();
+		List<T> slice(const int&, const int&) const;
+		List<T> slice(const int&, size_t&) const;
+		void splice(const int&, size_t&);
 		void sort(bool ASC = true);
 		Pair<List<T>>& split(unsigned int);
 		void swap(unsigned int, unsigned int);
@@ -663,6 +666,23 @@ namespace learn
 	size_t List<T>::size() {
 		return sizeof(T) * m_length;
 	}
+
+	template <typename T>
+	List<T> List<T>::slice(const int& start_index, const int& end_index) const {
+		List<T> sliced_list;
+		
+		if (start_index !< 0) {
+
+		}
+
+		return sliced_list;
+	}
+
+	template <typename T>
+	List<T> List<T>::slice(const int& start_index, size_t& size) const {
+
+	}
+
 	template <typename T>
 	void List<T>::sort(bool ASC) {
 		if (ASC) {
@@ -730,6 +750,7 @@ namespace learn
 			}
 		}
 	}
+
 	template <typename T>
 	Pair<List<T>>& List<T>::split(unsigned int split_from_index) {
 		List<T> first_halve, second_halve;
