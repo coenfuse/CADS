@@ -18,6 +18,9 @@ as possible while trying not to overstuff trivial features.
 ## Development
 Currently the author is having a good time messing up with iterators and sorting algorithms.
 Since this is a very early version of the project, this documentation is subject to frequent changes.
+I am trying to keep the development process as architecturally logical as possible. The development is running in parallel on two branches named [LEARN]() and [CADS]().
+Both of these branches contain a sub-branch for each type of data structure or algorithm or whatever that is written in them. It is planned to merge both the branches of CADS and LEARN
+along with their sub-branches into main seamlessly. I'm also curious about how this goes.
 
 ### Learn
 - [ ] - Array
