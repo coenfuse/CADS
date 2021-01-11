@@ -40,7 +40,7 @@ Since this is a very early version of the project, this documentation is subject
 ### CADS
 - [ ] - Array
 - [ ] - Vector
-- [x] - Bi-Directional Linked List
+- [x] - [Bi-Directional Linked List]()
 - [ ] - Ring
 - [ ] - Stack
 - [ ] - Q
@@ -56,4 +56,5 @@ Since this is a very early version of the project, this documentation is subject
 
 ## Usage
 This project is uploaded as a MSVC project (project file included).
-Clone the repo and copy code in include folder into your project.
+Test cases and all the unit test code is included in the [main.cpp]() file. Each test can be initiated by uncommenting its section.
+For direct usage of this code. Download the [CADS]() folder present inside [src]() folder.

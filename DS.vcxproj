@@ -144,18 +144,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="driver.cpp" />
+    <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\ds.h" />
-    <ClInclude Include="include\LINKED_LIST\list.h" />
-    <ClInclude Include="include\LINKED_LIST\ring.h" />
+    <ClInclude Include="CADS\CADS.h" />
+    <ClInclude Include="CADS\LINKED_LIST\list.h" />
+    <ClInclude Include="CADS\LINKED_LIST\ring.h" />
     <ClInclude Include="learn\learn.h" />
     <ClInclude Include="learn\LINKED_LIST\direct.h" />
     <ClInclude Include="learn\LINKED_LIST\list.h" />
     <ClInclude Include="learn\LINKED_LIST\ring.h" />
     <ClInclude Include="learn\Q\ringq.h" />
     <ClInclude Include="learn\UTIL.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="README.md" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
