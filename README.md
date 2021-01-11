@@ -56,5 +56,5 @@ Since this is a very early version of the project, this documentation is subject
 
 ## Usage
 This project is uploaded as a MSVC project (project file included).
-Test cases and all the unit test code is included in the [main.cpp]() file. Each test can be initiated by uncommenting its section.
-For direct usage of this code. Download the [CADS]() folder present inside [src]() folder.
+Test cases and all the unit test code is included in the [main]() file. Each test can be initiated by uncommenting its section.
+For direct usage of this code just clone the [CADS]() folder present inside the repository.
