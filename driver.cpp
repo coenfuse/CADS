@@ -16,7 +16,9 @@ int main() {
 	test.display();
 	size_t var = 5;
 
-	test.slice(3, var).display();
+	test.splice_to(3, 6);//.display();
+	test.display();
+	test.reverse();
 	test.display();
 
 	// Snippet to test negative indexes

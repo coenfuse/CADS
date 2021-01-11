@@ -44,7 +44,7 @@ namespace learn
 		Node* m_end = END;
 
 	private:
-		Node* get_node(unsigned int index) const {
+		Node* get_node(const size_t index) const {
 			if (index < m_length) {
 
 				Node* m_traveler = m_start;
@@ -113,8 +113,8 @@ namespace learn
 		void sort(bool ASC = true);
 		Pair<List<T>>& split(unsigned int);
 		void swap(unsigned int, unsigned int);
-		void trim_head(unsigned int);
-		void trim_tail(unsigned int);
+		void trim_head(const size_t);
+		void trim_tail(const size_t);
 
 		T& operator[](int);
 		T& operator[](int) const;
@@ -736,7 +736,7 @@ namespace learn
 			if (size > m_length)
 				trim_head(start_index);
 			else {
-				unsigned int trim_tail_by = m_length - (start_index + size);
+				size_t trim_tail_by = m_length - (start_index + size);
 				trim_tail(--trim_tail_by);
 				trim_head(start_index);				// Why did we trim tail before head?
 			}
@@ -911,7 +911,7 @@ namespace learn
 	}
 
 	template <typename T>
-	void List<T>::trim_head(unsigned int trim_by) {
+	void List<T>::trim_head(const size_t trim_by) {
 		/*
 		ITERATOR METHOD
 
@@ -920,7 +920,7 @@ namespace learn
 				remove_head();
 		*/
 
-		short trim_amount = m_length - trim_by;
+		size_t trim_amount = m_length - trim_by;
 		if (trim_amount > 0) {
 			if (m_length == trim_by) {
 				clear();
@@ -936,7 +936,7 @@ namespace learn
 	}
 
 	template <typename T>
-	void List<T>::trim_tail(unsigned int trim_by) {
+	void List<T>::trim_tail(const size_t trim_by) {
 		/*
 		ITERATOR METHOD
 
@@ -945,7 +945,7 @@ namespace learn
 				remove_tail();
 		*/
 
-		short trim_amount = m_length - trim_by;
+		size_t trim_amount = m_length - trim_by;
 		if (trim_amount > 0) {
 			if (m_length == trim_by) {
 				clear();
