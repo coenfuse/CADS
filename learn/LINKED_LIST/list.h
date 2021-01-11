@@ -44,7 +44,7 @@ namespace learn
 		Node* m_end = END;
 
 	private:
-		Node* get_node(unsigned int index) const {
+		Node* get_node(const size_t index) const {
 			if (index < m_length) {
 
 				Node* m_traveler = m_start;
@@ -106,11 +106,15 @@ namespace learn
 		void reverse();
 		void shuffle();
 		size_t size();
+		List<T> slice_to(const unsigned int&, const unsigned int&) const;
+		List<T> slice(const unsigned int&, size_t&) const;
+		void splice_to(const unsigned int&, const unsigned int&);
+		void splice(const unsigned int&, size_t&);
 		void sort(bool ASC = true);
 		Pair<List<T>>& split(unsigned int);
 		void swap(unsigned int, unsigned int);
-		void trim_head(unsigned int);
-		void trim_tail(unsigned int);
+		void trim_head(const size_t);
+		void trim_tail(const size_t);
 
 		T& operator[](int);
 		T& operator[](int) const;
@@ -663,6 +667,83 @@ namespace learn
 	size_t List<T>::size() {
 		return sizeof(T) * m_length;
 	}
+
+	template <typename T>
+	List<T> List<T>::slice_to(const unsigned int& start_index, const unsigned int& end_index) const {
+		
+		if ((start_index < m_length) && (end_index > start_index)) {
+			size_t slice_size = end_index - start_index;
+			return slice(start_index, slice_size + 1);		// Why plus one?
+		}
+
+		List<T> empty;
+		return empty;
+	}
+
+	template <typename T>
+	List<T> List<T>::slice(const unsigned int& start_index, size_t& size) const {
+
+		List<T> sliced_list;
+
+		if (start_index <= m_length) {	// Negative indexes not supported
+
+			Node* starting_index = get_node(start_index);
+			Node* traveler = starting_index;
+
+			if (size > m_length) {
+				
+				while (traveler != nullptr) {	// Slicing from starting index to end
+					sliced_list.insert(traveler->node_data);
+					traveler = traveler->next_node;
+				}
+				
+				return sliced_list;
+			}
+			else {
+
+				size++;		// Why?
+				
+				while (size != 0) {
+					if (traveler == nullptr)
+						break;
+					sliced_list.insert(traveler->node_data);
+					traveler = traveler->next_node;
+					size--;
+				}
+				
+				return sliced_list;
+			}
+		}
+
+		return sliced_list;
+
+	}
+
+	template <typename T>
+	void List<T>::splice_to(const unsigned int& start_index, const unsigned int& end_index) {
+
+		if ((start_index < m_length) && (end_index > start_index)) {
+			size_t splice_size = end_index - start_index;
+			splice(start_index, splice_size);
+		}
+
+	}
+
+	template <typename T>
+	void List<T>::splice(const unsigned int& start_index, size_t& size) {
+
+		if (start_index < m_length) {
+			if (size > m_length)
+				trim_head(start_index);
+			else {
+				size_t trim_tail_by = m_length - (start_index + size);
+				trim_tail(--trim_tail_by);
+				trim_head(start_index);				// Why did we trim tail before head?
+			}
+		}
+
+	}
+
 	template <typename T>
 	void List<T>::sort(bool ASC) {
 		if (ASC) {
@@ -730,6 +811,7 @@ namespace learn
 			}
 		}
 	}
+
 	template <typename T>
 	Pair<List<T>>& List<T>::split(unsigned int split_from_index) {
 		List<T> first_halve, second_halve;
@@ -829,7 +911,7 @@ namespace learn
 	}
 
 	template <typename T>
-	void List<T>::trim_head(unsigned int trim_by) {
+	void List<T>::trim_head(const size_t trim_by) {
 		/*
 		ITERATOR METHOD
 
@@ -838,7 +920,7 @@ namespace learn
 				remove_head();
 		*/
 
-		short trim_amount = m_length - trim_by;
+		size_t trim_amount = m_length - trim_by;
 		if (trim_amount > 0) {
 			if (m_length == trim_by) {
 				clear();
@@ -854,7 +936,7 @@ namespace learn
 	}
 
 	template <typename T>
-	void List<T>::trim_tail(unsigned int trim_by) {
+	void List<T>::trim_tail(const size_t trim_by) {
 		/*
 		ITERATOR METHOD
 
@@ -863,7 +945,7 @@ namespace learn
 				remove_tail();
 		*/
 
-		short trim_amount = m_length - trim_by;
+		size_t trim_amount = m_length - trim_by;
 		if (trim_amount > 0) {
 			if (m_length == trim_by) {
 				clear();

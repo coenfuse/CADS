@@ -8,7 +8,21 @@
 
 int main() {
 
+	//srand((unsigned int)time(NULL));
+	learn::List<int> test;
+	for (size_t i = 0; i < 10; i++) {
+		test.insert(rand() % 101);
+	}
+	test.display();
+	size_t var = 5;
+
+	test.splice_to(3, 6);//.display();
+	test.display();
+	test.reverse();
+	test.display();
+
 	// Snippet to test negative indexes
+	/*
 	srand((unsigned int)time(NULL));
 	CADS::List<int> test;
 	for (size_t i = 0; i < 5; i++) {
@@ -49,6 +63,7 @@ int main() {
 	//log(*test.at(100));		// Returns list.end()
 	//log(test[-32]);			// Returns nullptr
 	//log(test[76]);			// Returns nullptr
+	*/
 	
 	
 	// Snippet to compare sort()
