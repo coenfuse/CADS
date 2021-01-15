@@ -25,7 +25,7 @@ along with their sub-branches into main seamlessly. I'm also curious about how t
 ### Learn
 - [ ] - Array
 - [ ] - Vector
-- [x] - [Singly Linked List]()
+- [x] - [Singly Linked List](learn/LINKED_LIST/list.h)
 - [ ] - Bi-Directional Linked List
 - [ ] - Ring
 - [ ] - Stack
@@ -43,7 +43,7 @@ along with their sub-branches into main seamlessly. I'm also curious about how t
 ### CADS
 - [ ] - Array
 - [ ] - Vector
-- [x] - [Bi-Directional Linked List]()
+- [x] - [Bi-Directional Linked List](CADS/LINKED_LIST/list.h)
 - [ ] - Ring
 - [ ] - Stack
 - [ ] - Q
