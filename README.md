@@ -56,8 +56,12 @@ along with their sub-branches into main seamlessly. I'm also curious about how t
 - [ ] - Plane
 - *more later on.*
 
+## Testing CADS
+A proprietary testing wrapper has been defined in the CADS project that handles everything related to testing.
+Kindly read the [testing](src/testing/testing.md) documention for more information.
+
 
 ## Usage
 This project is uploaded as a MSVC project (project file included).
-Test cases and all the unit test code is included in the [main]() file. Each test can be initiated by uncommenting its section.
-For direct usage of this code just clone the [CADS]() folder present inside the repository.
+All the code related to start unit testing of any data type resides in the [main](src/main.cpp) file.
+For direct usage of in your projects, just clone the [CADS](CADS) folder present inside the repository.
