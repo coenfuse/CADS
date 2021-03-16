@@ -1,0 +1,9 @@
+
+CADS.sln
+CADS.vcxproj
+CADS.vcxproj.filters
+CppProperties.json
+CADS.vcxproj.user
+bin/*
+obj/*
+.vs
