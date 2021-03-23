@@ -1,5 +1,5 @@
 
-# CADS (v 0.0)
+# CADS (v 0.1.1.04)
 ##### Data Structures and Algorithms in C++
 ---
 
@@ -37,7 +37,8 @@ Kindly read the [testing](...) documentation **( _incomplete_ )** for more infor
 ## Dependencies
 
 CADS currently uses a few core C++ functions. Later on it will be completely detached from any dependency. Making it a completely independent library working out of the box. See the [development roadmap](https://drive.google.com/file/d/17Ft03dRXFYWrKtom0DVzPqHSylF1ATiC/view?usp=sharing) for more details.
+- <stdexcept>
 
 ## Contribution
 
-You need to wait for a bit. A pull-request standard is currently being theorized to improve bug-reporting and community assist. Updates in this regard will be announced shortly.
+A pull-request standard is currently being theorized to improve bug-reporting and community assist on this project. Updates in this regard will be announced shortly.
