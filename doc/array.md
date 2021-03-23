@@ -1,5 +1,6 @@
 
 
+
 # cads : : array
 
 
@@ -7,7 +8,7 @@ A simple wrapper for a fixed sized array. Consists of simple methods enclosed in
 a simple package that helps in reducing redundant code and improving code clarity.
 
 ## Features
-- Minimum exception throw.
+- Minimum usage of C++ exceptions.
 - Simple Implementation.
 - Thoroughly tested and all test cases included.
 
@@ -24,12 +25,6 @@ _Anchor tags for sub-headings aren't working. You'd have to manually scroll to b
 ## Member Functions
 
 - **[operator [ index ]](#operator-[])** : Two-way data indexing operator.
-- ...
-
-## Members (Private)
-- **crystal( )** : Brief description
-- **crystal( )** : Brief description
-- **crystal()** : Brief description
 
 ## Usage
 To use cads array in you code. First include the either of the following header file
@@ -115,47 +110,47 @@ int main(){
 
 ### Member Types
 
-#### container
+#### 1. container
 The actual array container inside this wrapper class. It is a regular array whose templated TYPE and SIZE that are determined on compile time.
 ```sh
 PTR container[SIZE];
 ```
 
-#### CONST_REF
+#### 2. CONST_REF
 An alias for `const TYPE&` just for the sake of improving the readability of the code.
 ```sh
 using CONST_REF = const TYPE&;
 ```
 
-#### CONST_REF
+#### 3. CONST_REF
 An alias for `const TYPE*` just for the sake of improving the readability of the code.
 ```sh
 using CONST_PTR = const TYPE*;
 ```
 
-#### PTR
+#### 4. PTR
 An alias for `TYPE*` just for the sake of improving the readability of the code.
 ```sh
 using PTR = TYPE*;
 ```
 
-#### REF
+#### 5. REF
 An alias for `TYPE&` just for the sake of improving the readability of the code.
 ```sh
 using REF = TYPE&;
 ```
 
-#### SIZE
+#### 6. SIZE
 Templated value of type `size_t` that is used everytime a new array is initialized. It is also helpful in getting the size of the wrapper in constant time. The `size()` method returns thie SIZE value without the need to iterate over whole container to know it's size. 
 
-#### TYPE
+#### 7. TYPE
 Similar to `SIZE`, it is a templated type variable that is decided at compile time. For more info about templates, Read : [Templates and Template Classes in C++](https://www.cprogramming.com/tutorial/templates.html)
 
 `template <typename TYPE, size_t SIZE>`
 
 ### Member Functions
 
-#### operator [ index ]
+#### 1. operator [ index ]
 Overloaded operator for index based addressing. This operator gives direct access to any of the data member present in the container at the specified index. This operator doesn't incorporates bound checking and throws an exception when it happens.
 It is called two-way indexing operator (for the lack of better word) because the user can both access the data from and assign data to the container.
 A constant variant of this operator is also available. It is used when the container is initialized as a constant type.
@@ -182,13 +177,10 @@ int main(){
 }
 ```
 We need to use an intializer list like this:
-**'const cads::array<int,10> const_array = {1,2,3,4,5}'**
+**'const cads::array<int,10> const_array = {1, 2, 3 ,4, 5}'**
 to initialize our container with the specified values.
+
 _Functionality for automatic conversion of initializer list to array is scheduled for future updates._
-
-### Member Functions (Private)
-
-#### crystal ( )
 
 ## Contributions
 Seeking.
