@@ -1,3 +1,4 @@
+
 # CADS (v 0.0)
 ##### Data Structures and Algorithms in C++
 ---
@@ -10,20 +11,19 @@ CADS is a simple, learner friendly and fully customizable, Data Structure and Al
 
 ## Features
 
-- Heavily documented, Explaining smallest the smallest of its features and nuances in great detail.
+- Heavily documented, Explaining the smallest of its features and nuances in great detail.
 - Using common English words and method names to improve read-ability.
 - Healthy balance of inheritance and code duplication to provide most optimum performance.
 - Bundled with a complete testing system so user can test the performance of library and fidelity of its claims.
 - No performance drop as compared to the STL.
 - Appropriate for both novices and seasoned developers of any programming language.
 
-## Dependencies
-
-CADS currently uses a few core C++ functions. Later on it will be completely detached from any dependency. Making it a completely independent library working out of the box. See the [development roadmap](https://drive.google.com/file/d/17Ft03dRXFYWrKtom0DVzPqHSylF1ATiC/view?usp=sharing) for more details.
+## Containers
+- [**Array**](src/cads/array.h) : Read documentation [here](doc/array.md)
 
 ## How to Use
 
-In it's nascent state, CADS currently doesn't have any proprietary installer with it. One can just download the /src folder from the repo and add into their project.
+In it's nascent state, CADS currently doesn't have any proprietary installer with it. One can just download the `/src` folder from the repo and add into their project.
 
 ## Development
 
@@ -32,8 +32,12 @@ The development roadmap can be found [**_here_**](https://drive.google.com/file/
 
 ## Testing CADS
 A proprietary testing wrapper has been defined in the CADS project that handles everything related to testing.
-Kindly read the [testing](...) documention for more information.
+Kindly read the [testing](...) documentation **( _incomplete_ )** for more information.
+
+## Dependencies
+
+CADS currently uses a few core C++ functions. Later on it will be completely detached from any dependency. Making it a completely independent library working out of the box. See the [development roadmap](https://drive.google.com/file/d/17Ft03dRXFYWrKtom0DVzPqHSylF1ATiC/view?usp=sharing) for more details.
 
 ## Contribution
 
-You need to wait for a bit. A pull-request standard is currently being theorized to improve bug-reporting and community assist. Updates in this regard will be annouced shortly.
+You need to wait for a bit. A pull-request standard is currently being theorized to improve bug-reporting and community assist. Updates in this regard will be announced shortly.

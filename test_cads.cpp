@@ -1,6 +1,7 @@
 #include "test/test.h"
 
 int main(){
+	
 	// How to run these tests?
 	// ---------------------------------------
 	// Just change the initialization parameter of test object creation to your

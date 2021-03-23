@@ -5,6 +5,7 @@
 #include <chrono>
 #include <thread>
 #include <iostream>
+#include "../src/CADS.h"
 
 const static enum class TYPE {
 	array,
