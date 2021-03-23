@@ -7,7 +7,8 @@ namespace cads {
 
 		// Private containers are defined here below
 
-		T* container;
+		T container[SIZE];
+		size_t fill_level;
 
 		// Private methods are defined here below
 
@@ -16,7 +17,7 @@ namespace cads {
 		// Publicly available ctors and dtors are defined below
 
 		array() {
-			container = new T[SIZE];
+			//container = new T[SIZE];
 			fill_level = 0;
 		}
 

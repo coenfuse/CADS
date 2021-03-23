@@ -10,11 +10,11 @@ void testing::test_array() {
 
 	cads::array<int, 20> test;
 	for (size_t index = 0; index < 10; index++) {
-		
+		test[index] = 15;
 		//test.at(index) = 10;		// This shouldn't work
 	}
 
 	std::cout << test.size() << std::endl;
-	std::cout << test.max_size() << std::endl;
-	std::cout << test.vacant() << std::endl;
+	//std::cout << test.max_size() << std::endl;
+	//std::cout << test.vacant() << std::endl;
 }
