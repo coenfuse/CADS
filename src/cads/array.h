@@ -1,6 +1,5 @@
 #pragma once
-
-// TODO Clean all the explainatory comments from the code. And then add it into the documentation.
+#include <stdexcept>
 
 namespace cads {
 
@@ -14,7 +13,7 @@ namespace cads {
 
 		// Private containers are defined here below
 
-		PTR container;
+		TYPE container[SIZE];
 
 		// Private methods are defined here below
 
@@ -22,7 +21,7 @@ namespace cads {
 
 		// Publicly available ctors and dtors are defined below
 
-		array() : container(new TYPE[SIZE]) {}
+		array(){}
 
 		// Define Parameterized Constructor here
 		// Define Copy Constructor here
@@ -31,7 +30,17 @@ namespace cads {
 
 		// Publicly available operator overloads are defined below
 
-		REF operator[](size_t& _index);
+		REF operator[](size_t& _index) {
+			if (_index >= SIZE || _index < 0)
+				throw std::out_of_range("Index out of valid range");	// TODO : Remove this std exception class dependency.
+			return container[_index];
+		}
+
+		CONST_REF operator[](size_t& _index) const {
+			if (_index >= SIZE || _index < 0)
+				throw std::out_of_range("Index out of valid range");	// TODO : Remove this std exception class dependency.
+			return container[_index];
+		}
 
 		// Publicly available methods are defined below.
 

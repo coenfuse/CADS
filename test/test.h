@@ -217,7 +217,7 @@ public:
 			break;
 		}
 
-		std::cout << "\nAll Tests are finished.\n" << std::endl;
+		std::cout << "\nAll Tests finished.\n" << std::endl;
 
 		Timer.stop();
 
