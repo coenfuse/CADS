@@ -21,9 +21,9 @@ void square_operator() {
 		test_result = true;
 	}
 
-	if (test_result) std::cout << "Unit Test 1 : PASSED (Assign using square operator)\n";
+	if (test_result) std::cout << "Unit Test 1 : PASSED (Could assign using square operator)\n";
 	else {
-		std::cout << "Unit Test 1 : FAILED (Assign using square operator)\n";
+		std::cout << "Unit Test 1 : FAILED (Couldn't assign using square operator)\n";
 	}
 
 	for (size_t index = 0; index < test_size_const; index++) {
@@ -48,9 +48,9 @@ void square_operator() {
 		}
 	}
 
-	if (test_result) std::cout << "Unit Test 2 : PASSED (Access using sqaure operator)\n";
+	if (test_result) std::cout << "Unit Test 2 : PASSED (Could access using sqaure operator)\n";
 	else {
-		std::cout << "Unit Test 2 : FAILED (Access using sqaure operator)\n";
+		std::cout << "Unit Test 2 : FAILED (Couldn't access using sqaure operator)\n";
 	}
 
 	for (size_t index = test_size_const + 1;			// Initializing with out-of bounds index
@@ -69,9 +69,9 @@ void square_operator() {
 		break;						// Test failed. Stop subsequent iterations.
 	}
 
-	if (test_result) std::cout << "Unit Test 3 : PASSED (Index out of bounds check)\n";
+	if (test_result) std::cout << "Unit Test 3 : PASSED (Thrown exception for invalid index)\n";
 	else {
-		std::cout << "Unit Test 3 : FAILED (Index out of bounds check)\n";
+		std::cout << "Unit Test 3 : FAILED (Didn't throw exception for invalid index)\n";
 	}
 
 	std::cout << "Finished testing sqaure brackets operator\n";
@@ -80,9 +80,73 @@ void square_operator() {
 
 void at_member() {
 
+	bool test_result = false;
+	cads::array<int, test_size_const> test_container;
+
 	std::cout << "\nTesting at( ) member function\n";
 
-	//	Unit testing code goes here...
+	for (size_t index = 0; index < 10; index++) {
+		try {
+			//test_container.at(index) = index * index;			// Shows compilation error. Passed
+			throw std::invalid_argument("Cannot assign to const lvalue");
+		}
+		catch (...) {
+			test_result = true;
+			continue;
+		}
+		test_result = false;
+		break;
+	}
+
+	if (test_result)
+		std::cout << "Unit Test 1 : PASSED (Couldn't assign using at() method)\n";
+	else {
+		std::cout << "Unit Test 1 : FAILED (Could assign using at() method)\n";
+	}
+
+	for (size_t index = 0; index < test_size_const; index++) {
+		
+		test_container[index] = (int)(index * index);	// Fill
+		switch (test_container.at(index))					// Read
+		{
+		case 0:
+		case 1:
+		case 4:
+		case 9:
+		case 16:
+		case 25:
+		case 36:
+		case 49:
+		case 64:
+		case 81: test_result = true;
+			break;
+		default: { test_result = false; break; }
+			break;
+		}
+
+	}
+
+	if (test_result)
+		std::cout << "Unit Test 2 : PASSED (Could access using at() method)\n";
+	else {
+		std::cout << "Unit Test 2 : FAILED (Couldn't access using at() operator)\n";
+	}
+
+	for (size_t index = rand(); index < rand(); index++) {
+		if (index >= test_size_const)				// Skip valid indexes
+		{
+			if (test_container.at(index) == cads::array<int, test_size_const>::NPOS)
+				test_result = true;
+			else
+				test_result = false;
+		}
+	}
+
+	if (test_result)
+		std::cout << "Unit Test 3 : PASSED (NPOS returned at invalid indexes in at() method)\n";
+	else {
+		std::cout << "Unit Test 2 : FAILED (Unhandled invalid indexes in at() method)\n";
+	}
 
 	std::cout << "Finished testing at( ) member function\n";
 

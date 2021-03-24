@@ -28,6 +28,12 @@ namespace cads {
 
 		~array(){}
 
+		// Publicly available members defined here
+		
+		static constexpr auto NPOS{
+			static_cast<TYPE>(-1)
+		};
+
 		// Publicly available operator overloads are defined below
 
 		REF operator[](size_t& _index) {
@@ -43,6 +49,12 @@ namespace cads {
 		}
 
 		// Publicly available methods are defined below.
+
+		CONST_REF at(size_t& _index) {
+			if (_index >= 0 && _index < SIZE)
+				return container[_index];
+			return (REF)NPOS;
+		}
 
 	};
 
