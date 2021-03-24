@@ -37,7 +37,7 @@ Kindly read the [testing](...) documentation **( _incomplete_ )** for more infor
 ## Dependencies
 
 CADS currently uses a few core C++ functions. Later on it will be completely detached from any dependency. Making it a completely independent library working out of the box. See the [development roadmap](https://drive.google.com/file/d/17Ft03dRXFYWrKtom0DVzPqHSylF1ATiC/view?usp=sharing) for more details.
-- <stdexcept>
+- **[stdexcept](https://en.cppreference.com/w/cpp/header/stdexcept)**
 
 ## Contribution
 

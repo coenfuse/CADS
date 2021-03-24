@@ -1,6 +1,5 @@
 # cads : : array
 
-
 A simple wrapper for a fixed sized array. Consists of simple methods enclosed in
 a simple package that helps in reducing redundant code and improving code clarity.
 
