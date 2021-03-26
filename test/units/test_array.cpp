@@ -494,6 +494,25 @@ void is_empty_member() {
 
 }
 
+void length_member() {
+	bool test_result = true;
+	cads::array<int, test_size_const> test_container;
+
+	std::cout << "\nTesting length( ) member function\n";
+	std::cout << "----------------------------------------\n";
+
+	test_result = (test_size_const == test_container.length());
+
+	if (test_result)
+		std::cout << "Unit Test 1 : PASSED (Container returning correct number of elements inside of it)\n";
+	else {
+		std::cout << "Unit Test 1 : FAILED (Container returning incorrect number of elements inside of it)\n";
+	}
+
+	std::cout << "----------------------------------------\n";
+	std::cout << "Finished testing length( ) member function\n";
+}
+
 void size_member() {
 	bool test_result = true;
 	cads::array<int, test_size_const> test_container;
@@ -527,6 +546,7 @@ void testing::test_array() {
 	fill_member();
 	front_member();
 	is_empty_member();
+	length_member();
 	size_member();
 	std::cout << "\nArray test module finished" << std::endl;
 	

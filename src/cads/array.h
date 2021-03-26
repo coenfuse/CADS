@@ -95,6 +95,11 @@ namespace cads {
 			//return start == end;
 		}
 
+		// Returns the number of elements container can store
+		size_t length() {
+			return SIZE;
+		}
+
 		// Returns the total size of the container in bytes
 		size_t size() {
 			return SIZE * sizeof(TYPE);

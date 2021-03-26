@@ -1,4 +1,4 @@
-# CADS (v 0.1.1.18)
+# CADS (v 0.1.1.19)
 ##### Data Structures and Algorithms in C++
 ---
 
