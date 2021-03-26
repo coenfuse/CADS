@@ -73,6 +73,15 @@ namespace cads {
 		PTR data() {
 			return container;
 		}
+
+		// Checks whether container is empty or not (Experimental)
+		bool is_empty() {
+			for (size_t index = 0; index < SIZE; index++)
+				if (container[index] != static_cast<TYPE>(0))
+					return false;
+			return true;
+			//return start == end;
+		}
 		
 	};
 

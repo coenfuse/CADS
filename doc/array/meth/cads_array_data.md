@@ -1,6 +1,7 @@
 # cads : : array : : data ( )
 
  - **return type** : [PTR](../member_types.md)
+- **time complexity** : constant
 
 Member function that returns a pointer to the internal container of the array.
 It basically sends the address of the first element inside of the internal container. Furthermore, it sends a pointer to internal container and not a copy of the container itself.

@@ -28,6 +28,7 @@ a simple package that helps in reducing redundant code and improving code clarit
 - **[back( )](array/meth/cads_array_back.md)** : Returns last element in the array
 - **[clear( )](array/meth/cads_array_clear.md)** : Clears the array container
 - **[data( )](array/meth/cads_array_data.md)** : Returns pointer to internal container
+- **[is_empty( )](array/meth/cads_array_is_empty.md)** : Checks the container if its empty
 
 ## Usage
 To use cads array in you code. First include the either of the following header file
@@ -74,7 +75,7 @@ int main(){
 - [x] data( )
 - [ ] fill( )
 - [ ] front( )
-- [ ] is_empty( )
+- [x] is_empty( )
 - [x] operator[ ]
 - [ ] size( )
 - [ ] swap( )

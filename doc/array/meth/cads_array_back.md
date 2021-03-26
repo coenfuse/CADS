@@ -1,6 +1,7 @@
 # cads : : array : : back ( )
 
- - **return type** : const reference
+ - **return type** : [CONST_REF](../member_types.md)
+ - **time complexity** : constant
 
 Member function that returns a constant reference to element stored at the last index of the container.
 

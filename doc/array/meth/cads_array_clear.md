@@ -1,6 +1,7 @@
 # cads : : array : : clear ( )
 
  - **return type** : void
+ - **time complexity** : O(n)
 
 Member function that clears the array container by filling it with zeroes.
 The zeroes used to overwrite the whole array are static_cast to initializtion type as : **`static_cast<TYPE>(0);`**

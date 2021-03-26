@@ -1,5 +1,7 @@
 # cads : : array : : array ( array<TYPE,SIZE>& )
 
+- **time complexity** : O(n)
+
 Default copy constructor for **`cads::array`** container. It initializes the newly created container with all the values of container that is being copied.
 Initialization takes linear time. Since arrays have fixed size, both the arrays should have same type and size. No conversion exists as of now.
 

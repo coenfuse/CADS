@@ -1,5 +1,8 @@
 # cads : : array : : operator [ index ]
 
+ - **return type** : [REF](../member_types.md)
+ - **time complexity** : constant
+
 Overloaded operator for index based addressing. This operator gives direct access to any of the data member present in the container at the specified index.
 ```sh
 cads::array<type,size>array_container;

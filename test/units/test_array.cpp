@@ -308,6 +308,51 @@ void data_member() {
 	std::cout << "Finished testing data( ) member function\n";
 }
 
+void is_empty_member() {
+
+	bool test_result = true;
+	cads::array<int, test_size_const> test_container;
+
+	std::cout << "\nTesting is_empty( ) member function\n";
+	std::cout << "----------------------------------------\n";
+
+	test_result = test_container.is_empty();
+
+	if (test_result)
+		std::cout << "Unit Test 1 : PASSED (Initialized array identified as empty)\n";
+	else
+		std::cout << "Unit Test 1 : FAILED (Inititalized array identified as non-empty)\n";
+
+	fill_array(test_container);
+	test_result = test_container.is_empty();
+
+	if (!test_result)
+		std::cout << "Unit Test 2 : PASSED (Randomly filled array identified as non-empty)\n";
+	else
+		std::cout << "Unit Test 2 : FAILED (Randomly filled array identified as empty)\n";
+
+	test_container.clear();
+	test_result = test_container.is_empty();
+
+	if (test_result)
+		std::cout << "Unit Test 3 : PASSED (Cleared array identified as empty)\n";
+	else
+		std::cout << "Unit Test 3 : FAILED (Cleared array identified as non-empty)\n";
+
+	fill_array(test_container, true);
+	test_result = test_container.is_empty();
+
+	if (test_result)
+		std::cout << "Unit Test 4 : PASSED (FALSE POSITIVE : Array filled with zeroes identified as empty)\n";
+	else
+		std::cout << "Unit Test 4 : FAILED (UNRELIABLE : Array filled with zeroes identified as non-empty)\n";
+
+
+	std::cout << "----------------------------------------\n";
+	std::cout << "Finished testing is_empty( ) member function\n";
+
+}
+
 void testing::test_array() {
 
 	// Consists of all the code for unit testing the array data structure.
@@ -319,6 +364,7 @@ void testing::test_array() {
 	back_member();
 	clear_member();
 	data_member();
+	is_empty_member();
 	std::cout << "\nArray test module finished" << std::endl;
 	
 }

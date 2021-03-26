@@ -1,5 +1,7 @@
 # cads : : array : : array ( )
 
+- **time complexity** : O(n)
+
 Default constructor for **`cads::array`** container. It initializes the whole container with value 0 upon invocation.
 Initialization takes linear time and can be omitted by removing the loop from constructor's definition.
 
