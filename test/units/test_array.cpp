@@ -1,15 +1,15 @@
 #include <iostream>
 #include "../test.h"
 #include <array>
+#include <string>
 
-//const size_t test_size_const = 10;
 #define TEST_SIZE 10
-#define TEST_TYPE bool
+#define TEST_TYPE unsigned char
 
 void fill_array(cads::array<TEST_TYPE, TEST_SIZE>& _to_fill, bool fill_with_zero = false) {
 	for (size_t index = 0; index < TEST_SIZE; index++) {
 		if (fill_with_zero)
-			_to_fill[index] = 0;
+			_to_fill[index] = static_cast<TEST_TYPE>(0);
 		else
 			_to_fill[index] = rand() % 1000;
 	}
@@ -32,7 +32,7 @@ void init_test(){
 	std::cout << "----------------------------------------\n";
 
 	for (size_t index = 0; index < TEST_SIZE; index++) {
-		if (test_container[index] == 0)
+		if (test_container[index] == static_cast<TEST_TYPE>(0))
 			test_result = true;
 		else
 			test_result = false;
@@ -101,18 +101,18 @@ void square_operator() {
 		log_result(1, test_result, "Couldn't assign using square operator");
 
 	for (size_t index = 0; index < TEST_SIZE; index++) {
-		switch (test_container[index])
+		switch ((int)(test_container[index]))
 		{
-		case 0:
-		case 1:
-		case 4:
-		case 9:
-		case 16:
-		case 25:
-		case 36:
-		case 49:
-		case 64:
-		case 81: test_result = true;
+		case int(0):
+		case int(1):
+		case int(4):
+		case int(9):
+		case int(16):
+		case int(25):
+		case int(36):
+		case int(49):
+		case int(64):
+		case int(81): test_result = true;
 			break;
 		default: {
 			test_result = false;
@@ -160,7 +160,7 @@ void back_member() {
 	std::cout << "\nTesting back( ) member function\n";
 	std::cout << "----------------------------------------\n";
 
-	if (test_container.back() == 0)
+	if (test_container.back() == static_cast<TEST_TYPE>(0))
 		test_result = true;
 	else
 		test_result = false;
@@ -196,7 +196,7 @@ void back_member() {
 	else
 		log_result(3, test_result, "Was able to assign value to container");
 
-	int var = test_container.back();
+	TEST_TYPE var = test_container.back();
 	try {
 		var++;
 		++var;
@@ -252,7 +252,7 @@ void clear_member() {
 	test_container.clear();
 
 	for (size_t index = 0; index < TEST_SIZE; index++) {
-		if (test_container[index] == 0)
+		if (test_container[index] == static_cast<TEST_TYPE>(0))
 			test_result = true;
 		else
 			test_result = false;
@@ -295,7 +295,7 @@ void data_member() {
 	test_container.clear();
 
 	for (size_t index = 0; index < TEST_SIZE; index++) {
-		if (data_container[index] == static_cast<int>(0))
+		if (data_container[index] == static_cast<TEST_TYPE>(0))
 			test_result = true;
 		else
 			test_result = false;
@@ -365,7 +365,7 @@ void front_member() {
 	std::cout << "\nTesting front( ) member function\n";
 	std::cout << "----------------------------------------\n";
 
-	if (test_container.front() == 0)
+	if (test_container.front() == static_cast<TEST_TYPE>(0))
 		test_result = true;
 	else
 		test_result = false;
@@ -401,7 +401,7 @@ void front_member() {
 	else
 		log_result(3, test_result, "Was able to assign value to container");
 
-	int var = test_container.front();
+	TEST_TYPE var = test_container.front();
 	try {
 		var++;
 		++var;
@@ -581,7 +581,7 @@ void swap_member() {
 		size_t swap_this = rand() % TEST_SIZE;
 		size_t with_this = rand() % TEST_SIZE;
 
-		int temp = expected[swap_this];
+		TEST_TYPE temp = expected[swap_this];
 		expected[swap_this] = expected[with_this];
 		expected[with_this] = temp;
 
