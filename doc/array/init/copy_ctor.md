@@ -16,7 +16,7 @@ int main(){
 
 	cads::array<int, 5> copy_container = array_container;
 
-	for(size_t i = 0; i < 10; i++){
+	for(size_t i = 0; i < 5; i++){
 		std::cout << copy_container[index] << ", ";
 	}
 

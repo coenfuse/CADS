@@ -1,6 +1,6 @@
 # cads : : array : : data ( )
 
- - **return type** : pointer type
+ - **return type** : [PTR](../member_types.md)
 
 Member function that returns a pointer to the internal container of the array.
 It basically sends the address of the first element inside of the internal container. Furthermore, it sends a pointer to internal container and not a copy of the container itself.
