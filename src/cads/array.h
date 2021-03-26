@@ -94,6 +94,11 @@ namespace cads {
 			return true;
 			//return start == end;
 		}
+
+		// Returns the total size of the container in bytes
+		size_t size() {
+			return SIZE * sizeof(TYPE);
+		}
 		
 	};
 

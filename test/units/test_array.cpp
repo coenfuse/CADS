@@ -494,6 +494,25 @@ void is_empty_member() {
 
 }
 
+void size_member() {
+	bool test_result = true;
+	cads::array<int, test_size_const> test_container;
+
+	std::cout << "\nTesting size( ) member function\n";
+	std::cout << "----------------------------------------\n";
+
+	test_result = (test_size_const * sizeof(int) == test_container.size());
+
+	if (test_result)
+		std::cout << "Unit Test 1 : PASSED (Container returning correct size)\n";
+	else {
+		std::cout << "Unit Test 1 : FAILED (Container returning incorrect size)\n";
+	}
+
+	std::cout << "----------------------------------------\n";
+	std::cout << "Finished testing size( ) member function\n";
+}
+
 void testing::test_array() {
 
 	// Consists of all the code for unit testing the array data structure.
@@ -508,6 +527,7 @@ void testing::test_array() {
 	fill_member();
 	front_member();
 	is_empty_member();
+	size_member();
 	std::cout << "\nArray test module finished" << std::endl;
 	
 }

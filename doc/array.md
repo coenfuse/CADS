@@ -31,6 +31,7 @@ a simple package that helps in reducing redundant code and improving code clarit
 - **[fill( )](array/meth/cads_array_fill.md)** : Fills the container with specified value
 - **[front( )](array/meth/cads_array_front.md)** : Returns first element in the array
 - **[is_empty( )](array/meth/cads_array_is_empty.md)** : Checks the container if its empty
+- **[size( )](array/meth/cads_array_is_size.md)** : Returns total size of container
 
 ## Usage
 To use cads array in you code. First include the either of the following header file
