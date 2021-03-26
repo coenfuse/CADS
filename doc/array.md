@@ -71,7 +71,7 @@ int main(){
 - [x] Copy Constuctor
 - [x] back( )
 - [x] clear( )
-- [ ] data( )
+- [x] data( )
 - [ ] fill( )
 - [ ] front( )
 - [ ] is_empty( )
