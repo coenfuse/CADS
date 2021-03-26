@@ -3,8 +3,11 @@
 #include <array>
 
 const size_t test_size_const = 10;
-void fill_array(cads::array<int, test_size_const>& _to_fill, bool fill_with_zero = false) {
-	for (size_t index = 0; index < test_size_const; index++) {
+#define TEST_SIZE 10
+#define TEST_TYPE int
+
+void fill_array(cads::array<TEST_TYPE, TEST_SIZE>& _to_fill, bool fill_with_zero = false) {
+	for (size_t index = 0; index < TEST_SIZE; index++) {
 		if (fill_with_zero)
 			_to_fill[index] = 0;
 		else
@@ -14,12 +17,12 @@ void fill_array(cads::array<int, test_size_const>& _to_fill, bool fill_with_zero
 
 void init_test(){
 	bool test_result = true;
-	cads::array<int, test_size_const> test_container;
+	cads::array<TEST_TYPE, TEST_SIZE> test_container;
 
 	std::cout << "Testing Initialization\n";
 	std::cout << "----------------------------------------\n";
 
-	for (size_t index = 0; index < test_size_const; index++) {
+	for (size_t index = 0; index < TEST_SIZE; index++) {
 		if (test_container[index] == 0)
 			test_result = true;
 		else
@@ -27,7 +30,7 @@ void init_test(){
 	}
 
 	if (test_result)
-		std::cout << "Unit Test 1 : PASSED (Container initialized with 0)\n";
+		std::cout << "Unit Test 1 : PASSED (Container initialized with 0's)\n";
 	else {
 		std::cout << "Unit Test 1 : FAILED (Container filled with garbage values)\n";
 	}
@@ -38,16 +41,16 @@ void init_test(){
 
 void copy_ctor() {
 	bool test_result = true;
-	cads::array<int, test_size_const> base_container;
+	cads::array<TEST_TYPE, TEST_SIZE> base_container;
 
 	std::cout << "\nTesting Copy Constructor\n";
 	std::cout << "----------------------------------------\n";
 
 	fill_array(base_container);
 
-	cads::array<int, test_size_const> copy_container = base_container;
+	cads::array<TEST_TYPE, TEST_SIZE> copy_container = base_container;
 
-	for (size_t index = 0; index < test_size_const; index++) {
+	for (size_t index = 0; index < TEST_SIZE; index++) {
 		if (base_container[index] == copy_container[index])
 			test_result = true;
 		else {
@@ -57,7 +60,7 @@ void copy_ctor() {
 	}
 
 	if (test_result)
-		std::cout << "Unit Test 1 : PASSED (Copy ctor successfully copied contents to other.)\n";
+		std::cout << "Unit Test 1 : PASSED (Copy ctor successfully copied contents to other)\n";
 	else {
 		std::cout << "Unit Test 1 : FAILED (Copy ctor failed in copying contents to other.)\n";
 	}
@@ -69,12 +72,12 @@ void copy_ctor() {
 void square_operator() {
 
 	bool test_result = false;
-	cads::array<int, test_size_const> test_container;
+	cads::array<TEST_TYPE, TEST_SIZE> test_container;
 
 	std::cout << "\nTesting [ ] operator\n";
 	std::cout << "----------------------------------------\n";
 
-	for (size_t index = 0; index < test_size_const; index++) {
+	for (size_t index = 0; index < TEST_SIZE; index++) {
 		try {
 			test_container[index] = (int)(index * index);
 		}
@@ -90,7 +93,7 @@ void square_operator() {
 		std::cout << "Unit Test 1 : FAILED (Couldn't assign using square operator)\n";
 	}
 
-	for (size_t index = 0; index < test_size_const; index++) {
+	for (size_t index = 0; index < TEST_SIZE; index++) {
 		switch (test_container[index])
 		{
 		case 0:
@@ -118,7 +121,7 @@ void square_operator() {
 	}
 
 	for (size_t index = test_size_const + 1;			// Initializing with out-of bounds index
-		index < test_size_const * test_size_const;		// Some random loop limit
+		index < TEST_SIZE * 100;
 		index++) {
 
 		try {
@@ -145,7 +148,7 @@ void square_operator() {
 
 void back_member() {
 	bool test_result = true;
-	cads::array<int, test_size_const> test_container;
+	cads::array<TEST_TYPE, TEST_SIZE> test_container;
 
 	std::cout << "\nTesting back( ) member function\n";
 	std::cout << "----------------------------------------\n";
@@ -163,7 +166,7 @@ void back_member() {
 
 	fill_array(test_container);
 
-	if (test_container.back() == test_container[test_size_const - 1])
+	if (test_container.back() == test_container[TEST_SIZE - 1])
 		test_result = true;
 	else
 		test_result = false;
@@ -236,8 +239,8 @@ void back_member() {
 
 void clear_member() {
 	bool test_result = true;
-	cads::array<int, test_size_const> test_container;
-	const cads::array<int, test_size_const> const_container;
+	cads::array<TEST_TYPE, TEST_SIZE> test_container;
+	const cads::array<TEST_TYPE, TEST_SIZE> const_container;
 
 	std::cout << "\nTesting clear( ) member function\n";
 	std::cout << "----------------------------------------\n";
@@ -246,7 +249,7 @@ void clear_member() {
 
 	test_container.clear();
 
-	for (size_t index = 0; index < test_size_const; index++) {
+	for (size_t index = 0; index < TEST_SIZE; index++) {
 		if (test_container[index] == 0)
 			test_result = true;
 		else
@@ -265,7 +268,7 @@ void clear_member() {
 
 void data_member() {
 	bool test_result = true;
-	cads::array<int, test_size_const> test_container;
+	cads::array<TEST_TYPE, TEST_SIZE> test_container;
 
 	std::cout << "\nTesting data( ) member function\n";
 	std::cout << "----------------------------------------\n";
@@ -274,7 +277,7 @@ void data_member() {
 
 	int* data_container = test_container.data();
 
-	for (size_t index = 0; index < test_size_const; index++) {
+	for (size_t index = 0; index < TEST_SIZE; index++) {
 		if (data_container[index] == test_container[index])
 			test_result = true;
 		else {
@@ -291,7 +294,7 @@ void data_member() {
 
 	test_container.clear();
 
-	for (size_t index = 0; index < test_size_const; index++) {
+	for (size_t index = 0; index < TEST_SIZE; index++) {
 		if (data_container[index] == static_cast<int>(0))
 			test_result = true;
 		else
@@ -310,7 +313,7 @@ void data_member() {
 
 void fill_member() {
 	bool test_result = true;
-	cads::array<int, test_size_const> test_container;
+	cads::array<TEST_TYPE, TEST_SIZE> test_container;
 
 	std::cout << "\nTesting fill( ) member function\n";
 	std::cout << "----------------------------------------\n";
@@ -318,7 +321,7 @@ void fill_member() {
 	int to_fill = rand();
 	test_container.fill(to_fill);
 
-	for (size_t index = 0; index < test_size_const; index++) {
+	for (size_t index = 0; index < TEST_SIZE; index++) {
 		if (test_container[index] == to_fill) {
 			test_result = true;
 			continue;
@@ -337,7 +340,7 @@ void fill_member() {
 
 	test_container.fill(68 + 1);
 
-	for (size_t index = 0; index < test_size_const; index++) {
+	for (size_t index = 0; index < TEST_SIZE; index++) {
 		if (test_container[index] == 69) {
 			test_result = true;
 			continue;
@@ -360,7 +363,7 @@ void fill_member() {
 
 void front_member() {
 	bool test_result = true;
-	cads::array<int, test_size_const> test_container;
+	cads::array<TEST_TYPE, TEST_SIZE> test_container;
 
 	std::cout << "\nTesting front( ) member function\n";
 	std::cout << "----------------------------------------\n";
@@ -446,13 +449,13 @@ void front_member() {
 	}
 
 	std::cout << "----------------------------------------\n";
-	std::cout << "Finished testing back( ) member function\n";
+	std::cout << "Finished testing front( ) member function\n";
 }
 
 void is_empty_member() {
 
 	bool test_result = true;
-	cads::array<int, test_size_const> test_container;
+	cads::array<TEST_TYPE, TEST_SIZE> test_container;
 
 	std::cout << "\nTesting is_empty( ) member function\n";
 	std::cout << "----------------------------------------\n";
@@ -496,12 +499,12 @@ void is_empty_member() {
 
 void length_member() {
 	bool test_result = true;
-	cads::array<int, test_size_const> test_container;
+	cads::array<TEST_TYPE, TEST_SIZE> test_container;
 
 	std::cout << "\nTesting length( ) member function\n";
 	std::cout << "----------------------------------------\n";
 
-	test_result = (test_size_const == test_container.length());
+	test_result = (TEST_SIZE == test_container.length());
 
 	if (test_result)
 		std::cout << "Unit Test 1 : PASSED (Container returning correct number of elements inside of it)\n";
@@ -515,12 +518,12 @@ void length_member() {
 
 void size_member() {
 	bool test_result = true;
-	cads::array<int, test_size_const> test_container;
+	cads::array<TEST_TYPE, TEST_SIZE> test_container;
 
 	std::cout << "\nTesting size( ) member function\n";
 	std::cout << "----------------------------------------\n";
 
-	test_result = (test_size_const * sizeof(int) == test_container.size());
+	test_result = (TEST_SIZE * sizeof(int) == test_container.size());
 
 	if (test_result)
 		std::cout << "Unit Test 1 : PASSED (Container returning correct size)\n";
@@ -534,7 +537,7 @@ void size_member() {
 
 void swap_member() {
 	bool test_result = true;
-	cads::array<int, test_size_const> original, expected;
+	cads::array<TEST_TYPE, TEST_SIZE> original, expected;
 
 	std::cout << "\nTesting swap( ) member function\n";
 	std::cout << "----------------------------------------\n";
@@ -543,7 +546,7 @@ void swap_member() {
 	expected = original;
 
 	original.swap(14, 2);
-	for (size_t index = 0; index < test_size_const; index++) {
+	for (size_t index = 0; index < TEST_SIZE; index++) {
 		if (original[index] != expected[index]) {
 			test_result = false;
 			break;
@@ -558,7 +561,7 @@ void swap_member() {
 	}
 
 	original.swap(5, 26);
-	for (size_t index = 0; index < test_size_const; index++) {
+	for (size_t index = 0; index < TEST_SIZE; index++) {
 		if (original[index] != expected[index]) {
 			test_result = false;
 			break;
@@ -573,7 +576,7 @@ void swap_member() {
 	}
 
 	original.swap(89, 26);
-	for (size_t index = 0; index < test_size_const; index++) {
+	for (size_t index = 0; index < TEST_SIZE; index++) {
 		if (original[index] != expected[index]) {
 			test_result = false;
 			break;
@@ -588,8 +591,8 @@ void swap_member() {
 	}
 
 	for (int i = 0; i < 1000; i++) {
-		size_t swap_this = rand() % test_size_const;
-		size_t with_this = rand() % test_size_const;
+		size_t swap_this = rand() % TEST_SIZE;
+		size_t with_this = rand() % TEST_SIZE;
 
 		int temp = expected[swap_this];
 		expected[swap_this] = expected[with_this];
@@ -597,7 +600,7 @@ void swap_member() {
 
 		original.swap(swap_this, with_this);
 
-		for (size_t index = 0; index < test_size_const; index++) {
+		for (size_t index = 0; index < TEST_SIZE; index++) {
 			if (original[index] != expected[index]) {
 				test_result = false;
 				break;
@@ -614,7 +617,7 @@ void swap_member() {
 
 	expected = original;
 	original.swap(5, 5);
-	for (size_t index = 0; index < test_size_const; index++) {
+	for (size_t index = 0; index < TEST_SIZE; index++) {
 		if (original[index] != expected[index]) {
 			test_result = false;
 			break;
