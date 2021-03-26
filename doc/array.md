@@ -29,6 +29,7 @@ a simple package that helps in reducing redundant code and improving code clarit
 - **[clear( )](array/meth/cads_array_clear.md)** : Clears the array container
 - **[data( )](array/meth/cads_array_data.md)** : Returns pointer to internal container
 - **[fill( )](array/meth/cads_array_fill.md)** : Fills the container with specified value
+- **[front( )](array/meth/cads_array_front.md)** : Returns first element in the array
 - **[is_empty( )](array/meth/cads_array_is_empty.md)** : Checks the container if its empty
 
 ## Usage

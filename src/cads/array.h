@@ -80,6 +80,12 @@ namespace cads {
 				container[index] = _to_fill;
 		}
 
+		// Returns const reference to element at starting index of the container.
+		CONST_REF front() {
+			return container[0];
+			// return begin;
+		}
+
 		// Checks whether container is empty or not (Experimental)
 		bool is_empty() {
 			for (size_t index = 0; index < SIZE; index++)
