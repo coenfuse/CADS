@@ -56,6 +56,11 @@ namespace cads {
 		}
 
 		// Publicly available methods are defined below.
+
+		// Returns const reference to element at last index of the container.
+		CONST_REF back() {
+			return container[SIZE - 1];
+		}
 		
 	};
 

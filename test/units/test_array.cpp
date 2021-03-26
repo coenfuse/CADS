@@ -66,6 +66,97 @@ void copy_ctor() {
 	std::cout << "Finished testing Copy Constructor\n";
 }
 
+void back_member() {
+	bool test_result = true;
+	cads::array<int, test_size_const> test_container;
+
+	std::cout << "\nTesting back( ) member function\n";
+	std::cout << "----------------------------------------\n";
+
+	if (test_container.back() == 0)
+		test_result = true;
+	else
+		test_result = false;
+
+	if (test_result)
+		std::cout << "Unit Test 1 : PASSED (Valid value returned from empty container)\n";
+	else {
+		std::cout << "Unit Test 1 : FAILED (Invalid value returned from empty container)\n";
+	}
+
+	fill_array(test_container);
+
+	if (test_container.back() == test_container[test_size_const - 1])
+		test_result = true;
+	else
+		test_result = false;
+
+	if (test_result)
+		std::cout << "Unit Test 2 : PASSED (Valid value returned from filled container)\n";
+	else {
+		std::cout << "Unit Test 2 : FAILED (Invalid value returned from filled container)\n";
+	}
+
+	try {
+		test_result = false;
+		//test_container.back() = 69;			// Syntax Error
+		throw std::invalid_argument("Can't assign to lvalue");
+	}
+	catch (...) {
+		test_result = true;
+	}
+
+	if (test_result)
+		std::cout << "Unit Test 3 : PASSED (Wasn't able to assign value to container)\n";
+	else {
+		std::cout << "Unit Test 3 : FAILED (Was able to assign value to container.)\n";
+	}
+
+	int var = test_container.back();
+	try {
+		var++;
+		++var;
+		var += var;
+		var -= var;
+		var *= var;
+		if (var != 0)
+			var /= var;
+	}
+	catch (...) {
+		test_result = false;
+	}
+
+	if (test_result)
+		std::cout << "Unit Test 4 : PASSED (Value returned by member is mutable)\n";
+	else {
+		std::cout << "Unit Test 4 : FAILED (Value returned by member isn't mutable)\n";
+	}
+
+	try {
+		test_result = false;
+		/*
+			test_container.back()++;
+			++(test_container.back());
+			test_container.back() += test_container.back();
+			test_container.back() -= test_container.back();
+			test_container.back() *= test_container.back();
+		*/
+		throw std::invalid_argument("Can't assign to lvalue");
+	}
+	catch (...) {
+		test_result = true;
+	}
+
+	if (test_result)
+		std::cout << "Unit Test 5 : PASSED (Member isn't allowing alteration of container)\n";
+	else {
+		std::cout << "Unit Test 5 : FAILED (Member is allowing alteration of container)\n";
+	}
+
+	std::cout << "----------------------------------------\n";
+	std::cout << "Finished testing back( ) member function\n";
+}
+
 void square_operator() {
 	
 	bool test_result = false;
@@ -150,6 +241,7 @@ void testing::test_array() {
 	std::cout << "Array test module running.\n\n";
 	init_test();
 	copy_ctor();
+	back_member();
 	square_operator();
 	std::cout << "\nArray test module finished" << std::endl;
 	

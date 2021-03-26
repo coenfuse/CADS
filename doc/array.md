@@ -66,12 +66,12 @@ int main(){
 #### **V1**
 - [x] Default Constuctor
 - [x] Copy Constuctor
-- [ ] back( )
+- [x] back( )
 - [ ] clear( )
 - [ ] data( )
 - [ ] fill( )
 - [ ] front( )
-- [ ] is_empty()
+- [ ] is_empty( )
 - [x] operator[ ]
 - [ ] size( )
 - [ ] swap( )
