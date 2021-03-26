@@ -532,6 +532,106 @@ void size_member() {
 	std::cout << "Finished testing size( ) member function\n";
 }
 
+void swap_member() {
+	bool test_result = true;
+	cads::array<int, test_size_const> original, expected;
+
+	std::cout << "\nTesting swap( ) member function\n";
+	std::cout << "----------------------------------------\n";
+
+	fill_array(original);
+	expected = original;
+
+	original.swap(14, 2);
+	for (size_t index = 0; index < test_size_const; index++) {
+		if (original[index] != expected[index]) {
+			test_result = false;
+			break;
+		}
+		test_result = true;
+	}
+
+	if (test_result)
+		std::cout << "Unit Test 1 : PASSED (Handled invalid first index)\n";
+	else {
+		std::cout << "Unit Test 1 : FAILED (Couldn't handle invalid first index)\n";
+	}
+
+	original.swap(5, 26);
+	for (size_t index = 0; index < test_size_const; index++) {
+		if (original[index] != expected[index]) {
+			test_result = false;
+			break;
+		}
+		test_result = true;
+	}
+
+	if (test_result)
+		std::cout << "Unit Test 2 : PASSED (Handled invalid second index)\n";
+	else {
+		std::cout << "Unit Test 2 : FAILED (Couldn't handle invalid second index)\n";
+	}
+
+	original.swap(89, 26);
+	for (size_t index = 0; index < test_size_const; index++) {
+		if (original[index] != expected[index]) {
+			test_result = false;
+			break;
+		}
+		test_result = true;
+	}
+
+	if (test_result)
+		std::cout << "Unit Test 3 : PASSED (Handled both invalid indexes)\n";
+	else {
+		std::cout << "Unit Test 3 : FAILED (Couldn't handle both invalid indexes)\n";
+	}
+
+	for (int i = 0; i < 1000; i++) {
+		size_t swap_this = rand() % test_size_const;
+		size_t with_this = rand() % test_size_const;
+
+		int temp = expected[swap_this];
+		expected[swap_this] = expected[with_this];
+		expected[with_this] = temp;
+
+		original.swap(swap_this, with_this);
+
+		for (size_t index = 0; index < test_size_const; index++) {
+			if (original[index] != expected[index]) {
+				test_result = false;
+				break;
+			}
+			test_result = true;
+		}
+	}
+
+	if (test_result)
+		std::cout << "Unit Test 4 : PASSED (Successful swapping of valid indexes)\n";
+	else {
+		std::cout << "Unit Test 4 : FAILED (Unsuccessful swapping of valid indexes)\n";
+	}
+
+	expected = original;
+	original.swap(5, 5);
+	for (size_t index = 0; index < test_size_const; index++) {
+		if (original[index] != expected[index]) {
+			test_result = false;
+			break;
+		}
+		test_result = true;
+	}
+
+	if (test_result)
+		std::cout << "Unit Test 5 : PASSED (Integrity maintained when same swapping indexes are given)\n";
+	else {
+		std::cout << "Unit Test 5 : FAILED (Abnormal behavior when same swapping indexes are given)\n";
+	}
+
+	std::cout << "----------------------------------------\n";
+	std::cout << "Finished testing swap( ) member function\n";
+}
+
 void testing::test_array() {
 
 	// Consists of all the code for unit testing the array data structure.
@@ -548,6 +648,7 @@ void testing::test_array() {
 	is_empty_member();
 	length_member();
 	size_member();
+	swap_member();
 	std::cout << "\nArray test module finished" << std::endl;
 	
 }

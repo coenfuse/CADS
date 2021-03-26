@@ -104,6 +104,15 @@ namespace cads {
 		size_t size() {
 			return SIZE * sizeof(TYPE);
 		}
+
+		// Swaps the elements stored at specified indexes inside the container
+		void swap(const size_t _index_A, const size_t _index_B) {
+			if (_index_A < SIZE && _index_B < SIZE) {
+				TYPE temp = container[_index_A];
+				container[_index_A] = container[_index_B];
+				container[_index_B] = temp;
+			}
+		}
 		
 	};
 

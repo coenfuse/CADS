@@ -33,6 +33,7 @@ a simple package that helps in reducing redundant code and improving code clarit
 - **[is_empty( )](array/meth/cads_array_is_empty.md)** : Checks the container if its empty
 - **[length( )](array/meth/cads_array_length.md)** : Returns total elements container can store
 - **[size( )](array/meth/cads_array_size.md)** : Returns total size of container
+- **[swap( )](array/meth/cads_array_swap.md)** : Swaps two elements inside the container
 
 ## Usage
 To use cads array in you code. First include the either of the following header file
@@ -83,7 +84,7 @@ int main(){
 - [x] length( )
 - [x] operator[ ]
 - [x] size( )
-- [ ] swap( )
+- [x] swap( )
 
 #### **V2**
 - [ ] Copy Constuctor (Convertible)
