@@ -263,6 +263,51 @@ void clear_member() {
 	std::cout << "Finished testing clear( ) member function\n";
 }
 
+void data_member() {
+	bool test_result = true;
+	cads::array<int, test_size_const> test_container;
+
+	std::cout << "\nTesting data( ) member function\n";
+	std::cout << "----------------------------------------\n";
+
+	fill_array(test_container);
+
+	int* data_container = test_container.data();
+
+	for (size_t index = 0; index < test_size_const; index++) {
+		if (data_container[index] == test_container[index])
+			test_result = true;
+		else {
+			test_result = false;
+			break;
+		}
+	}
+
+	if (test_result)
+		std::cout << "Unit Test 1 : PASSED (Successful reference. Member working normally)\n";
+	else {
+		std::cout << "Unit Test 1 : FAILED (Unsuccessful reference. Member not working normally)\n";
+	}
+
+	test_container.clear();
+
+	for (size_t index = 0; index < test_size_const; index++) {
+		if (data_container[index] == static_cast<int>(0))
+			test_result = true;
+		else
+			test_result = false;
+	}
+
+	if (test_result)
+		std::cout << "Unit Test 2 : PASSED (Returned a reference to internal container)\n";
+	else {
+		std::cout << "Unit Test 2 : FAILED (Returned a copy of internal container)\n";
+	}
+
+	std::cout << "----------------------------------------\n";
+	std::cout << "Finished testing data( ) member function\n";
+}
+
 void testing::test_array() {
 
 	// Consists of all the code for unit testing the array data structure.
@@ -273,6 +318,7 @@ void testing::test_array() {
 	square_operator();
 	back_member();
 	clear_member();
+	data_member();
 	std::cout << "\nArray test module finished" << std::endl;
 	
 }

@@ -68,6 +68,11 @@ namespace cads {
 				container[index] = static_cast<TYPE>(0);
 			// begin = end = 0;
 		}
+
+		// Returns pointer to the interal container.
+		PTR data() {
+			return container;
+		}
 		
 	};
 
