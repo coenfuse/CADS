@@ -4,7 +4,7 @@
 
 #include <chrono>
 #include <thread>
-#include <iostream>
+#include "util/ansi_color.h"
 #include "../src/CADS.h"
 
 const static enum class TYPE {
