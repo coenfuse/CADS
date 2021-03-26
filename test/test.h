@@ -148,8 +148,6 @@ public:
 	~testing(){}
 
 	void run() {
-
-		std::cout << "Testing initiated\n" << std::endl;
 		
 		Timer.start();
 		
@@ -216,8 +214,6 @@ public:
 		default:
 			break;
 		}
-
-		std::cout << "\nAll Tests finished.\n" << std::endl;
 
 		Timer.stop();
 

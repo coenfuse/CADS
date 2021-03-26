@@ -19,8 +19,10 @@ a simple package that helps in reducing redundant code and improving code clarit
 
 ## Member Functions
 
-- **[operator [ size_t index ]](array/square_bracket_operator.md)** : Two-way data indexing operator.
-- **[at(  size_t index )](array/cads_array_at.md)** : One-way data access method.
+- **[operator [ size_t index ]](array/overloads/square_bracket_operator.md)** : Two-way data indexing operator.
+---
+- **[array( )](array/init/def_ctor.md)** : Default constructor
+---
 
 ## Usage
 To use cads array in you code. First include the either of the following header file
@@ -61,25 +63,25 @@ int main(){
 ## Development Roadmap
 #### **V1**
 - [x] Default Constuctor
-- [x] at( )
+- [ ] Copy Constuctor
 - [ ] back( )
 - [ ] clear( )
 - [ ] data( )
-- [ ] is_empty( )
 - [ ] fill( )
 - [ ] front( )
+- [ ] is_empty()
 - [x] operator[ ]
 - [ ] size( )
 - [ ] swap( )
 
 #### **V2**
-- [ ] Copy Constuctor
 - [ ] operator=
 - [ ] operator==
 - [ ] operator!=
 - [ ] Pre-Increment / Post-Increment
 - [ ] Post-Increment / Post-Decrement
 - [ ] Relational Operator Overloads
+- [ ] at( )
 - [ ] begin( )
 - [ ] cbegin( )
 - [ ] cend( )

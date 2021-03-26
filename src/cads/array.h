@@ -21,10 +21,12 @@ namespace cads {
 
 		// Publicly available ctors and dtors are defined below
 
-		array(){}
+		array(){
+			for (size_t index = 0; index < SIZE; index++)
+				container[index] = static_cast<TYPE>(0);
+		}
 
-		// Define Parameterized Constructor here
-		// Define Copy Constructor here
+		// Define Initializer List Constructor here
 
 		~array(){}
 
@@ -36,26 +38,20 @@ namespace cads {
 
 		// Publicly available operator overloads are defined below
 
-		REF operator[](size_t& _index) {
-			if (_index >= SIZE || _index < 0)
-				throw std::out_of_range("Index out of valid range");	// TODO : Remove this std exception class dependency.
-			return container[_index];
+		REF operator[](const size_t& _index) {
+			if (_index >= 0 && _index < SIZE)
+				return container[_index];
+			throw std::out_of_range("Invalid index value");
 		}
 
-		CONST_REF operator[](size_t& _index) const {
-			if (_index >= SIZE || _index < 0)
-				throw std::out_of_range("Index out of valid range");	// TODO : Remove this std exception class dependency.
-			return container[_index];
+		CONST_REF operator[](const size_t& _index) const {
+			if (_index >= 0 && _index < SIZE)
+				return container[_index];
+			throw std::out_of_range("Invalid index value");
 		}
 
 		// Publicly available methods are defined below.
-
-		CONST_REF at(size_t& _index) {
-			if (_index >= 0 && _index < SIZE)
-				return container[_index];
-			return (REF)NPOS;
-		}
-
+		
 	};
 
 }

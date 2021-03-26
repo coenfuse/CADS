@@ -6,9 +6,8 @@ cads::array<type,size>array_container;
 array_container[size_t index];
 ```
 
-This operator doesn't incorporates bound checking and throws a **`std::out_of_range("Index out of valid range");`** exception whenever invalid index is given as input.
-
-It is called two-way indexing operator (for the lack of better word) because with this we can access the data from the container as well as assign data to it.
+This operator incorporates bound checking and throws a **`std::out_of_range("Index out of valid range");`** exception whenever invalid index is given as input.
+Returns a reference to the data located at the specified index in the contianer. Can be used to both read or assign data from or to the container.
 
 ```sh
 #include <iostream>
@@ -21,15 +20,23 @@ int main(){
 	}
 	
 	for(size_t i = 0; i < 10; i++){
-		std::cout << array_container[index] << ",";	// Accessing value from container
+		std::cout << array_container[index] << ",";	        // Accessing value from container
 	}
+
+    try{
+        std::cout << array_container[1000] << std::endl;    // Will throw an error
+    }
+    catch(std::out_of_range){
+        std::cout << "\nCouldn't access invalid index" << std::endl;
+    }
 	
 	return 0;
 }
 ```
 **Output :**
 ```sh
-0,1,4,9,16,25,36,49,64,81
+0,1,4,9,16,25,36,49,64,81,
+Couldn't access invalid index
 ```
 
 A constant variant of this operator is also available. It is automatically invoked when the container is initialized as a constant type.
