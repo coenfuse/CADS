@@ -36,6 +36,36 @@ void init_test(){
 	std::cout << "Finished testing initialization\n";
 }
 
+void copy_ctor() {
+	bool test_result = true;
+	cads::array<int, test_size_const> base_container;
+
+	std::cout << "\nTesting Copy Constructor\n";
+	std::cout << "----------------------------------------\n";
+
+	fill_array(base_container);
+
+	cads::array<int, test_size_const> copy_container = base_container;
+
+	for (size_t index = 0; index < test_size_const; index++) {
+		if (base_container[index] == copy_container[index])
+			test_result = true;
+		else {
+			test_result = false;
+			break;
+		}
+	}
+
+	if (test_result)
+		std::cout << "Unit Test 1 : PASSED (Copy ctor successfully copied contents to other.)\n";
+	else {
+		std::cout << "Unit Test 1 : FAILED (Copy ctor failed in copying contents to other.)\n";
+	}
+
+	std::cout << "----------------------------------------\n";
+	std::cout << "Finished testing Copy Constructor\n";
+}
+
 void square_operator() {
 	
 	bool test_result = false;
@@ -119,6 +149,7 @@ void testing::test_array() {
 
 	std::cout << "Array test module running.\n\n";
 	init_test();
+	copy_ctor();
 	square_operator();
 	std::cout << "\nArray test module finished" << std::endl;
 	

@@ -26,6 +26,11 @@ namespace cads {
 				container[index] = static_cast<TYPE>(0);
 		}
 
+		array(const array<TYPE, SIZE>& _second_array) {
+			for (size_t index = 0; index < SIZE; index++)
+				container[index] = _second_array[index];
+		}
+
 		// Define Initializer List Constructor here
 
 		~array(){}

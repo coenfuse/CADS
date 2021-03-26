@@ -22,6 +22,8 @@ a simple package that helps in reducing redundant code and improving code clarit
 - **[operator [ size_t index ]](array/overloads/square_bracket_operator.md)** : Two-way data indexing operator.
 ---
 - **[array( )](array/init/def_ctor.md)** : Default constructor
+- **[array( array<TYPE,SIZE>& )](array/init/copy_ctor.md)** : Copy constructor
+- **[~array( )](array/init/dtor.md)** : Default destructor
 ---
 
 ## Usage
@@ -38,20 +40,20 @@ cads::array<type,size> your_array;
 #include <iostream.h>
 #include "CADS.h"           // or #include "cads/array.h"
 int main(){
-    
+
     // Initializing the array container
     cads::array<int, 10> my_array;
-    
+
     // Filling the array
     for(size_t index = 0; index < 10; index++){
         my_array[index] = index * 2;
     }
-    
+
     // Printing the array on console
     for(size_t index = 0; index < 10; index++){
         std::cout << my_array[index] << ", " << std::endl;
     }
-    
+
     return 0;
 }
 ```
@@ -63,7 +65,7 @@ int main(){
 ## Development Roadmap
 #### **V1**
 - [x] Default Constuctor
-- [ ] Copy Constuctor
+- [x] Copy Constuctor
 - [ ] back( )
 - [ ] clear( )
 - [ ] data( )
@@ -75,6 +77,7 @@ int main(){
 - [ ] swap( )
 
 #### **V2**
+- [ ] Copy Constuctor (Convertible)
 - [ ] operator=
 - [ ] operator==
 - [ ] operator!=
