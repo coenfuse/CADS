@@ -308,6 +308,56 @@ void data_member() {
 	std::cout << "Finished testing data( ) member function\n";
 }
 
+void fill_member() {
+	bool test_result = true;
+	cads::array<int, test_size_const> test_container;
+
+	std::cout << "\nTesting fill( ) member function\n";
+	std::cout << "----------------------------------------\n";
+
+	int to_fill = rand();
+	test_container.fill(to_fill);
+
+	for (size_t index = 0; index < test_size_const; index++) {
+		if (test_container[index] == to_fill) {
+			test_result = true;
+			continue;
+		}
+		else {
+			test_result = false;
+			break;
+		}
+	}
+
+	if (test_result)
+		std::cout << "Unit Test 1 : PASSED (Array filled with var container)\n";
+	else {
+		std::cout << "Unit Test 1 : FAILED (Array not filled with var container)\n";
+	}
+
+	test_container.fill(68 + 1);
+
+	for (size_t index = 0; index < test_size_const; index++) {
+		if (test_container[index] == 69) {
+			test_result = true;
+			continue;
+		}
+		else {
+			test_result = false;
+			break;
+		}
+	}
+
+	if (test_result)
+		std::cout << "Unit Test 2 : PASSED (Array filled with constant)\n";
+	else {
+		std::cout << "Unit Test 2 : FAILED (Array not filled with constant)\n";
+	}
+
+	std::cout << "----------------------------------------\n";
+	std::cout << "Finished testing fill( ) member function\n";
+}
+
 void is_empty_member() {
 
 	bool test_result = true;
@@ -364,6 +414,7 @@ void testing::test_array() {
 	back_member();
 	clear_member();
 	data_member();
+	fill_member();
 	is_empty_member();
 	std::cout << "\nArray test module finished" << std::endl;
 	

@@ -74,6 +74,12 @@ namespace cads {
 			return container;
 		}
 
+		// Fills the array with specified value
+		void fill(CONST_REF _to_fill) {
+			for (size_t index = 0; index < SIZE; index++)
+				container[index] = _to_fill;
+		}
+
 		// Checks whether container is empty or not (Experimental)
 		bool is_empty() {
 			for (size_t index = 0; index < SIZE; index++)
