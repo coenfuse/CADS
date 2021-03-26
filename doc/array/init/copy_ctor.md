@@ -10,7 +10,7 @@ Initialization takes linear time. Since arrays have fixed size, both the arrays 
 int main(){
 	cads::array<int, 5> array_container;
 
-	for(size_t i = 0; i < 10; i++){
+	for(size_t i = 0; i < 5; i++){
 		array_container[index] = (int)(index * index);		// Assigning value to container.
 	}
 

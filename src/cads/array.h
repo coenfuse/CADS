@@ -61,6 +61,13 @@ namespace cads {
 		CONST_REF back() {
 			return container[SIZE - 1];
 		}
+
+		// Clears the container by filling it with 0.
+		void clear() {
+			for (size_t index = 0; index < SIZE; index++)
+				container[index] = static_cast<TYPE>(0);
+			// begin = end = 0;
+		}
 		
 	};
 

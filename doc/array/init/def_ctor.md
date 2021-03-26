@@ -8,7 +8,7 @@ Initialization takes linear time and can be omitted by removing the loop from co
 #include "cads/array.h"
 
 int main(){
-	cads::array<int, 5> array_container;
+	cads::array<int, 10> array_container;
 	
 	for(size_t i = 0; i < 10; i++){
 		std::cout << array_container[index] << ", ";

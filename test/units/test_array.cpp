@@ -66,6 +66,83 @@ void copy_ctor() {
 	std::cout << "Finished testing Copy Constructor\n";
 }
 
+void square_operator() {
+
+	bool test_result = false;
+	cads::array<int, test_size_const> test_container;
+
+	std::cout << "\nTesting [ ] operator\n";
+	std::cout << "----------------------------------------\n";
+
+	for (size_t index = 0; index < test_size_const; index++) {
+		try {
+			test_container[index] = (int)(index * index);
+		}
+		catch (...) {
+			test_result = false;
+			break;
+		}
+		test_result = true;
+	}
+
+	if (test_result) std::cout << "Unit Test 1 : PASSED (Could assign using square operator)\n";
+	else {
+		std::cout << "Unit Test 1 : FAILED (Couldn't assign using square operator)\n";
+	}
+
+	for (size_t index = 0; index < test_size_const; index++) {
+		switch (test_container[index])
+		{
+		case 0:
+		case 1:
+		case 4:
+		case 9:
+		case 16:
+		case 25:
+		case 36:
+		case 49:
+		case 64:
+		case 81: test_result = true;
+			break;
+		default: {
+			test_result = false;
+			break;
+		}
+			   break;
+		}
+	}
+
+	if (test_result) std::cout << "Unit Test 2 : PASSED (Could access using sqaure operator)\n";
+	else {
+		std::cout << "Unit Test 2 : FAILED (Couldn't access using sqaure operator)\n";
+	}
+
+	for (size_t index = test_size_const + 1;			// Initializing with out-of bounds index
+		index < test_size_const * test_size_const;		// Some random loop limit
+		index++) {
+
+		try {
+			test_container[index];
+		}
+		catch (std::out_of_range) {
+			test_result = true;		// Program did throw exception.
+			continue;				// Continue subsequent iterations.
+		}
+
+		test_result = false;		// Index out of bounds, didn't throw exception.
+		break;						// Test failed. Stop subsequent iterations.
+	}
+
+	if (test_result) std::cout << "Unit Test 3 : PASSED (Thrown exception for invalid index)\n";
+	else {
+		std::cout << "Unit Test 3 : FAILED (Didn't throw exception for invalid index)\n";
+	}
+
+	std::cout << "----------------------------------------\n";
+	std::cout << "Finished testing [ ] operator\n";
+
+}
+
 void back_member() {
 	bool test_result = true;
 	cads::array<int, test_size_const> test_container;
@@ -157,81 +234,33 @@ void back_member() {
 	std::cout << "Finished testing back( ) member function\n";
 }
 
-void square_operator() {
-	
-	bool test_result = false;
+void clear_member() {
+	bool test_result = true;
 	cads::array<int, test_size_const> test_container;
+	const cads::array<int, test_size_const> const_container;
 
-	std::cout << "\nTesting square brackets operator\n";
+	std::cout << "\nTesting clear( ) member function\n";
 	std::cout << "----------------------------------------\n";
 
-	for (size_t index = 0; index < test_size_const; index++) {
-		try {
-			test_container[index] = (int)(index * index);
-		}
-		catch (...) {
-			test_result = false;
-			break;
-		}
-		test_result = true;
-	}
+	fill_array(test_container);
 
-	if (test_result) std::cout << "Unit Test 1 : PASSED (Could assign using square operator)\n";
-	else {
-		std::cout << "Unit Test 1 : FAILED (Couldn't assign using square operator)\n";
-	}
+	test_container.clear();
 
 	for (size_t index = 0; index < test_size_const; index++) {
-		switch (test_container[index])
-		{
-		case 0:
-		case 1:
-		case 4:
-		case 9:
-		case 16:
-		case 25:
-		case 36:
-		case 49:
-		case 64:
-		case 81: test_result = true;
-			break;
-		default: {
+		if (test_container[index] == 0)
+			test_result = true;
+		else
 			test_result = false;
-			break; 
-		}
-			break;
-		}
 	}
 
-	if (test_result) std::cout << "Unit Test 2 : PASSED (Could access using sqaure operator)\n";
+	if (test_result)
+		std::cout << "Unit Test 1 : PASSED (Successfully cleared the container)\n";
 	else {
-		std::cout << "Unit Test 2 : FAILED (Couldn't access using sqaure operator)\n";
-	}
-
-	for (size_t index = test_size_const + 1;			// Initializing with out-of bounds index
-		index < test_size_const * test_size_const;		// Some random loop limit
-		index++) {
-		
-		try {
-			test_container[index];
-		}
-		catch (std::out_of_range) {
-			test_result = true;		// Program did throw exception.
-			continue;				// Continue subsequent iterations.
-		}
-		
-		test_result = false;		// Index out of bounds, didn't throw exception.
-		break;						// Test failed. Stop subsequent iterations.
-	}
-
-	if (test_result) std::cout << "Unit Test 3 : PASSED (Thrown exception for invalid index)\n";
-	else {
-		std::cout << "Unit Test 3 : FAILED (Didn't throw exception for invalid index)\n";
+		std::cout << "Unit Test 1 : FAILED (Clearning the container unsuccessful)\n";
 	}
 
 	std::cout << "----------------------------------------\n";
-	std::cout << "Finished testing sqaure brackets operator\n";
-
+	std::cout << "Finished testing clear( ) member function\n";
 }
 
 void testing::test_array() {
@@ -241,8 +270,9 @@ void testing::test_array() {
 	std::cout << "Array test module running.\n\n";
 	init_test();
 	copy_ctor();
-	back_member();
 	square_operator();
+	back_member();
+	clear_member();
 	std::cout << "\nArray test module finished" << std::endl;
 	
 }

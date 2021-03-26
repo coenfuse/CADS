@@ -25,6 +25,8 @@ a simple package that helps in reducing redundant code and improving code clarit
 - **[array( array<TYPE,SIZE>& )](array/init/copy_ctor.md)** : Copy constructor
 - **[~array( )](array/init/dtor.md)** : Default destructor
 ---
+- **[back( )](array/meth/cads_array_back.md)** : Returns last element in the array
+- **[clear( )](array/meth/cads_array_clear.md)** : Clears the array container
 
 ## Usage
 To use cads array in you code. First include the either of the following header file
@@ -67,7 +69,7 @@ int main(){
 - [x] Default Constuctor
 - [x] Copy Constuctor
 - [x] back( )
-- [ ] clear( )
+- [x] clear( )
 - [ ] data( )
 - [ ] fill( )
 - [ ] front( )
