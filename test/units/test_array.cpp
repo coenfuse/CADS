@@ -4,11 +4,19 @@
 #include <string>
 
 // TODO : Resolve tests failing at high number of TEST_SIZE
+// TODO : Add Custom Data Type Test Case
+// TODO : Make Testing documentation
+// TODO : Revise all these test cases carefully line by line before going into 
+// v0.1.1.14
+
+// Local Utility functions and defintions -------------------------------------
 
 #define TEST_SIZE 10
 #define TEST_TYPE unsigned char
 
-void fill_array(cads::array<TEST_TYPE, TEST_SIZE>& _to_fill, bool fill_with_zero = false) {
+void fill_array(
+	cads::array<TEST_TYPE, TEST_SIZE>& _to_fill, bool fill_with_zero = false
+) {
 	for (size_t index = 0; index < TEST_SIZE; index++) {
 		if (fill_with_zero)
 			_to_fill[index] = static_cast<TEST_TYPE>(0);
@@ -17,14 +25,16 @@ void fill_array(cads::array<TEST_TYPE, TEST_SIZE>& _to_fill, bool fill_with_zero
 	}
 }
 
-void log_result(unsigned int test_num, bool _result, const char* _message) {
+void log_result(
+	unsigned int test_num, bool _result, const char* _message
+) {
 	if (_result)
 		std::cout << "Unit Test "<< test_num << " : " << ansi::fg_green << "PASSED" << ansi::reset << " (" << _message << ")\n";
 	else
 		std::cout << "Unit Test " << test_num << " : " << ansi::fg_red << "FAILED" << ansi::reset << " (" << _message << ")\n";
 }
 
-// ----------------------------------------------------------------------------
+// Unit Tests for container's methods -----------------------------------------
 
 void init_test(){
 	bool test_result = true;
@@ -32,6 +42,8 @@ void init_test(){
 
 	std::cout << "Testing Initialization\n";
 	std::cout << "----------------------------------------\n";
+
+	// def_ctor() Unit Test 1
 
 	for (size_t index = 0; index < TEST_SIZE; index++) {
 		if (test_container[index] == static_cast<TEST_TYPE>(0))
@@ -46,7 +58,7 @@ void init_test(){
 		log_result(1, test_result, "Container filled with garbage values");
 
 	std::cout << "----------------------------------------\n";
-	std::cout << "Finished testing initialization\n";
+	std::cout << "Finished testing default constructor\n";
 }
 
 void copy_ctor() {
@@ -55,6 +67,8 @@ void copy_ctor() {
 
 	std::cout << "\nTesting Copy Constructor\n";
 	std::cout << "----------------------------------------\n";
+
+	// copy_ctor() Unit Test 1
 
 	fill_array(base_container);
 
@@ -86,6 +100,8 @@ void square_operator() {
 	std::cout << "\nTesting [ ] operator\n";
 	std::cout << "----------------------------------------\n";
 
+	// clear() Unit Test 1
+
 	for (size_t index = 0; index < TEST_SIZE; index++) {
 		try {
 			test_container[index] = (int)(index * index);
@@ -101,6 +117,8 @@ void square_operator() {
 		log_result(1, test_result, "Could assign using square operator");
 	else
 		log_result(1, test_result, "Couldn't assign using square operator");
+
+	// clear() Unit Test 2
 
 	for (size_t index = 0; index < TEST_SIZE; index++) {
 		switch ((int)(test_container[index]))
@@ -128,6 +146,8 @@ void square_operator() {
 		log_result(2, test_result, "Could access using square operator");
 	else
 		log_result(2, test_result, "Couldn't access using square operator");
+
+	// clear() Unit Test 3
 
 	for (size_t index = TEST_SIZE + 1;			// Initializing with out-of bounds index
 		index < TEST_SIZE * 100;
@@ -162,6 +182,8 @@ void back_member() {
 	std::cout << "\nTesting back( ) member function\n";
 	std::cout << "----------------------------------------\n";
 
+	// clear() Unit Test 1
+
 	if (test_container.back() == static_cast<TEST_TYPE>(0))
 		test_result = true;
 	else
@@ -171,6 +193,8 @@ void back_member() {
 		log_result(1, test_result, "Valid value returned from empty container");
 	else
 		log_result(1, test_result, "Invalid value returned from empty container");
+
+	// clear() Unit Test 2
 
 	fill_array(test_container);
 
@@ -183,6 +207,8 @@ void back_member() {
 		log_result(2, test_result, "Valid value returned from filled container");
 	else
 		log_result(2, test_result, "Invalid value returned from filled container");
+
+	// clear() Unit Test 3
 
 	try {
 		test_result = false;
@@ -197,6 +223,8 @@ void back_member() {
 		log_result(3, test_result, "Wasn't able to assign value to container");
 	else
 		log_result(3, test_result, "Was able to assign value to container");
+
+	// clear() Unit Test 4
 
 	TEST_TYPE var = test_container.back();
 	try {
@@ -216,6 +244,8 @@ void back_member() {
 		log_result(4, test_result, "Value returned by member is mutable");
 	else
 		log_result(4, test_result, "Value returned by member isn't mutable");
+
+	// clear() Unit Test 5
 
 	try {
 		test_result = false;
@@ -249,6 +279,8 @@ void clear_member() {
 	std::cout << "\nTesting clear( ) member function\n";
 	std::cout << "----------------------------------------\n";
 
+	// clear() Unit Test 1
+
 	fill_array(test_container);
 
 	test_container.clear();
@@ -276,6 +308,8 @@ void data_member() {
 	std::cout << "\nTesting data( ) member function\n";
 	std::cout << "----------------------------------------\n";
 
+	// data() Unit Test 1
+
 	fill_array(test_container);
 
 	TEST_TYPE* data_container = test_container.data();
@@ -293,6 +327,8 @@ void data_member() {
 		log_result(1, test_result, "Successful reference. Member working normally");
 	else
 		log_result(1, test_result, "Unsuccessful reference. Member not working normally");
+
+	// data() Unit Test 2
 
 	test_container.clear();
 
@@ -319,6 +355,8 @@ void fill_member() {
 	std::cout << "\nTesting fill( ) member function\n";
 	std::cout << "----------------------------------------\n";
 
+	// fill() Unit Test 1
+
 	TEST_TYPE to_fill = static_cast<TEST_TYPE>(rand());
 	test_container.fill(to_fill);
 
@@ -337,6 +375,8 @@ void fill_member() {
 		log_result(1, test_result, "Array filled with var container");
 	else
 		log_result(1, test_result, "Array not filled with var container");
+
+	// fill() Unit Test 2
 
 	test_container.fill(static_cast<TEST_TYPE>(68 + 1));
 
@@ -367,6 +407,8 @@ void front_member() {
 	std::cout << "\nTesting front( ) member function\n";
 	std::cout << "----------------------------------------\n";
 
+	// front() Unit Test 1
+
 	if (test_container.front() == static_cast<TEST_TYPE>(0))
 		test_result = true;
 	else
@@ -376,6 +418,8 @@ void front_member() {
 		log_result(1, test_result, "Valid value returned from empty container");
 	else
 		log_result(1, test_result, "Invalid value returned from empty container");
+
+	// front() Unit Test 2
 
 	fill_array(test_container);
 
@@ -388,6 +432,8 @@ void front_member() {
 		log_result(2, test_result, "Valid value returned from filled container");
 	else
 		log_result(2, test_result, "Invalid value returned from filled container");
+
+	// front() Unit Test 3
 
 	try {
 		test_result = false;
@@ -402,6 +448,8 @@ void front_member() {
 		log_result(3, test_result, "Wasn't able to assign value to container");
 	else
 		log_result(3, test_result, "Was able to assign value to container");
+
+	// front() Unit Test 4
 
 	TEST_TYPE var = test_container.front();
 	try {
@@ -421,6 +469,8 @@ void front_member() {
 		log_result(4, test_result, "Value returned by member is mutable");
 	else
 		log_result(4, test_result, "Value returned by member isn't mutable");
+
+	// front() Unit Test 5
 
 	try {
 		test_result = false;
@@ -454,12 +504,16 @@ void is_empty_member() {
 	std::cout << "\nTesting is_empty( ) member function\n";
 	std::cout << "----------------------------------------\n";
 
+	// is_empty() Unit Test 1
+
 	test_result = test_container.is_empty();
 
 	if (test_result)
 		log_result(1, test_result, "Initialized array identified as empty");
 	else
 		log_result(1, test_result, "Inititalized array identified as non-empty");
+
+	// is_empty() Unit Test 2
 
 	fill_array(test_container);
 	test_result = test_container.is_empty();
@@ -469,6 +523,8 @@ void is_empty_member() {
 	else
 		log_result(2, !test_result, "Randomly filled array identified as empty");
 
+	// is_empty() Unit Test 3
+
 	test_container.clear();
 	test_result = test_container.is_empty();
 
@@ -477,6 +533,8 @@ void is_empty_member() {
 	else
 		log_result(3, test_result, "Cleared array identified as non-empty");
 
+	// is_empty() Unit Test 4
+
 	fill_array(test_container, true);
 	test_result = test_container.is_empty();
 
@@ -484,7 +542,6 @@ void is_empty_member() {
 		log_result(4, test_result, "FALSE POSITIVE : Array filled with zeroes identified as empty");
 	else
 		log_result(4, test_result, "UNRELIABLE : Array filled with zeroes identified as non-empty");
-
 
 	std::cout << "----------------------------------------\n";
 	std::cout << "Finished testing is_empty( ) member function\n";
@@ -497,6 +554,8 @@ void length_member() {
 
 	std::cout << "\nTesting length( ) member function\n";
 	std::cout << "----------------------------------------\n";
+
+	// length() Unit Test 1
 
 	test_result = (TEST_SIZE == test_container.length());
 
@@ -516,6 +575,8 @@ void size_member() {
 	std::cout << "\nTesting size( ) member function\n";
 	std::cout << "----------------------------------------\n";
 
+	// size() Unit Test 1
+
 	test_result = (TEST_SIZE * sizeof(TEST_TYPE) == test_container.size());
 
 	if (test_result)
@@ -534,6 +595,8 @@ void swap_member() {
 	std::cout << "\nTesting swap( ) member function\n";
 	std::cout << "----------------------------------------\n";
 
+	// swap() Unit Test 1
+
 	fill_array(original);
 	expected = original;
 
@@ -551,6 +614,8 @@ void swap_member() {
 	else
 		log_result(1, test_result, "Couldn't handle invalid first index");
 
+	// swap() Unit Test 2
+
 	original.swap(5, 26);
 	for (size_t index = 0; index < TEST_SIZE; index++) {
 		if (original[index] != expected[index]) {
@@ -565,6 +630,8 @@ void swap_member() {
 	else
 		log_result(2, test_result, "Couldn't handle invalid second index");
 
+	// swap() Unit Test 3
+
 	original.swap(89, 26);
 	for (size_t index = 0; index < TEST_SIZE; index++) {
 		if (original[index] != expected[index]) {
@@ -578,6 +645,8 @@ void swap_member() {
 		log_result(3, test_result, "Handled both invalid indexes");
 	else
 		log_result(3, test_result, "Couldn't handle both invalid indexes");
+
+	// swap() Unit Test 4
 
 	for (int i = 0; i < 1000; i++) {
 		size_t swap_this = rand() % TEST_SIZE;
@@ -602,6 +671,8 @@ void swap_member() {
 		log_result(4, test_result, "Successful swapping of valid indexes");
 	else
 		log_result(4, test_result, "Unsuccessful swapping of valid indexes");
+
+	// swap() Unit Test 5
 
 	expected = original;
 	original.swap(5, 5);

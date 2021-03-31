@@ -119,3 +119,7 @@ namespace cads {
 	};
 
 }
+
+// TODO : Make use of const, NODISCARD and noexcept wherever necessary
+// TODO : Make a dependency section in each method's documentation illustrating how the container is build upon itself.
+// TODO : Make a modification section that tells how to remove a method (in its own documentation) and add a modification section in parent array documentation defining how to add your own new function.
