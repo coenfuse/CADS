@@ -3,6 +3,8 @@
 #include <array>
 #include <string>
 
+// TODO : Resolve tests failing at high number of TEST_SIZE
+
 #define TEST_SIZE 10
 #define TEST_TYPE unsigned char
 

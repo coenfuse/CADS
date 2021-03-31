@@ -1,5 +1,5 @@
 
-## CADS (v 0.1.1.13.5)
+## CADS (v 0.1.1.13.6)
 CADS is a simple, learner friendly and fully customizable, Data Structure and Algorithm library for C++ developers. A lightweight C++ library using simplest of the coding practices to maintain highest levels of readability. It is :
 
 - **Modular :** Remove the stuff you don't need.
