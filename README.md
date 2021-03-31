@@ -1,5 +1,5 @@
 
-## CADS (v 0.1.1.13.4)
+## CADS (v 0.1.1.13.5)
 CADS is a simple, learner friendly and fully customizable, Data Structure and Algorithm library for C++ developers. A lightweight C++ library using simplest of the coding practices to maintain highest levels of readability. It is :
 
 - **Modular :** Remove the stuff you don't need.
@@ -47,7 +47,7 @@ CADS is in its early state of development and I do not know any deployment metho
 ## Development Roadmap
 
 This project is in its very early stage of development and currently consists of only a few data structures. The development is prioritized to create a strong structure consisting of very simple functionalities. Other performance upgrades and new features are slated for future releases.
-The development roadmap can be found [**_here_**](https://drive.google.com/file/d/17Ft03dRXFYWrKtom0DVzPqHSylF1ATiC/view?usp=sharing)
+The following is a brief road-map on how this project will be growing, but for more detailed insight into development. Refer to [**_this_**](doc/dev_roadmap.md)
 
 - **v1.0 : Major containers with basic functionalities**
 	- [x] **0.0 : Setting up testing framework**
@@ -83,7 +83,7 @@ Kindly read the [testing](...) documentation **( _incomplete_ )** for more infor
 
 ## Dependencies
 
-CADS currently uses a few core C++ functions. Later on it will be completely detached from any dependency. Making it a completely independent library working out of the box. See the [development roadmap](https://drive.google.com/file/d/17Ft03dRXFYWrKtom0DVzPqHSylF1ATiC/view?usp=sharing) for more details.
+CADS currently uses a few core C++ functions. As of v4.0 it is expected to be completely free from any dependency. Making it a completely independent library working out of the box. See the [development roadmap](doc/dev_roadmap.md) for more details.
 - **[stdexcept](https://en.cppreference.com/w/cpp/header/stdexcept)**
 
 <!--## Contribution
