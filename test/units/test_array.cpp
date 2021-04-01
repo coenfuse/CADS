@@ -3,16 +3,16 @@
 #include <array>
 #include <string>
 
-// TODO : Resolve tests failing at high number of TEST_SIZE
 // TODO : Add Custom Data Type Test Case
-// TODO : Make Testing documentation
+// TODO : Make Testing documentation. Also decribe on how to make your own uni-
+// ts and add to the system for testing.
 // TODO : Revise all these test cases carefully line by line before going into 
 // v0.1.1.14
 
-// Local Utility functions and defintions -------------------------------------
+// Local Utility functions and definitions ------------------------------------
 
-#define TEST_SIZE 10
-#define TEST_TYPE unsigned char
+#define TEST_SIZE (size_t)100
+#define TEST_TYPE double
 
 void fill_array(
 	cads::array<TEST_TYPE, TEST_SIZE>& _to_fill, bool fill_with_zero = false
@@ -104,7 +104,7 @@ void square_operator() {
 
 	for (size_t index = 0; index < TEST_SIZE; index++) {
 		try {
-			test_container[index] = (int)(index * index);
+			test_container[index] = (TEST_TYPE)(index * index);
 		}
 		catch (...) {
 			test_result = false;
@@ -121,18 +121,9 @@ void square_operator() {
 	// clear() Unit Test 2
 
 	for (size_t index = 0; index < TEST_SIZE; index++) {
-		switch ((int)(test_container[index]))
+		switch ((bool)(test_container[index]))
 		{
-		case int(0):
-		case int(1):
-		case int(4):
-		case int(9):
-		case int(16):
-		case int(25):
-		case int(36):
-		case int(49):
-		case int(64):
-		case int(81): test_result = true;
+		case true: test_result = true;
 			break;
 		default: {
 			test_result = false;
@@ -150,7 +141,7 @@ void square_operator() {
 	// clear() Unit Test 3
 
 	for (size_t index = TEST_SIZE + 1;			// Initializing with out-of bounds index
-		index < TEST_SIZE * 100;
+		index < TEST_SIZE * 10;
 		index++) {
 
 		try {
@@ -600,13 +591,14 @@ void swap_member() {
 	fill_array(original);
 	expected = original;
 
-	original.swap(14, 2);
+	original.swap(rand(), rand() % TEST_SIZE);
 	for (size_t index = 0; index < TEST_SIZE; index++) {
-		if (original[index] != expected[index]) {
+		if (original[index] == expected[index])
+			test_result = true;
+		else {
 			test_result = false;
 			break;
 		}
-		test_result = true;
 	}
 
 	if (test_result)
@@ -616,13 +608,14 @@ void swap_member() {
 
 	// swap() Unit Test 2
 
-	original.swap(5, 26);
+	original.swap(rand() % TEST_SIZE, rand());
 	for (size_t index = 0; index < TEST_SIZE; index++) {
-		if (original[index] != expected[index]) {
+		if (original[index] == expected[index])
+			test_result = true;
+		else {
 			test_result = false;
 			break;
 		}
-		test_result = true;
 	}
 
 	if (test_result)
@@ -632,13 +625,14 @@ void swap_member() {
 
 	// swap() Unit Test 3
 
-	original.swap(89, 26);
+	original.swap(rand(), rand());
 	for (size_t index = 0; index < TEST_SIZE; index++) {
-		if (original[index] != expected[index]) {
+		if (original[index] == expected[index])
+			test_result = true;
+		else {
 			test_result = false;
 			break;
 		}
-		test_result = true;
 	}
 
 	if (test_result)
@@ -659,11 +653,12 @@ void swap_member() {
 		original.swap(swap_this, with_this);
 
 		for (size_t index = 0; index < TEST_SIZE; index++) {
-			if (original[index] != expected[index]) {
+			if (original[index] == expected[index])
+				test_result = true;
+			else {
 				test_result = false;
 				break;
 			}
-			test_result = true;
 		}
 	}
 
@@ -675,13 +670,16 @@ void swap_member() {
 	// swap() Unit Test 5
 
 	expected = original;
-	original.swap(5, 5);
+	const size_t to_swap = rand() % TEST_SIZE;
+
+	original.swap(to_swap, to_swap);
 	for (size_t index = 0; index < TEST_SIZE; index++) {
-		if (original[index] != expected[index]) {
+		if (original[index] == expected[index])
+			test_result = true;
+		else {
 			test_result = false;
 			break;
 		}
-		test_result = true;
 	}
 
 	if (test_result)
