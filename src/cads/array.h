@@ -123,3 +123,6 @@ namespace cads {
 // TODO : Make use of const, NODISCARD and noexcept wherever necessary
 // TODO : Make a dependency section in each method's documentation illustrating how the container is build upon itself.
 // TODO : Make a modification section that tells how to remove a method (in its own documentation) and add a modification section in parent array documentation defining how to add your own new function.
+// TODO : Consult EASTL and learn few design practises, keywords and required expressions.
+// TODO : Abnormal behavior with strings and other custom data-types.
+// TODO : Not a generic container right now, constructor casting is the bottleneck.

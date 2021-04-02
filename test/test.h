@@ -49,12 +49,12 @@ const static enum class timer_type {
 
 class cus_dat_type {
 
-	bool	var1 = true;
-	char	var2 = 'c';
-	short	var3 = 6969;
-	int		var4 = 696969;
-	double	var5 = 69.7777;
-	float	var6 = 69.3333f;
+	bool	var1;
+	char	var2;
+	short	var3;
+	int		var4;
+	double	var5;
+	float	var6;
 
 public:
 

@@ -4,6 +4,8 @@
 #include <string>
 
 // TODO : Add Custom Data Type Test Case
+// TODO : Test cases failing with std::string and other compound types.
+// TODO : Implement generic testing module. It checks whether the container is actually generic or not.
 // TODO : Make Testing documentation. Also decribe on how to make your own uni-
 // ts and add to the system for testing.
 // TODO : Revise all these test cases carefully line by line before going into 
