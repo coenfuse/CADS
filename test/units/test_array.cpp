@@ -1,11 +1,7 @@
 #include <iostream>
 #include "../test.h"
-#include <array>
-#include <string>
 
 // TODO : Add Custom Data Type Test Case
-// TODO : Test cases failing with std::string and other compound types.
-// TODO : Implement generic testing module. It checks whether the container is actually generic or not.
 // TODO : Make Testing documentation. Also decribe on how to make your own uni-
 // ts and add to the system for testing.
 // TODO : Revise all these test cases carefully line by line before going into 
@@ -14,7 +10,8 @@
 // Local Utility functions and definitions ------------------------------------
 
 #define TEST_SIZE (size_t)100
-#define TEST_TYPE int
+#define TEST_TYPE double
+#define NOW std::chrono::high_resolution_clock::now()
 
 void fill_array(
 	cads::array<TEST_TYPE, TEST_SIZE>& _to_fill, bool fill_with_zero = false
@@ -587,6 +584,173 @@ void swap_member() {
 	std::cout << "Finished testing swap( ) member function\n";
 }
 
+void generic_test() {
+
+	bool test_result = true;
+
+	std::cout << "\nTesting generic ability of container\n";
+	std::cout << "----------------------------------------\n";
+
+	// generic Unit Test 1
+	
+	{
+		try {
+			cads::array<cus_dat_type, TEST_SIZE> generic_array;
+		}
+		catch (...) {
+			test_result = false;
+		}
+
+		if (test_result)
+			log_result(1, test_result, "Array successfully initialized with custom data type");
+		else
+			log_result(1, test_result, "Array failed initialized with custom data type");
+	}
+
+	// generic Unit Test 2
+
+	{
+		try {
+			cads::array<std::string, TEST_SIZE> generic_array;
+		}
+		catch (...) {
+			test_result = false;
+		}
+
+		if (test_result)
+			log_result(2, test_result, "Array successfully initialized with string data type");
+		else
+			log_result(2, test_result, "Array failed initialized with string data type");
+	}
+
+	// generic Unit Test 3
+	
+	{
+		try {
+			cads::array<cads::array<TEST_TYPE, TEST_SIZE>, TEST_SIZE> nested_generic_array;
+		}
+		catch (...) {
+			test_result = false;
+		}
+
+		if (test_result)
+			log_result(3, test_result, "Array successfully initialized with nested data type");
+		else
+			log_result(3, test_result, "Array failed to initialized with nested data type");
+	}
+
+	std::cout << "----------------------------------------\n";
+	std::cout << "Finished testing generic ability of container\n";
+}
+
+void speed_test() {
+
+	std::cout << "\nSpeed testing of container\n";
+	std::cout << "----------------------------------------\n";
+
+	// Speed Testing 1 - Initialization
+	{
+		auto start = NOW;
+		std::array<cus_dat_type, TEST_SIZE> standard_array;
+		auto end = NOW;
+		unsigned long int std_dur = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+
+		start = NOW;
+		cads::array<cus_dat_type, TEST_SIZE> cads_array;
+		end = NOW;
+		unsigned long int cads_dur = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+
+		if (cads_dur <= std_dur)
+			log_result(1, true, "CADS has faster initialization with custom data_type");
+		else
+			log_result(1, false, "CADS has slower initialization with custom data_type");
+	}
+
+	// Speed Testing 2 - Assignment using square bracket
+	{
+		std::array<TEST_TYPE, TEST_SIZE> std_array;
+		cads::array<TEST_TYPE, TEST_SIZE> cads_array;
+
+		auto start = NOW;
+		for (size_t index = 0; index < TEST_SIZE; index++)
+			std_array[index] = static_cast<TEST_TYPE>(index);
+		auto end = NOW;
+		unsigned long int std_dur = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+
+		start = NOW;
+		for (size_t index = 0; index < TEST_SIZE; index++)
+			cads_array[index] = static_cast<TEST_TYPE>(index);
+		end = NOW;
+		unsigned long int cads_dur = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+
+		if (cads_dur <= std_dur)
+			log_result(2, true, "CADS has faster assignment to indexes");
+		else
+			log_result(2, false, "CADS has slower assignment to indexes");
+	}
+
+	// Speed Testing 3 - back( ) member
+	{
+		std::array<TEST_TYPE, TEST_SIZE> std_array;
+		cads::array<TEST_TYPE, TEST_SIZE> cads_array;
+
+		for (size_t index = 0; index < TEST_SIZE; index++) {
+			std_array[index] = static_cast<TEST_TYPE>(index);
+			cads_array[index] = static_cast<TEST_TYPE>(index);
+		}
+
+		TEST_TYPE temp;
+
+		auto start = NOW;
+		temp = std_array.back();
+		auto end = NOW;
+		unsigned long int std_dur = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+
+		start = NOW;
+		temp = cads_array.back();
+		end = NOW;
+		unsigned long int cads_dur = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+
+		if (cads_dur <= std_dur)
+			log_result(3, true, "CADS has faster back( ) member");
+		else
+			log_result(3, false, "CADS has slower back( ) member");
+	}
+
+	// Speed Testing 4 - data( ) member
+	{
+		std::array<TEST_TYPE, TEST_SIZE> std_array;
+		cads::array<TEST_TYPE, TEST_SIZE> cads_array;
+
+		for (size_t index = 0; index < TEST_SIZE; index++) {
+			std_array[index] = static_cast<TEST_TYPE>(index);
+			cads_array[index] = static_cast<TEST_TYPE>(index);
+		}
+
+		TEST_TYPE* temp;
+
+		auto start = NOW;
+		temp = std_array.data();
+		auto end = NOW;
+		unsigned long int std_dur = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+
+		start = NOW;
+		temp = cads_array.data();
+		end = NOW;
+		unsigned long int cads_dur = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+
+		if (cads_dur <= std_dur)
+			log_result(4, true, "CADS has faster data( ) member");
+		else
+			log_result(4, false, "CADS has slower data( ) member");
+	}
+	// INCOMPLETE
+
+	std::cout << "----------------------------------------\n";
+	std::cout << "Finished Speed testing of container\n";
+
+}
+
 void testing::test_array() {
 
 	// Consists of all the code for unit testing the array data structure.
@@ -601,6 +765,8 @@ void testing::test_array() {
 	length_member();
 	size_member();
 	swap_member();
+	generic_test();
+	speed_test();
 	std::cout << "\nArray test module finished" << std::endl;
 	
 }

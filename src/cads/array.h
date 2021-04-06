@@ -36,10 +36,6 @@ namespace cads {
 
 		// Publicly available members defined here
 		
-		static constexpr auto NPOS{
-			static_cast<TYPE>(-1)
-		};
-
 		// Publicly available operator overloads are defined below
 
 		REF operator[](const size_t& _index) {
@@ -105,4 +101,3 @@ namespace cads {
 // TODO : Make a dependency section in each method's documentation illustrating how the container is build upon itself.
 // TODO : Make a modification section that tells how to remove a method (in its own documentation) and add a modification section in parent array documentation defining how to add your own new function.
 // TODO : Consult EASTL and learn few design practises, keywords and required expressions.
-// TODO : Abnormal behavior with strings and other custom data-types.
