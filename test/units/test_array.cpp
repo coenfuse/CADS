@@ -14,7 +14,7 @@
 // Local Utility functions and definitions ------------------------------------
 
 #define TEST_SIZE (size_t)100
-#define TEST_TYPE double
+#define TEST_TYPE int
 
 void fill_array(
 	cads::array<TEST_TYPE, TEST_SIZE>& _to_fill, bool fill_with_zero = false
@@ -37,31 +37,6 @@ void log_result(
 }
 
 // Unit Tests for container's methods -----------------------------------------
-
-void init_test(){
-	bool test_result = true;
-	cads::array<TEST_TYPE, TEST_SIZE> test_container;
-
-	std::cout << "Testing Initialization\n";
-	std::cout << "----------------------------------------\n";
-
-	// def_ctor() Unit Test 1
-
-	for (size_t index = 0; index < TEST_SIZE; index++) {
-		if (test_container[index] == static_cast<TEST_TYPE>(0))
-			test_result = true;
-		else
-			test_result = false;
-	}
-
-	if (test_result)
-		log_result(1, test_result, "Container initialized with 0's");
-	else
-		log_result(1, test_result, "Container filled with garbage values");
-
-	std::cout << "----------------------------------------\n";
-	std::cout << "Finished testing default constructor\n";
-}
 
 void copy_ctor() {
 	bool test_result = true;
@@ -177,7 +152,7 @@ void back_member() {
 
 	// clear() Unit Test 1
 
-	if (test_container.back() == static_cast<TEST_TYPE>(0))
+	if (test_container.back())
 		test_result = true;
 	else
 		test_result = false;
@@ -264,36 +239,6 @@ void back_member() {
 	std::cout << "Finished testing back( ) member function\n";
 }
 
-void clear_member() {
-	bool test_result = true;
-	cads::array<TEST_TYPE, TEST_SIZE> test_container;
-	const cads::array<TEST_TYPE, TEST_SIZE> const_container;
-
-	std::cout << "\nTesting clear( ) member function\n";
-	std::cout << "----------------------------------------\n";
-
-	// clear() Unit Test 1
-
-	fill_array(test_container);
-
-	test_container.clear();
-
-	for (size_t index = 0; index < TEST_SIZE; index++) {
-		if (test_container[index] == static_cast<TEST_TYPE>(0))
-			test_result = true;
-		else
-			test_result = false;
-	}
-
-	if (test_result)
-		log_result(1, test_result, "Successfully cleared the container");
-	else
-		log_result(1, test_result, "Clearning the container unsuccessful");
-
-	std::cout << "----------------------------------------\n";
-	std::cout << "Finished testing clear( ) member function\n";
-}
-
 void data_member() {
 	bool test_result = true;
 	cads::array<TEST_TYPE, TEST_SIZE> test_container;
@@ -323,7 +268,8 @@ void data_member() {
 
 	// data() Unit Test 2
 
-	test_container.clear();
+	for (size_t index = 0; index < TEST_SIZE; index++)				// Clearing the array
+		test_container[index] = static_cast<TEST_TYPE>(0);
 
 	for (size_t index = 0; index < TEST_SIZE; index++) {
 		if (data_container[index] == static_cast<TEST_TYPE>(0))
@@ -402,7 +348,7 @@ void front_member() {
 
 	// front() Unit Test 1
 
-	if (test_container.front() == static_cast<TEST_TYPE>(0))
+	if (test_container.front())
 		test_result = true;
 	else
 		test_result = false;
@@ -645,12 +591,10 @@ void testing::test_array() {
 
 	// Consists of all the code for unit testing the array data structure.
 
-	std::cout << "Array test module running.\n\n";
-	init_test();
+	std::cout << "Array test module running.\n";
 	copy_ctor();
 	square_operator();
 	back_member();
-	clear_member();
 	data_member();
 	fill_member();
 	front_member();

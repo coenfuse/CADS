@@ -26,7 +26,6 @@ a simple package that helps in reducing redundant code and improving code clarit
 - **[~array( )](array/init/dtor.md)** : Default destructor
 ---
 - **[back( )](array/meth/cads_array_back.md)** : Returns last element in the array
-- **[clear( )](array/meth/cads_array_clear.md)** : Clears the array container
 - **[data( )](array/meth/cads_array_data.md)** : Returns pointer to internal container
 - **[fill( )](array/meth/cads_array_fill.md)** : Fills the container with specified value
 - **[front( )](array/meth/cads_array_front.md)** : Returns first element in the array
@@ -75,7 +74,6 @@ int main(){
 - [x] Default Constuctor
 - [x] Copy Constuctor
 - [x] back( )
-- [x] clear( )
 - [x] data( )
 - [x] fill( )
 - [x] front( )

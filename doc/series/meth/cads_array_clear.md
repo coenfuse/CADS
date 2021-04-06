@@ -1,4 +1,4 @@
-# cads : : array : : clear ( )
+# cads : : series : : clear ( )
 
  - **return type** : void
  - **time complexity** : O(n)

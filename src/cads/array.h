@@ -23,10 +23,7 @@ namespace cads {
 
 		// Publicly available ctors and dtors are defined below
 
-		array(){
-			for (size_t index = 0; index < SIZE; index++)
-				container[index] = static_cast<TYPE>(0);
-		}
+		array(){}
 
 		array(const array<TYPE, SIZE>& _second_array) {
 			for (size_t index = 0; index < SIZE; index++)
@@ -62,13 +59,6 @@ namespace cads {
 		// Returns const reference to element at last index of the container.
 		CONST_REF back() {
 			return container[SIZE - 1];
-		}
-
-		// Clears the container by filling it with 0.
-		void clear() {
-			for (size_t index = 0; index < SIZE; index++)
-				container[index] = static_cast<TYPE>(0);
-			// begin = end = 0;
 		}
 
 		// Returns pointer to the interal container.
@@ -116,5 +106,3 @@ namespace cads {
 // TODO : Make a modification section that tells how to remove a method (in its own documentation) and add a modification section in parent array documentation defining how to add your own new function.
 // TODO : Consult EASTL and learn few design practises, keywords and required expressions.
 // TODO : Abnormal behavior with strings and other custom data-types.
-// TODO : Not a generic container right now, constructor casting is the bottleneck.
-// TODO : If constructor casting bottleneck is not resolved, then provide a separate container that doesn't do this casting. Also mention in the documentation that this array works with only those data-types correctly that have casting to 0 enabled.
