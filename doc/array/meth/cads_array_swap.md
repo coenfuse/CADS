@@ -43,3 +43,5 @@ Altered Array
 ```
 
 Since this method alters the contents inside of the container. It doesn't work when the container is initialized as constant type.
+
+## Removing swap( )

@@ -23,3 +23,5 @@ int main(){
 ```sh
 40 bytes
 ```
+
+## Removing size( )

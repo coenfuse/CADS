@@ -25,3 +25,5 @@ int main(){
 ```
 
 **`back()`** returns a constant reference to the element to prevent assingment operations using the returned reference.
+
+## Removing back( )

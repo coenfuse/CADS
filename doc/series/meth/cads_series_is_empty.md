@@ -1,7 +1,9 @@
-# cads : : array : : is_empty ( )
+# cads : : series : : is_empty ( )
 
  - **return type** : bool
  - **time complexity** : O(n)
+
+# THIS DOCUMENTATION NEEDS REVISION LATER ON
 
 Member function that returns a bool value depicting whether the container is empty or not.
 In terms of cads::array, empty means having all the elements inside the container as 0.
@@ -13,7 +15,7 @@ Return true if they do or false if they don't.
 #include <iostream>
 #include "cads/array.h"
 int main(){
-	cads::array<int, 10> container;
+	cads::series<int, 10> container;
 	
 	// Filling the container
 	for(size_t index = 0; index < 10; index++){

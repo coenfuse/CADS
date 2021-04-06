@@ -489,58 +489,6 @@ void front_member() {
 	std::cout << "Finished testing front( ) member function\n";
 }
 
-void is_empty_member() {
-
-	bool test_result = true;
-	cads::array<TEST_TYPE, TEST_SIZE> test_container;
-
-	std::cout << "\nTesting is_empty( ) member function\n";
-	std::cout << "----------------------------------------\n";
-
-	// is_empty() Unit Test 1
-
-	test_result = test_container.is_empty();
-
-	if (test_result)
-		log_result(1, test_result, "Initialized array identified as empty");
-	else
-		log_result(1, test_result, "Inititalized array identified as non-empty");
-
-	// is_empty() Unit Test 2
-
-	fill_array(test_container);
-	test_result = test_container.is_empty();
-
-	if (!test_result)
-		log_result(2, !test_result, "Randomly filled array identified as non-empty");
-	else
-		log_result(2, !test_result, "Randomly filled array identified as empty");
-
-	// is_empty() Unit Test 3
-
-	test_container.clear();
-	test_result = test_container.is_empty();
-
-	if (test_result)
-		log_result(3, test_result, "Cleared array identified as empty");
-	else
-		log_result(3, test_result, "Cleared array identified as non-empty");
-
-	// is_empty() Unit Test 4
-
-	fill_array(test_container, true);
-	test_result = test_container.is_empty();
-
-	if (test_result)
-		log_result(4, test_result, "FALSE POSITIVE : Array filled with zeroes identified as empty");
-	else
-		log_result(4, test_result, "UNRELIABLE : Array filled with zeroes identified as non-empty");
-
-	std::cout << "----------------------------------------\n";
-	std::cout << "Finished testing is_empty( ) member function\n";
-
-}
-
 void length_member() {
 	bool test_result = true;
 	cads::array<TEST_TYPE, TEST_SIZE> test_container;
@@ -706,7 +654,6 @@ void testing::test_array() {
 	data_member();
 	fill_member();
 	front_member();
-	is_empty_member();
 	length_member();
 	size_member();
 	swap_member();

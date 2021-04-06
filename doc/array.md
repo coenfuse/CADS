@@ -30,7 +30,6 @@ a simple package that helps in reducing redundant code and improving code clarit
 - **[data( )](array/meth/cads_array_data.md)** : Returns pointer to internal container
 - **[fill( )](array/meth/cads_array_fill.md)** : Fills the container with specified value
 - **[front( )](array/meth/cads_array_front.md)** : Returns first element in the array
-- **[is_empty( )](array/meth/cads_array_is_empty.md)** : Checks the container if its empty
 - **[length( )](array/meth/cads_array_length.md)** : Returns total elements container can store
 - **[size( )](array/meth/cads_array_size.md)** : Returns total size of container
 - **[swap( )](array/meth/cads_array_swap.md)** : Swaps two elements inside the container
@@ -72,7 +71,7 @@ int main(){
 ```
 
 ## Development Roadmap
-#### **V1 [TESTING]**
+#### **V1**
 - [x] Default Constuctor
 - [x] Copy Constuctor
 - [x] back( )
@@ -80,11 +79,12 @@ int main(){
 - [x] data( )
 - [x] fill( )
 - [x] front( )
-- [x] is_empty( )
 - [x] length( )
 - [x] operator[ ]
 - [x] size( )
 - [x] swap( )
+- [ ] **_testing_**
+- [ ] **_documentation_**
 
 #### **V2**
 - [ ] Copy Constuctor (Convertible)
@@ -103,6 +103,8 @@ int main(){
 - [ ] end( )
 - [ ] rbegin( )
 - [ ] rend( )
+- [ ] **_testing_**
+- [ ] **_documentation_**
 
 #### **V3**
 - [ ] Aggregate Initialization Support
@@ -116,6 +118,8 @@ int main(){
 - [ ] Negative Indexing
 - [ ] subarr( )
 - [ ] Sub-Array Extraction Support
+- [ ] **_testing_**
+- [ ] **_documentation_**
 
 ## Contributions
 Seeking.

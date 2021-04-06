@@ -25,3 +25,5 @@ int main(){
 ```
 
 **`front()`** returns a constant reference to the element to prevent assingment operations using the returned reference.
+
+## Removing front( )

@@ -88,15 +88,6 @@ namespace cads {
 			// return begin;
 		}
 
-		// Checks whether container is empty or not (Experimental)
-		bool is_empty() {
-			for (size_t index = 0; index < SIZE; index++)
-				if (container[index] != static_cast<TYPE>(0))
-					return false;
-			return true;
-			//return start == end;
-		}
-
 		// Returns the number of elements container can store
 		size_t length() {
 			return SIZE;
@@ -126,3 +117,4 @@ namespace cads {
 // TODO : Consult EASTL and learn few design practises, keywords and required expressions.
 // TODO : Abnormal behavior with strings and other custom data-types.
 // TODO : Not a generic container right now, constructor casting is the bottleneck.
+// TODO : If constructor casting bottleneck is not resolved, then provide a separate container that doesn't do this casting. Also mention in the documentation that this array works with only those data-types correctly that have casting to 0 enabled.

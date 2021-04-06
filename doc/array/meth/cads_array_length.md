@@ -19,3 +19,5 @@ int main(){
 ```sh
 10 elements
 ```
+
+## Removing length( )
