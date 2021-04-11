@@ -9,6 +9,12 @@
 #include "util/ansi_color.h"
 #include "../src/CADS.h"
 
+namespace IO {
+	static void log(std::string& to_print) { std::cout << to_print; }
+	static void input_str(std::string* store_in) { std::getline(std::cin >> std::ws, *store_in); }
+	static void input(void* store_in) { std::cin >> store_in; }
+}
+
 const static enum class TYPE {
 	array,
 	vector,
