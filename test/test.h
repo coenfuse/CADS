@@ -3,6 +3,7 @@
 #pragma once
 
 // TODO : Fix all warnings
+// TODO : Read the testing guide pdf at : https://docs.microsoft.com/en-us/visualstudio/test/unit-test-basics?view=vs-2019
 
 #include <chrono>
 #include <thread>
