@@ -76,6 +76,8 @@ The following is a brief road-map on how this project will be growing, but for m
 - **v4.0 : Remove Dependencies**
 - **v5.0 : Algorithms**
 
+_NOTE: CADS is currently in a clean refactoring stage. Here the developer has scrapped the previous development roadmap due to its ineffectiveness. The new roadmap uses illustrated above uses a systematic approach to development and promises better result. The previous unstructured code will be re-released according to this new time-frame and the current development standards. Curious explorers seeking to glace the previous development ideologies of CADS are recommended to look at repo from [this](https://github.com/coenfuse/CADS/tree/baa204b91d526695a1884f4d069b9682ec97d588/learn) point and before._
+
 
 ## Testing
 A proprietary testing wrapper has been defined in the CADS project that handles everything related to testing.
